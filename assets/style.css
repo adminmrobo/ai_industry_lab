@@ -139,3 +139,11 @@ details.gloss dd { margin: 0; color: var(--text-2); }
 .qbox ol { margin: 0; padding-left: 20px; color: var(--text-2); }
 .mobile3d { border: 1px dashed var(--line); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--text-2); font-size: 14px; }
 abbr.g { text-decoration: underline dotted; cursor: help; }
+
+.badge.tier.t1 { border-color: #0a7a0a; color: #0a7a0a; }
+.badge.tier.t3 { border-color: #c23b3a; color: #c23b3a; }
+.badge.tier.t4 { border-color: #7a7974; color: #52514e; background: var(--surface-2); }
+.readx { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; margin: 10px 0; background: #fbfbf9; font-size: 15px; }
+.readx b.t { display: block; margin-bottom: 6px; }
+.readx ul { margin: 6px 0 0; padding-left: 20px; color: var(--text-2); }
+.btnrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }

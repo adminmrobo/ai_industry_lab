@@ -63,6 +63,12 @@ for t in IMAGE + list(BENCH):
         "high": r(s.max(), 2), "high_date": s.idxmax().strftime("%Y-%m-%d"),
         "low": r(s.min(), 2), "low_date": s.idxmin().strftime("%Y-%m-%d"),
     }
+# 종목별로 '발표 반응 구간'(반응일~4거래일 뒤)을 모아 둔다 → 베타 추정에서 제외
+event_days = {}
+for ev in events:
+    i0 = prices.index.searchsorted(pd.Timestamp(ev["react"]))
+    for t in ev["tickers"]:
+        event_days.setdefault(t, set()).update(prices.index[i0:i0 + 5])
 reactions = []
 for ev in events:
     for t in ev["tickers"]:
@@ -79,8 +85,10 @@ for ev in events:
         cum5 = (1 + ret.loc[d0:d5]).prod() - 1
         cum5n = (1 + ndx_ret.loc[d0:d5]).prod() - 1
         # 시장모형: 반응일 130~11거래일 전(120일) 구간에서 종목 수익률 = a + b × 나스닥100 수익률 추정
-        est = pd.concat([ret, ndx_ret], axis=1).iloc[max(0, idx - 130): idx - 10].dropna()
+        est_all = pd.concat([ret, ndx_ret], axis=1).iloc[max(0, idx - 130): idx - 10].dropna()
+        est = est_all[~est_all.index.isin(event_days.get(t, set()))]
         beta = alpha = mm_ab = mm_car5 = None
+        beta_raw = float(np.polyfit(est_all.iloc[:, 1], est_all.iloc[:, 0], 1)[0]) if len(est_all) >= 60 else None
         if len(est) >= 60:
             b_, a_ = np.polyfit(est.iloc[:, 1], est.iloc[:, 0], 1)
             beta, alpha = float(b_), float(a_)
@@ -91,7 +99,17 @@ for ev in events:
                           "day_pct": r(day * 100, 2), "abn_pct": r(ab * 100, 2),
                           "cum5_pct": r(cum5 * 100, 2), "abn5_pct": r((cum5 - cum5n) * 100, 2),
                           "beta": r(beta, 2), "mm_abn_pct": r(mm_ab * 100 if mm_ab is not None else None, 2),
-                          "mm_car5_pct": r(mm_car5 * 100 if mm_car5 is not None else None, 2), "est_n": int(len(est))})
+                          "mm_car5_pct": r(mm_car5 * 100 if mm_car5 is not None else None, 2), "est_n": int(len(est)),
+                          "est_excluded": int(len(est_all) - len(est)), "beta_raw": r(beta_raw, 2),
+                          "days_after": int(min(4, len(prices.index) - 1 - idx)), "recent": bool(ev.get("recent"))})
+R0 = W1
+rec = prices.loc[R0:]
+rbase = prices.loc[:R0].iloc[-1]
+stage1["recent"] = {"base": R0, "dates": rec.index.strftime("%Y-%m-%d").tolist(),
+                    "series": {t: {"close": lst(rec[t], 2), "index": lst(rec[t] / rbase[t] * 100, 2)} for t in IMAGE + list(BENCH) + ["GOOGL", "SNOW"]},
+                    "summary": {t: {"pct": r((rec[t].dropna().iloc[-1] / rbase[t] - 1) * 100, 1),
+                                    "max_dd_pct": r(((rec[t] / rec[t].cummax()) - 1).min() * 100, 1)} for t in IMAGE + list(BENCH)}}
+stage1["names"].update({"GOOGL": "Alphabet", "SNOW": "Snowflake"})
 stage1["events"] = events
 stage1["reactions"] = reactions
 stage1["private"] = private
@@ -110,6 +128,19 @@ for g, mem in GROUPS.items():
     idx.iloc[0] = 100.0
     grp[g] = idx
 grp = pd.DataFrame(grp)
+_cons = json.loads((DATA / "consensus.json").read_text())["data"]
+shares = {t: (_cons[t]["marketCap"] / _cons[t]["currentPrice"]) for t in eq
+          if _cons.get(t, {}).get("marketCap") and _cons[t].get("currentPrice")}
+grp_cw = {}
+for g, mem in GROUPS.items():
+    mcap_prev = mp[mem].shift(1).mul(pd.Series({t: shares.get(t, np.nan) for t in mem}))
+    w = mcap_prev.div(mcap_prev.sum(axis=1), axis=0)
+    gr = (mret[mem] * w).sum(axis=1, min_count=1)
+    first = mp[mem].dropna(how="all").index[0]
+    idx = (1 + gr.loc[first:].fillna(0)).cumprod() * 100
+    idx.iloc[0] = 100.0
+    grp_cw[g] = idx
+grp_cw = pd.DataFrame(grp_cw)
 first_month = {t: (mp[t].first_valid_index().strftime("%Y-%m") if mp[t].first_valid_index() is not None else "9999-12") for t in eq}
 group_entries = {g: [{"ticker": t, "month": first_month[t]} for t in mem if "2018-01" < first_month[t] < "9999"] for g, mem in GROUPS.items()}
 
@@ -135,6 +166,7 @@ mp_s, mm_s, grp_s = mp.loc[start:], mm.loc[start:], grp.loc[start:]
 monthly = {"dates": mp_s.index.strftime("%Y-%m").tolist(),
            "price": {t: lst(mp_s[t], 2) for t in eq + list(BENCH)},
            "group": {g: lst(grp_s[g], 2) for g in GROUPS},
+           "group_cw": {g: lst(grp_cw.loc[start:][g], 2) for g in GROUPS},
            "macro": {k: lst(mm_s[k], 3) for k in MACRO_VARS}}
 
 # --- 상관(월간): 월 수익률 vs 거시 변수 변화

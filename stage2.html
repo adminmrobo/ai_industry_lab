@@ -4,10 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>② 50개사 정리와 가치사슬 관계망 · AI 산업 연구실</title>
+<meta name="description" content="영상 50개사와 그림 15개사, 출처 등급이 붙은 73개 관계로 그린 가치사슬 지도와 움직이는 관계망">
+<meta property="og:type" content="website">
+<meta property="og:title" content="② 50개사·관계망: AI 가치사슬 지도">
+<meta property="og:description" content="영상 50개사와 그림 15개사, 출처 등급이 붙은 73개 관계로 그린 가치사슬 지도와 움직이는 관계망">
+<meta property="og:url" content="https://adminmrobo.github.io/ai_industry_lab/stage2.html">
+<meta property="og:image" content="https://adminmrobo.github.io/ai_industry_lab/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<script src="assets/vendor/plotly.min.js"></script>
-<script src="assets/vendor/d3.min.js"></script>
-<script src="assets/common.js"></script>
+<script src="assets/vendor/plotly.min.js" defer></script>
+<script src="assets/vendor/d3.min.js" defer></script>
+<script src="assets/common.js" defer></script>
 <style>
   #map svg, #net svg { width: 100%; display: block; }
   .node text { font-size: 11px; fill: #0b0b0b; pointer-events: none; }
@@ -39,7 +47,7 @@
     <span class="small" id="cnt"></span>
   </div>
   <div class="tablewrap"><table class="data" id="coTable"></table></div>
-  <p class="small">층: 칩(반도체) · 클라우드(데이터센터·GPU 임대) · 빅테크(플랫폼) · 모델(기초 모델 연구소) · 응용(서비스) · 로봇(로봇·자율주행) · 인프라(데이터·개발 도구). 상장 여부는 본사 기준이며, 자회사는 모회사 티커를 적었습니다. 연결 수 = 아래 관계망에서 이 회사가 들어간 관계의 수.</p>
+  <p class="small">'사업' 열은 각 사 공식 소개를 요약한 것이고, '특징' 열의 날짜·금액이 든 문장에는 근거 링크(↗)와 출처 등급을 붙였습니다. 층: 칩(반도체) · 클라우드(데이터센터·GPU 임대) · 빅테크(플랫폼) · 모델(기초 모델 연구소) · 응용(서비스) · 로봇(로봇·자율주행) · 인프라(데이터·개발 도구). 상장 여부는 본사 기준이며, 자회사는 모회사 티커를 적었습니다. 연결 수 = 아래 관계망에서 이 회사가 들어간 관계의 수.</p>
 
   <h2>층 간 연결 행렬(산업 단위 요약)</h2>
   <p class="sub">행은 돈이 나가는 층, 열은 돈을 받는 층입니다. 숫자는 관계(계약·투자) 건수입니다.</p>
@@ -55,7 +63,7 @@
   <h2>움직이는 관계망(동적)</h2>
   <p class="sub">원 크기는 연결 수입니다. 회사를 누르면 그 회사와 바로 이어진 회사만 남고, 빈 곳을 누르면 다시 전체가 보입니다. 시간 막대를 움직이면 그 날짜까지 발표된 관계만 쌓여서 보입니다.</p>
   <div class="controls">
-    <label>범위 <select id="nScope"><option value="all">57개사 전체</option><option value="figure">그림에 그려진 관계만</option><option value="outside">그림 밖 관계만</option><option value="verified">일자까지 확인된 관계만</option></select></label>
+    <label>범위 <select id="nScope"><option value="all">57개사 전체</option><option value="figure">그림에 그려진 관계만</option><option value="outside">그림 밖 관계만</option><option value="verified">일자까지 확인된 관계만</option><option value="primary">1차 출처(회사 발표·공시) 관계만</option></select></label>
     <label><input type="checkbox" id="showIso"> 연결 없는 회사도 보기</label>
     <span id="kindChips"></span>
   </div>
@@ -65,7 +73,7 @@
     <button class="chip" id="play">▶ 재생</button>
   </div>
   <div id="net"></div>
-  <p class="small">출처에서 일(日)까지 확인하지 못한 관계는 날짜가 대략값입니다(표의 '일자' 열). 시간 재생은 "대략 이 무렵"으로 읽어 주세요.</p>
+  <p class="small">출처 등급: 1차 = 회사 발표·SEC 공시, 언론 = 주요 언론, 그림 = Bloomberg 그림 표기, 보조 = 2차 집계 사이트(아직 1차 출처로 바꾸지 못한 것). 출처에서 일(日)까지 확인하지 못한 관계는 날짜가 대략값입니다(표의 '일자' 열). 시간 재생은 "대략 이 무렵"으로 읽어 주세요.</p>
   <div class="note">Bloomberg 원본 그림과 대조하려면 <a href="https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals" target="_blank" rel="noopener">원문</a>을 옆에 띄우고 <button class="chip" id="figOnly">그림에 그려진 관계만 보기</button>를 눌러 보세요. 그림의 화살표만으로는 성격을 단정하기 어려운 2건(Intel→CoreWeave, AMD→Nscale)은 '그림 해석'으로 표시했습니다.</div>
 
   <h3>직접 거래가 확인되지 않은 회사</h3>
@@ -91,7 +99,7 @@
 </main>
 <footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 기업 목록: 영상 「50 AI Companies You Should Know」, Bloomberg News reporting (2025-10) · 관계 출처: 표의 링크</div></footer>
 <div class="tooltip" id="tt"></div>
-<script>
+<script type="module">
 siteHeader("stage2.html");
 const LAYER = { chip: "칩", cloud: "클라우드", bigtech: "빅테크", model: "모델", app: "응용", robot: "로봇", infra: "인프라" };
 const LAYER_ORDER = ["chip", "cloud", "bigtech", "model", "app", "robot", "infra"];
@@ -127,7 +135,7 @@ function tiles() {
     ["전체 회사", D.companies.length + "개", "그림 15 + 영상에만 42"],
     ["그림·영상 둘 다", D.companies.filter((c) => c.group === "both").length + "개", "OpenAI·Nvidia·AMD·Intel·xAI·Mistral·Figure·Harvey"],
     ["상장(모회사 포함)", listed + "개", "나머지는 비상장"],
-    ["관계(출처 있음)", D.edges.length + "건", `그림 ${fig}건 + 그림 밖 ${D.edges.length - fig}건 · 일자 확인 ${D.edges.filter((e) => !e.date_approx).length}건`],
+    ["관계(출처 있음)", D.edges.length + "건", ["1차", "언론", "그림", "보조"].map((t) => `${t} ${D.edges.filter((e) => e.tier === t).length}`).join(" · ") + ` · 일자 확인 ${D.edges.filter((e) => !e.date_approx).length}건`],
   ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
 }
 
@@ -143,7 +151,7 @@ function table() {
     tb.innerHTML = `<thead><tr><th>회사</th><th>층</th><th>소속</th><th>상장</th><th>국가</th><th>사업</th><th>특징</th><th>연결 수</th></tr></thead><tbody>` +
       rows.map((c) => `<tr><td><b>${c.name}</b></td><td class="nw">${LAYER[c.layer]}</td><td><span class="badge ${c.group !== "video" ? "img" : ""}">${GROUP[c.group]}</span></td>
         <td class="nw">${c.ticker ? c.ticker + (c.parent ? `<div class="small">모회사 ${c.parent}</div>` : "") : (c.parent ? `<span class="small">모회사 ${c.parent}</span>` : "비상장")}</td>
-        <td class="nw">${c.country}</td><td>${c.business}</td><td class="muted">${c.feature || "–"}</td><td class="n" data-v="${deg[c.id]}">${deg[c.id]}</td></tr>`).join("") + "</tbody>";
+        <td class="nw">${c.country}</td><td>${c.business}</td><td class="muted">${c.feature || "–"}${c.fsrc ? ` <a href="${c.fsrc}" target="_blank" rel="noopener" title="근거">↗</a> ${tierBadge(c.ftier)}` : ""}</td><td class="n" data-v="${deg[c.id]}">${deg[c.id]}</td></tr>`).join("") + "</tbody>";
     sortableTable(tb);
   };
   ["q", "fLayer", "fGroup"].forEach((id) => document.getElementById(id).addEventListener("input", render));
@@ -177,7 +185,7 @@ function legend() {
 function showTip(ev, html) { tt.innerHTML = html; tt.style.display = "block"; tt.style.left = Math.min(ev.clientX + 14, innerWidth - 330) + "px"; tt.style.top = ev.clientY + 14 + "px"; }
 function hideTip() { tt.style.display = "none"; }
 function coTip(c) { return `<b>${c.name}</b> <span class="small">${LAYER[c.layer]} · ${GROUP[c.group]}${c.ticker ? " · " + c.ticker : ""}</span><br>${c.business}${c.feature ? `<br><span class="small">${c.feature}</span>` : ""}<br><span class="small">연결 ${deg[c.id]}건</span>`; }
-function edTip(e) { return `<b>${byId[e.source].name} → ${byId[e.target].name}</b><br>${KIND[e.kind].t}: ${e.label}<br><span class="small">${e.date}${e.date_approx ? " (일자 대략)" : ""}${e.interp ? " · 그림 해석" : ""}</span>`; }
+function edTip(e) { return `<b>${byId[e.source].name} → ${byId[e.target].name}</b><br>${KIND[e.kind].t}: ${e.label}<br><span class="small">${e.date}${e.date_approx ? " (일자 대략)" : ""}${e.interp ? " · 그림 해석" : ""} · 출처 ${e.tier}</span>`; }
 
 // ---------- 정적 가치사슬 지도: 열 = 층
 function drawMap() {
@@ -257,7 +265,7 @@ const r = (d) => 5 + Math.sqrt(deg[d.id] || 0) * 3.2;
 function netUpdate() {
   const sl = document.getElementById("tSlider"), cut = net.dates[+sl.value], scope = document.getElementById("nScope").value;
   document.getElementById("tLabel").textContent = `${cut}까지 발표된 관계`;
-  let edges = D.edges.filter((e) => e.date <= cut && net.kinds.has(e.kind) && (scope === "all" || (scope === "figure" ? e.in_figure : scope === "verified" ? !e.date_approx : !e.in_figure)));
+  let edges = D.edges.filter((e) => e.date <= cut && net.kinds.has(e.kind) && (scope === "all" || (scope === "figure" ? e.in_figure : scope === "verified" ? !e.date_approx : scope === "primary" ? e.tier === "1차" : !e.in_figure)));
   if (net.focus) edges = edges.filter((e) => e.source === net.focus || e.target === net.focus);
   const live = new Set(edges.flatMap((e) => [e.source, e.target]));
   const showAll = !net.focus && scope === "all" && document.getElementById("showIso").checked;
@@ -295,8 +303,8 @@ function netUpdate() {
 
 function edgeTable() {
   const tb = document.getElementById("edTable");
-  tb.innerHTML = "<thead><tr><th>내는 쪽</th><th>받는 쪽</th><th>종류</th><th>내용</th><th>날짜</th><th>일자</th><th>그림</th><th>출처</th></tr></thead><tbody>" +
-    D.edges.map((e) => `<tr><td>${byId[e.source].name}</td><td>${byId[e.target].name}</td><td class="nw">${KIND[e.kind].t}</td><td>${e.label}${e.interp ? ' <span class="badge">그림 해석</span>' : ""}</td><td class="nw">${e.date_approx ? e.date.slice(0, 7) : e.date}</td><td class="nw">${e.date_approx ? "대략" : "확인"}</td><td>${e.in_figure ? "●" : ""}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`).join("") + "</tbody>";
+  tb.innerHTML = "<thead><tr><th>내는 쪽</th><th>받는 쪽</th><th>종류</th><th>내용</th><th>날짜</th><th>일자</th><th>그림</th><th>출처</th><th>등급</th></tr></thead><tbody>" +
+    D.edges.map((e) => `<tr><td>${byId[e.source].name}</td><td>${byId[e.target].name}</td><td class="nw">${KIND[e.kind].t}</td><td>${e.label}${e.interp ? ' <span class="badge">그림 해석</span>' : ""}</td><td class="nw">${e.date_approx ? e.date.slice(0, 7) : e.date}</td><td class="nw">${e.date_approx ? "대략" : "확인"}</td><td>${e.in_figure ? "●" : ""}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td><td data-v="${e.tier}">${tierBadge(e.tier)}</td></tr>`).join("") + "</tbody>";
   sortableTable(tb);
 }
 

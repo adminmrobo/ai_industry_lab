@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>강의자용 안내 · AI 산업 연구실</title>
+<meta name="description" content="AI 산업 연구실 대시보드를 수업에 쓰는 강의자를 위한 진행안, 질문별 답 방향, 과제와 평가 기준">
+<meta property="og:type" content="website">
+<meta property="og:title" content="강의자용 안내 · AI 산업 연구실">
+<meta property="og:description" content="50분 진행안, 질문별 답 방향(데이터로 자동 갱신), 과제 예시와 평가 기준">
+<meta property="og:url" content="https://adminmrobo.github.io/ai_industry_lab/teacher.html">
+<meta property="og:image" content="https://adminmrobo.github.io/ai_industry_lab/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js" defer></script>
+<style>
+  .ans { border-left: 3px solid var(--good); background: #f4faf4; padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; margin: 6px 0 14px; color: var(--text-2); font-size: 15px; }
+  .ans b { color: var(--text-1); }
+  .q { font-weight: 700; margin-top: 14px; }
+  table.plan td:first-child { white-space: nowrap; font-weight: 700; }
+</style>
+</head>
+<body>
+<header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
+<main>
+  <h1>강의자용 안내</h1>
+  <p class="lead">이 대시보드를 데이터시각화·핀테크·경제학 수업에서 한 차시(50분)로 쓰는 방법을 정리했습니다. 각 페이지의 '생각해 볼 질문'에 대한 <b>답의 방향</b>은 사이트 데이터에서 숫자를 읽어 자동으로 채우므로, 데이터가 갱신되면 함께 바뀝니다.</p>
+  <p class="small" id="updated"></p>
+
+  <div class="note"><b>수업 전 꼭 짚어 둘 원칙.</b> 이 사이트는 '관계의 이력'을 보여 줄 뿐 '원인'을 말하지 않습니다. 학생이 "이 발표 때문에 올랐다"고 말하면, 같은 날 다른 뉴스·시장 전체 움직임·실적 발표가 섞였는지를 되묻게 해 주세요. 투자 권유 자료가 아니라는 점도 처음에 밝혀 주세요.</div>
+
+  <h2>50분 진행안</h2>
+  <div class="tablewrap"><table class="data plan">
+    <thead><tr><th>시간</th><th>활동</th><th>사용 화면</th><th>학생이 할 일</th></tr></thead>
+    <tbody>
+      <tr><td>0~5분</td><td>도입: 순환 거래란?</td><td><a href="https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals" target="_blank" rel="noopener">Bloomberg 원문</a>, <a href="index.html">개요</a></td><td>그림에서 "돈이 한 바퀴 도는 길"을 하나 찾아 말하기</td></tr>
+      <tr><td>5~20분</td><td>① 발표와 주가</td><td><a href="stage1.html">①</a> 초과 수익률 차트·표</td><td>시장모형과 단순 차감을 바꿔 보며 차이가 큰 종목 찾기</td></tr>
+      <tr><td>20~33분</td><td>② 가치사슬</td><td><a href="stage2.html">②</a> 층 간 연결 행렬, 움직이는 관계망</td><td>'그림에 그려진 관계만' → '그림 밖 관계만'으로 바꿔 새로 들어온 회사 찾기</td></tr>
+      <tr><td>33~45분</td><td>③ 거시·현금흐름</td><td><a href="stage3.html">③</a> 3D 궤적 읽기 예시, 설비투자÷영업현금</td><td>3D 아래 '연도별 경로'를 읽고 한 문장으로 요약(원인 단정 금지)</td></tr>
+      <tr><td>45~50분</td><td>정리</td><td>각 페이지 '이 페이지에서 보이는 것'</td><td>"관계의 이력"과 "인과"의 차이를 자기 말로 쓰기</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>질문별 답의 방향</h2>
+  <p class="sub">정답 한 줄이 아니라 학생 답을 평가할 때 확인할 요소입니다. 굵은 숫자는 현재 데이터에서 자동으로 읽은 값입니다.</p>
+
+  <h3>① 기준시점 ±3개월</h3>
+  <div class="q">1. 기준일 전후로 수익률 부호가 바뀐 회사는?</div>
+  <div class="ans" id="a11">불러오는 중…</div>
+  <div class="q">2. Oracle의 9월 10일 급등과 12월 11일 급락의 차이는?</div>
+  <div class="ans" id="a12">불러오는 중…</div>
+  <div class="q">3. 비상장 기업가치의 '계단'은 어떤 착시를 만드나?</div>
+  <div class="ans">값이 라운드 때만 바뀌므로 그 사이의 변동이 0으로 보입니다. 상장사와 나란히 보면 비상장사가 덜 위험해 보이는 착시가 생깁니다. 세컨더리 거래 가격, 라운드 사이 기간, '보도 기준' 표기 여부를 함께 확인했는지 보세요.</div>
+
+  <h3>② 50개사·관계망</h3>
+  <div class="q">1. '칩 → 모델'(투자)과 '모델 → 칩'(구매)이 둘 다 큰 이유는?</div>
+  <div class="ans" id="a21">불러오는 중…</div>
+  <div class="q">2. 그림 이후 고리에 새로 들어온 회사는?</div>
+  <div class="ans" id="a22">불러오는 중…</div>
+  <div class="q">3. 연결선이 없다는 것을 "관계없다"로 읽으면 안 되는 이유는?</div>
+  <div class="ans">관계망은 '공개되고, 출처로 확인한 거래'만 담습니다. 비공개 계약, 일반 고객 거래(예: 클라우드 사용료), 조사 범위 밖 거래는 빠집니다. 학생이 <b>수집 범위의 한계</b>와 <b>출처 등급</b>을 언급하면 좋은 답입니다.</div>
+
+  <h3>③ 거시·현금흐름 3D</h3>
+  <div class="q">1. 상승 여력의 평균과 중앙값이 다른 이유는?</div>
+  <div class="ans" id="a31">불러오는 중…</div>
+  <div class="q">2. 금리보다 ΔVIX·Δ하이일드와의 관계가 더 진한 이유는?</div>
+  <div class="ans" id="a32">불러오는 중…</div>
+  <div class="q">3. 설비투자가 영업현금보다 많은 회사는 모자란 돈을 어디서 메우나?</div>
+  <div class="ans" id="a33">불러오는 중…</div>
+
+  <h2>과제 예시</h2>
+  <ol class="steps">
+    <li><b>발표 하나 골라 반응 해부하기(개인, A4 1쪽).</b> ①에서 발표 하나를 골라 하루 수익률·단순 차감·시장모형 초과 수익률을 비교하고, 같은 날 섞였을 수 있는 다른 요인을 두 가지 이상 찾아 출처와 함께 적기.</li>
+    <li><b>관계 하나 더하기(조별).</b> ②에 없는 거래 한 건을 1차 출처(회사 발표·공시)로 찾아 '내는 쪽→받는 쪽, 종류, 금액, 날짜, 출처'로 정리하기. 저장소의 <code>scripts/static_data.py</code> 형식으로 쓰면 그대로 반영할 수 있습니다.</li>
+    <li><b>3D를 2D로 다시 그리기(개인).</b> ③의 CSV를 내려받아 같은 관계를 2D 차트 두 장(시간축 공유)으로 다시 그리고, 3D와 비교해 무엇이 잘 보이고 무엇이 가려지는지 쓰기.</li>
+  </ol>
+
+  <h2>평가 기준(예시)</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>항목</th><th>우수</th><th>보통</th><th>미흡</th></tr></thead>
+    <tbody>
+      <tr><td>출처</td><td>1차 출처를 쓰고 날짜·금액을 정확히 옮김</td><td>언론 출처, 날짜 일부 대략</td><td>출처 없음 또는 2차 집계만</td></tr>
+      <tr><td>인과 표현</td><td>"함께 나타났다", "같은 날"처럼 관계로 서술</td><td>일부 문장이 단정적</td><td>"때문에 올랐다"로 결론</td></tr>
+      <tr><td>방법 이해</td><td>시장모형·베타·초과 수익률을 자기 말로 설명</td><td>용어는 쓰나 설명이 부족</td><td>용어 오용</td></tr>
+      <tr><td>시각화</td><td>축 하나, 단위·출처 표기, 색만으로 구분하지 않음</td><td>표기 일부 누락</td><td>이중축·출처 없음</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>참고</h2>
+  <ul class="small">
+    <li>기업 현금흐름 읽는 법: <a href="https://adminmrobo.github.io/cashflow-lab/" target="_blank" rel="noopener">현금흐름 연구실</a> · 자금순환표 읽는 법: <a href="https://adminmrobo.github.io/fof-money-meridian-/" target="_blank" rel="noopener">돈의 경맥</a></li>
+    <li>데이터는 평일 아침 자동 갱신되므로, 과제를 낼 때는 기준 날짜를 함께 적게 해 주세요.</li>
+  </ul>
+</main>
+<footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 교육·연구용 자료이며 투자 권유가 아닙니다.</div></footer>
+<script type="module">
+siteHeader("teacher.html");
+const [m, s1, s2, s3] = await Promise.all(["meta", "stage1", "stage2", "stage3"].map((n) => loadJSON(`data/site/${n}.json`)));
+setUpdated(document.getElementById("updated"), m);
+const set = (id, h) => (document.getElementById(id).innerHTML = h);
+
+// ①-1 부호가 바뀐 회사
+const flip = s1.tickers.filter((t) => Math.sign(s1.summary[t].pre_pct) !== Math.sign(s1.summary[t].post_pct));
+set("a11", `부호가 바뀐 회사: <b>${flip.map((t) => `${s1.names[t]}(${fmt.pct(s1.summary[t].pre_pct)} → ${fmt.pct(s1.summary[t].post_pct)})`).join(", ") || "없음"}</b>. 학생이 표에서 그 회사가 들어간 발표를 찾아 날짜를 짚고, 기준일 뒤 같은 기간 나스닥100(${fmt.pct(s1.summary["^NDX"].post_pct)})과 비교했는지 보세요.`);
+// ①-2 Oracle
+const o = s1.reactions.filter((r) => r.ticker === "ORCL" && !r.recent);
+const o9 = o.find((r) => r.react === "2025-09-10"), o12 = o.find((r) => r.react === "2025-12-11");
+set("a12", `두 날 모두 실적 발표 다음 날입니다. 9월 10일은 잔여이행의무(RPO)가 크게 늘었다는 발표 뒤 시장모형 초과 수익률 <b>${fmt.pct(o9?.mm_abn_pct)}</b>, 12월 11일은 설비투자 전망을 올린 발표 뒤 <b>${fmt.pct(o12?.mm_abn_pct)}</b>입니다. '앞으로 들어올 매출(RPO)'과 '지금 나가는 현금(설비투자)'을 구분해 말하면 좋은 답이고, ③의 Oracle 현금흐름(잉여현금 음수)과 연결하면 더 좋습니다.`);
+// ②-1 층 간
+const by = (k) => s2.companies.find((c) => c.id === k);
+const L = { chip: "칩", model: "모델" };
+const inv = s2.edges.filter((e) => by(e.source).layer === "chip" && by(e.target).layer === "model" && ["investment", "vc"].includes(e.kind)).length;
+const buy = s2.edges.filter((e) => by(e.source).layer === "model" && by(e.target).layer === "chip").length;
+set("a21", `칩→모델(투자) <b>${inv}건</b>, 모델→칩(구매 등) <b>${buy}건</b>. 칩 회사가 모델 회사에 돈을 넣고, 모델 회사가 그 돈으로 칩을 사는 길이 양방향으로 보이는 것이 '순환'입니다. 학생이 구체적인 쌍(예: Nvidia↔OpenAI, AMD↔OpenAI)을 짚고, 금액이 '최대'·'의향'인지 확정인지 구분했는지 보세요.`);
+// ②-2 그림 밖으로 연결된 영상 기업
+const out = [...new Set(s2.edges.filter((e) => !e.in_figure).flatMap((e) => [e.source, e.target]))].map(by).filter((c) => c.group === "video").map((c) => c.name);
+set("a22", `그림 밖 관계로 이어진 영상 속 회사 <b>${out.length}곳</b>: ${out.join(", ")}. 특히 Anthropic처럼 그림 이후 큰 투자를 받은 회사를 짚으면 좋습니다.`);
+// ③-1 평균 vs 중앙값
+const cs = s3.consensus.summary, top = s3.consensus.rows.filter((r) => r.group === "image" && r.upside_pct != null).sort((a, b) => b.upside_pct - a.upside_pct).slice(0, 2);
+set("a31", `그림 7개사 상승 여력 평균 <b>${fmt.pct(cs.mean_upside.image)}</b>, 중앙값 <b>${fmt.pct(cs.median_upside.image)}</b>. 가장 큰 두 곳은 ${top.map((r) => `${r.name}(${fmt.pct(r.upside_pct)})`).join(", ")}입니다. 주가가 빠르게 떨어지면 목표주가가 늦게 따라와 상승 여력이 커 보인다는 점, 극단값이 평균을 끌어올린다는 점을 말하면 좋은 답입니다.`);
+// ③-2 VIX·하이일드
+const C = s3.corr_month, j = (n) => C.cols.indexOf(n);
+const cnt = (n) => C.row_ids.filter((id, i) => !(id in s3.groups) && C.sig[i][j(n)] && C.z[i][j(n)] < 0).length;
+set("a32", `유의한 음(-)의 관계가 나온 회사 수: ΔVIX <b>${cnt("ΔVIX")}곳</b>, Δ하이일드 <b>${cnt("Δ하이일드")}곳</b>, Δ10년 금리 <b>${cnt("Δ10년 금리")}곳</b>. VIX와 하이일드 스프레드는 '위험을 얼마나 꺼리는가'를 보여 주는 값이라, 성장주가 위험 선호와 함께 움직였다고 설명할 수 있습니다. 다만 여러 쌍을 한꺼번에 검정했다는 점(우연한 별표)을 언급했는지 보세요.`);
+// ③-3 설비투자 > 영업현금
+const over = [...s3.image, ...s3.video].filter((t) => { const a = s3.cashflow[t]?.annual || {}, l = Object.keys(a.ocf || {}).sort().at(-1); return l && a.ocf[l] > 0 && Math.abs(a.capex?.[l] || 0) > a.ocf[l]; });
+set("a33", `최근 연간 기준 해당 회사: <b>${over.map((t) => s3.names[t]).join(", ") || "없음"}</b>. 모자란 돈은 재무활동 현금(빚·주식 발행)이나 보유 현금으로 메웁니다. ③의 '재무활동 현금' 막대가 양수인지, 연준 Z.1의 기업 부문 자금 부족과 방향이 같은지 함께 봤는지 확인하세요.`);
+</script>
+</body>
+</html>

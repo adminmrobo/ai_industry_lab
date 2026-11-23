@@ -4,9 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>① 기준시점 ±3개월 주가 · AI 산업 연구실</title>
+<meta name="description" content="2025-10-07 전후 3개월, 그림 속 7개 상장사 주가와 거래 발표의 시장모형 초과 수익률, 기준시점 이후 발표까지">
+<meta property="og:type" content="website">
+<meta property="og:title" content="① 기준시점 ±3개월 주가와 거래 발표">
+<meta property="og:description" content="2025-10-07 전후 3개월, 그림 속 7개 상장사 주가와 거래 발표의 시장모형 초과 수익률, 기준시점 이후 발표까지">
+<meta property="og:url" content="https://adminmrobo.github.io/ai_industry_lab/stage1.html">
+<meta property="og:image" content="https://adminmrobo.github.io/ai_industry_lab/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<script src="assets/vendor/plotly.min.js"></script>
-<script src="assets/common.js"></script>
+<script src="assets/vendor/plotly.min.js" defer></script>
+<script src="assets/common.js" defer></script>
 </head>
 <body>
 <header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
@@ -40,6 +48,13 @@
   <div class="tablewrap"><table class="data" id="evTable"></table></div>
   <div class="note warn"><b>읽을 때 주의할 점.</b> Oracle(9/10)·Snowflake(12/4)처럼 실적 발표와 같은 날인 경우, 반응에는 실적 자체가 크게 섞여 있습니다. Nvidia–OpenAI 1,000억 달러는 <b>의향서</b>였고 정식 계약으로 이어지지 않았다는 후속 보도가 있습니다.</div>
 
+  <h2>기준시점 이후: 2026-01-08 ~ 현재</h2>
+  <p class="sub">±3개월 창 밖에서도 그림 속 회사들은 계속 큰 발표를 냈습니다. 2026-01-07 종가를 100으로 놓고 지금까지를 이어 그렸고, 같은 방식으로 발표별 반응을 계산했습니다. <b>여기서도 원인을 단정하지 않습니다.</b> 날짜를 나란히 놓을 뿐입니다.</p>
+  <div class="grid g4" id="rtiles"></div>
+  <div id="rmain" class="chart tall"></div>
+  <p class="small">세로 점선과 글자 = 아래 표의 발표(R1, R2…). 마지막 발표는 데이터 마지막 거래일과 가까워 5일 누적이 다 차지 않았을 수 있습니다('뒤 거래일 수' 열).</p>
+  <div class="tablewrap"><table class="data" id="rTable"></table></div>
+
   <h2>그림 속 비상장사의 기업가치 계단</h2>
   <p class="sub">비상장사는 매일 가격이 없으므로, 투자 라운드·인수 때 정해진 기업가치를 계단 모양으로 이었습니다. 다음 라운드 전까지는 값이 그대로라고 가정한 것이며, 실제 거래 가격(세컨더리)은 다를 수 있습니다.</p>
   <div class="grid g3" id="priv"></div>
@@ -56,21 +71,22 @@
   <ul class="small">
     <li>주가: Yahoo Finance 수정 종가(GitHub Actions로 평일마다 자동 갱신).</li>
     <li>거래 발표일·비상장 기업가치: 각 행의 출처 링크. 장 마감 뒤 발표는 다음 거래일을 반응일로 둠. 출처에서 일(日)까지 확인하지 못한 날짜는 '일자 대략'으로 적었습니다.</li>
-    <li>시장모형: 반응일 130~11거래일 전(120거래일) 일별 수익률로 종목 = α + β × 나스닥100을 추정하고, 반응일과 그 뒤 4거래일의 실제 수익률에서 예상 수익률을 뺐습니다. 통계적 유의성 검정은 하지 않았으니 크기 비교용으로만 보세요.</li>
+    <li>시장모형: 반응일 130~11거래일 전(120거래일) 일별 수익률로 종목 = α + β × 나스닥100을 추정하고, 반응일과 그 뒤 4거래일의 실제 수익률에서 예상 수익률을 뺐습니다. 이때 <b>그 종목이 들어간 다른 발표의 반응 구간(반응일~4거래일 뒤)은 추정에서 뺐습니다</b>(표의 '제외일'). 통계적 유의성 검정은 하지 않았으니 크기 비교용으로만 보세요.</li>
+    <li>출처 등급: <b>1차</b> = 회사 발표·SEC 공시, <b>언론</b> = 주요 언론, <b>보조</b> = 2차 집계 사이트, <b>그림</b> = Bloomberg 그림 표기.</li>
     <li>CoreWeave는 2025년 3월, Nebius는 2024년 10월부터 현재 티커로 거래되어 비교 기간이 짧습니다.</li>
     <li>교육·연구용 자료이며 투자 권유가 아닙니다.</li>
   </ul>
 </main>
 <footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 데이터: Yahoo Finance, 각 보도·공시 · 기준 그림: Bloomberg News reporting (2025-10)</div></footer>
 <div class="tooltip" id="tt"></div>
-<script>
+<script type="module">
 siteHeader("stage1.html");
 let S, mode = "index", hidden = new Set(), abMode = "mm";
 
 (async () => {
   [S] = await Promise.all([loadJSON("data/site/stage1.json")]);
   setUpdated(document.getElementById("updated"), await loadJSON("data/site/meta.json"));
-  tiles(); chips(); draw(); reactions(); privates(); sumTable(); summary(); terms();
+  tiles(); chips(); draw(); reactions(); privates(); sumTable(); summary(); terms(); recent();
   document.querySelectorAll("#abMode button").forEach((b) => b.onclick = () => {
     document.querySelectorAll("#abMode button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); abMode = b.dataset.m; reactions();
   });
@@ -128,11 +144,11 @@ function draw() {
   }), PCONF);
 }
 
-function evList() { return S.events.filter((e) => e.date >= S.window[0] && e.date <= S.window[1] && e.kind !== "base"); }
+function evList() { return S.events.filter((e) => !e.recent && e.date >= S.window[0] && e.date <= S.window[1] && e.kind !== "base"); }
 
 function reactions() {
   const ev = evList();
-  const rows = S.reactions.filter((r) => S.tickers.includes(r.ticker) || r.ticker === "GOOGL" || r.ticker === "SNOW");
+  const rows = S.reactions.filter((r) => !r.recent);
   const lab = rows.map((r) => `${ev.findIndex((e) => e.title === r.title) + 1}. ${r.ticker} (${r.react.slice(5)})`);
   const key = abMode === "mm" ? "mm_abn_pct" : "abn_pct";
   Plotly.react("react", [{
@@ -145,13 +161,13 @@ function reactions() {
     xaxis: { gridcolor: INK.grid, ticksuffix: "%", zeroline: true, zerolinecolor: INK.t3, title: { text: abMode === "mm" ? "반응일 초과 수익률(시장모형, 베타 조정)" : "반응일 초과 수익률(나스닥100 단순 차감)", font: { size: 12, color: INK.t2 } } } }), PCONF);
 
   const tb = document.getElementById("evTable");
-  tb.innerHTML = `<thead><tr><th>#</th><th>발표일</th><th>거래 내용</th><th>반응 종목</th><th>하루</th><th>베타</th><th>초과(시장모형)</th><th>5일 누적(시장모형)</th><th>초과(단순 차감)</th><th>출처</th></tr></thead><tbody>` +
+  tb.innerHTML = `<thead><tr><th>#</th><th>발표일</th><th>거래 내용</th><th>반응 종목</th><th>하루</th><th>베타(제외일)</th><th>초과(시장모형)</th><th>5일 누적(시장모형)</th><th>초과(단순 차감)</th><th>출처</th></tr></thead><tbody>` +
     ev.map((e, i) => {
       const rs = S.reactions.filter((r) => r.title === e.title);
       const cell = (k) => rs.map((r) => `<div class="${cls(r[k])}">${r.ticker} ${fmt.pct(r[k])}</div>`).join("") || "–";
-      const bcell = rs.map((r) => `<div>${r.ticker} ${r.beta ?? "–"}</div>`).join("") || "–";
+      const bcell = rs.map((r) => `<div>${r.ticker} ${r.beta ?? "–"}${r.est_excluded ? ` <span class="small">(${r.est_excluded}일 제외)</span>` : ""}</div>`).join("") || "–";
       return `<tr><td data-v="${i + 1}">${i + 1}</td><td class="nw">${e.date}${e.react !== e.date ? `<div class="small">반응 ${e.react}</div>` : ""}</td><td>${e.title}${e.note ? `<div class="small">${e.note}</div>` : ""}</td>
-      <td>${e.tickers.join(", ") || "–"}</td><td class="n">${cell("day_pct")}</td><td class="n">${bcell}</td><td class="n">${cell("mm_abn_pct")}</td><td class="n">${cell("mm_car5_pct")}</td><td class="n">${cell("abn_pct")}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`;
+      <td>${e.tickers.join(", ") || "–"}</td><td class="n">${cell("day_pct")}</td><td class="n">${bcell}</td><td class="n">${cell("mm_abn_pct")}</td><td class="n">${cell("mm_car5_pct")}</td><td class="n">${cell("abn_pct")}</td><td class="nw"><a href="${e.src}" target="_blank" rel="noopener">링크</a> ${tierBadge(e.tier)}</td></tr>`;
     }).join("") + "</tbody>";
   sortableTable(tb);
 }
@@ -172,7 +188,7 @@ function privates() {
   });
   const tb = document.getElementById("privTable");
   tb.innerHTML = "<thead><tr><th>회사</th><th>날짜</th><th>기업가치</th><th>근거</th><th>출처</th></tr></thead><tbody>" +
-    names.flatMap((n) => S.private[n].map((r) => `<tr><td>${n}</td><td class="nw">${r.date}</td><td class="n" data-v="${r.value_bn}">${fmt.bn(r.value_bn)}</td><td>${r.note}</td><td><a href="${r.src}" target="_blank" rel="noopener">링크</a></td></tr>`)).join("") + "</tbody>";
+    names.flatMap((n) => S.private[n].map((r) => `<tr><td>${n}</td><td class="nw">${r.date}</td><td class="n" data-v="${r.value_bn}">${fmt.bn(r.value_bn)}</td><td>${r.note}</td><td class="nw"><a href="${r.src}" target="_blank" rel="noopener">링크</a> ${tierBadge(r.tier)}</td></tr>`)).join("") + "</tbody>";
   sortableTable(tb);
 }
 
@@ -185,16 +201,52 @@ function sumTable() {
   sortableTable(tb);
 }
 
+function recent() {
+  const R = S.recent, ev = S.events.filter((e) => e.recent);
+  document.getElementById("rtiles").innerHTML = S.tickers.map((t) => {
+    const x = R.summary[t];
+    return `<div class="tile"><div class="k"><span class="sw dot" style="background:${colorOf(t)}"></span> ${S.names[t]}</div>
+      <div class="v ${cls(x.pct)}">${fmt.pct(x.pct)}</div><div class="d">2026-01-07 이후 · 최대 낙폭 ${fmt.pct(x.max_dd_pct)}</div></div>`;
+  }).join("") + `<div class="tile"><div class="k">나스닥100 / 반도체지수</div><div class="v">${fmt.pct(R.summary["^NDX"].pct)} / ${fmt.pct(R.summary["^SOX"].pct)}</div><div class="d">같은 기간</div></div>`;
+  const traces = [];
+  S.tickers.forEach((t) => {
+    const y = R.series[t].index;
+    traces.push({ x: R.dates, y, name: S.names[t], mode: "lines", line: { color: colorOf(t), width: 2 }, hovertemplate: `${S.names[t]}: %{y:.1f}<extra></extra>` });
+    traces.push({ x: [R.dates.at(-1)], y: [y.at(-1)], mode: "text", text: [t], textposition: "middle right", textfont: { size: 11, color: INK.t2 }, showlegend: false, hoverinfo: "skip" });
+  });
+  ["^NDX", "^SOX"].forEach((b, i) => traces.push({ x: R.dates, y: R.series[b].index, name: S.names[b], mode: "lines", line: { color: BENCH_COLOR, width: 1.5, dash: i ? "dot" : "dash" }, hovertemplate: `${S.names[b]}: %{y:.1f}<extra></extra>` }));
+  const shapes = [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 100, y1: 100, line: { color: INK.line, width: 1 } }];
+  const ann = [];
+  ev.forEach((e, i) => {
+    shapes.push({ type: "line", x0: e.react, x1: e.react, yref: "paper", y0: 0, y1: 0.94, line: { color: "#b8b7b1", width: 1, dash: "dot" } });
+    if (!MOBILE) ann.push({ x: e.react, yref: "paper", y: 0.97 - (i % 3) * 0.035, text: "R" + (i + 1), showarrow: false, font: { size: 10, color: "#fff" }, bgcolor: INK.t2, borderpad: 2 });
+  });
+  Plotly.react("rmain", traces, baseLayout({ shapes, annotations: ann, margin: { l: 56, r: 50, t: 30, b: 44 },
+    yaxis: { gridcolor: INK.grid, type: "log", title: { text: "지수(2026-01-07=100, 로그)", font: { size: 12, color: INK.t2 } }, tickvals: [25, 50, 75, 100, 150, 200, 300] } }), PCONF);
+  const tb = document.getElementById("rTable");
+  tb.innerHTML = `<thead><tr><th>#</th><th>발표일</th><th>발표 내용</th><th>종목</th><th>하루</th><th>베타</th><th>초과(시장모형)</th><th>누적(시장모형)</th><th>뒤 거래일 수</th><th>출처</th></tr></thead><tbody>` +
+    ev.map((e, i) => {
+      const rs = S.reactions.filter((r) => r.title === e.title);
+      const c = (k) => rs.map((r) => `<div class="${cls(r[k])}">${r.ticker} ${fmt.pct(r[k])}</div>`).join("") || "–";
+      return `<tr><td>R${i + 1}</td><td class="nw">${e.date}${e.react !== e.date ? `<div class="small">반응 ${e.react}</div>` : ""}</td><td>${e.title}${e.note ? `<div class="small">${e.note}</div>` : ""}</td>
+        <td>${e.tickers.join(", ") || "–"}</td><td class="n">${c("day_pct")}</td><td class="n">${rs.map((r) => `<div>${r.beta ?? "–"}</div>`).join("") || "–"}</td>
+        <td class="n">${c("mm_abn_pct")}</td><td class="n">${c("mm_car5_pct")}</td><td class="n">${rs.map((r) => `<div>${r.days_after}</div>`).join("") || "–"}</td>
+        <td class="nw"><a href="${e.src}" target="_blank" rel="noopener">링크</a> ${tierBadge(e.tier)}</td></tr>`;
+    }).join("") + "</tbody>";
+}
+
 function summary() {
   const t = S.tickers.map((x) => [x, S.summary[x].post_pct]).sort((a, b) => b[1] - a[1]);
   const up = t.filter((x) => x[1] > 0).length;
-  const rs = S.reactions.filter((r) => r.mm_abn_pct != null).sort((a, b) => b.mm_abn_pct - a.mm_abn_pct);
+  const rs = S.reactions.filter((r) => !r.recent && r.mm_abn_pct != null).sort((a, b) => b.mm_abn_pct - a.mm_abn_pct);
+  const rr = S.tickers.map((x) => [x, S.recent.summary[x].pct]).sort((a, b) => a[1] - b[1]);
   const hi = rs[0], lo = rs.at(-1);
   const ndx = S.summary["^NDX"].post_pct;
   autoSummary("auto", [
     `기준일 뒤 3개월 동안 7곳 중 <b>${up}곳</b>이 올랐습니다(나스닥100 ${fmt.pct(ndx)}). 가장 많이 오른 곳은 <b>${S.names[t[0][0]]} ${fmt.pct(t[0][1])}</b>, 가장 많이 내린 곳은 <b>${S.names[t.at(-1)[0]]} ${fmt.pct(t.at(-1)[1])}</b>입니다.`,
     `시장 움직임을 뺀 반응이 가장 컸던 발표는 <b>${hi.ticker} ${fmt.pct(hi.mm_abn_pct)}</b>(${hi.react}, ${hi.title.split("(")[0]})입니다.`,
     `가장 큰 하락 반응은 <b>${lo.ticker} ${fmt.pct(lo.mm_abn_pct)}</b>(${lo.react}, ${lo.title.split(":")[0]})이며, 실적 발표와 겹친 날입니다.`,
+    `기준시점 이후(2026-01-07~${S.recent.dates.at(-1)})에는 <b>${S.names[rr.at(-1)[0]]} ${fmt.pct(rr.at(-1)[1])}</b>가 가장 많이 올랐고 <b>${S.names[rr[0][0]]} ${fmt.pct(rr[0][1])}</b>가 가장 많이 내렸습니다(나스닥100 ${fmt.pct(S.recent.summary["^NDX"].pct)}).`,
   ]);
 }
 function terms() {

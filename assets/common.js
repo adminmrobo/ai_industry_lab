@@ -74,7 +74,7 @@ function el(tag, attrs = {}, html = "") {
 
 // 상단 메뉴
 function siteHeader(active) {
-  const items = [["index.html", "개요"], ["stage1.html", "① 기준시점 ±3개월"], ["stage2.html", "② 50개사·관계망"], ["stage3.html", "③ 거시·현금흐름 3D"]];
+  const items = [["index.html", "개요"], ["stage1.html", "① 기준시점 ±3개월"], ["stage2.html", "② 50개사·관계망"], ["stage3.html", "③ 거시·현금흐름 3D"], ["teacher.html", "강의자용"]];
   const h = document.querySelector("header.site .in nav");
   if (!h) return;
   h.innerHTML = items.map(([href, t]) => `<a href="${href}" class="${href === active ? "on" : ""}">${t}</a>`).join("");
@@ -96,3 +96,22 @@ function autoSummary(id, lines) {
   if (box) box.innerHTML = `<div class="t">이 페이지에서 보이는 것 (데이터로 자동 작성)</div><ol>${lines.map((l) => `<li>${l}</li>`).join("")}</ol>`;
 }
 function median(a) { const v = a.filter((x) => x != null).sort((x, y) => x - y); if (!v.length) return null; const m = Math.floor(v.length / 2); return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; }
+
+
+// CSV 내려받기: rows = [[...header], [...], ...]
+function downloadCSV(filename, rows) {
+  const esc = (v) => { const t = v == null ? "" : String(v); return /[",\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
+  const blob = new Blob(["\ufeff" + rows.map((r) => r.map(esc).join(",")).join("\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+// 표 그리기(간단): header 배열, rows 2차원 배열
+function renderTable(el, header, rows, numCols = []) {
+  el.innerHTML = `<thead><tr>${header.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map((r) => `<tr>${r.map((v, i) => `<td class="${numCols.includes(i) ? "n" : ""}">${v ?? "–"}</td>`).join("")}</tr>`).join("") + "</tbody>";
+  sortableTable(el);
+}
+// 출처 등급 표시
+const TIER_CLS = { "1차": "t1", "언론": "t2", "보조": "t3", "그림": "t4" };
+const tierBadge = (t) => (t ? `<span class="badge tier ${TIER_CLS[t] || ""}" title="출처 등급: 1차=회사 발표·공시, 언론=주요 언론, 보조=2차 집계 사이트, 그림=Bloomberg 그림 표기">${t}</span>` : "");

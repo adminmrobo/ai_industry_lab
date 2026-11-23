@@ -7,8 +7,10 @@
   "ticker": null,
   "country": "미국",
   "business": "ChatGPT와 GPT 계열 모델 개발·판매",
-  "feature": "그림의 중심. 칩·클라우드 회사와 대규모 장기 계약을 맺고, 스타트업에는 투자도 한다",
-  "parent": null
+  "feature": "Bloomberg 그림에서 Nvidia와 함께 가장 많은 선이 이어진 회사. 2026-03 1,220억 달러 조달",
+  "parent": null,
+  "fsrc": "https://openai.com/en-US/index/accelerating-the-next-phase-ai/",
+  "ftier": "1차"
  },
  {
   "id": "microsoft",
@@ -19,7 +21,9 @@
   "country": "미국",
   "business": "Azure 클라우드·오피스·윈도우",
   "feature": "OpenAI 최대 투자자이자 클라우드 공급자. 네오클라우드(CoreWeave·Nebius)에서 용량을 사 온다",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "nvidia",
@@ -29,8 +33,10 @@
   "ticker": "NVDA",
   "country": "미국",
   "business": "AI 학습·추론용 GPU와 시스템",
-  "feature": "칩을 파는 쪽이면서 고객사에 투자하는 쪽. 순환 거래 논쟁의 한가운데",
-  "parent": null
+  "feature": "칩을 공급하면서 OpenAI·xAI·CoreWeave 등 고객사에도 투자(관계망 참고). 2026-11-12 CEO 사임 공시",
+  "parent": null,
+  "fsrc": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+  "ftier": "1차"
  },
  {
   "id": "amd",
@@ -41,7 +47,9 @@
   "country": "미국",
   "business": "GPU(Instinct)·CPU",
   "feature": "OpenAI에 GPU를 공급하고 자사 주식 워런트를 대가로 줌",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "intel",
@@ -52,7 +60,9 @@
   "country": "미국",
   "business": "CPU·파운드리",
   "feature": "Nvidia가 50억 달러 지분 투자. 미국 정부도 지분 보유",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "oracle",
@@ -62,8 +72,10 @@
   "ticker": "ORCL",
   "country": "미국",
   "business": "데이터베이스·OCI 클라우드",
-  "feature": "OpenAI와 3,000억 달러 클라우드 계약. 설비투자를 빚으로 메우는 구조가 쟁점",
-  "parent": null
+  "feature": "OpenAI와 3,000억 달러 클라우드 계약(그림). 2026-02 최대 500억 달러 부채·주식 조달 계획 발표",
+  "parent": null,
+  "fsrc": "https://fortune.com/2026/02/02/why-did-oracle-stock-fall-openai-exposure-nvidia-microsoft/",
+  "ftier": "언론"
  },
  {
   "id": "coreweave",
@@ -74,7 +86,9 @@
   "country": "미국",
   "business": "GPU 전문 클라우드(네오클라우드)",
   "feature": "Nvidia가 주주이자 용량 구매 보증자. 2025년 3월 상장",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "nebius",
@@ -85,7 +99,9 @@
   "country": "네덜란드",
   "business": "GPU 전문 클라우드",
   "feature": "Microsoft와 최대 194억 달러 계약. Yandex에서 분리",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "nscale",
@@ -96,7 +112,9 @@
   "country": "영국",
   "business": "유럽 AI 데이터센터·GPU 클라우드",
   "feature": "Nvidia가 투자, OpenAI가 서비스 고객",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "xai",
@@ -106,8 +124,10 @@
   "ticker": null,
   "country": "미국",
   "business": "Grok 모델",
-  "feature": "2026년 2월 SpaceX에 인수",
-  "parent": "SpaceX"
+  "feature": "2026-02 SpaceX에 인수. SpaceX는 2026-06-12 나스닥 상장(SPCX)",
+  "parent": "SpaceX(SPCX)",
+  "fsrc": "https://www.npr.org/2026/06/12/nx-s1-5855004/nx-s1-9808791",
+  "ftier": "언론"
  },
  {
   "id": "mistral",
@@ -118,7 +138,9 @@
   "country": "프랑스",
   "business": "개방형 가중치 언어모델",
   "feature": "유럽 대표 모델 회사. ASML이 최대주주, Nvidia도 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "figure",
@@ -129,7 +151,9 @@
   "country": "미국",
   "business": "범용 휴머노이드 로봇",
   "feature": "Nvidia·Intel·Qualcomm 등 칩 회사가 함께 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "harvey",
@@ -140,7 +164,9 @@
   "country": "미국",
   "business": "법률 전문 AI",
   "feature": "OpenAI 스타트업 펀드 투자처",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "anysphere",
@@ -150,8 +176,10 @@
   "ticker": null,
   "country": "미국",
   "business": "AI 코드 편집기 Cursor",
-  "feature": "Nvidia·Google이 2025년 11월 투자 참여",
-  "parent": null
+  "feature": "Nvidia·Google이 2025-11 투자 참여. 2026-06 SpaceX가 600억 달러 주식 인수 합의(3분기 종결 예정)",
+  "parent": "SpaceX(인수 합의)",
+  "fsrc": "https://techcrunch.com/2026/06/16/spacex-to-acquire-cursor-for-60b-in-stock-days-after-blockbuster-ipo/",
+  "ftier": "언론"
  },
  {
   "id": "ambience",
@@ -162,18 +190,22 @@
   "country": "미국",
   "business": "의료 기록 자동화 AI",
   "feature": "OpenAI 스타트업 펀드 투자처",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "anthropic",
   "name": "Anthropic",
   "layer": "model",
   "group": "video",
-  "ticker": null,
+  "ticker": "ANT",
   "country": "미국",
   "business": "Claude 모델",
-  "feature": "Google·Amazon·Microsoft·Nvidia가 모두 투자. 그림이 나온 뒤 순환 고리에 합류",
-  "parent": null
+  "feature": "2025-11 Microsoft·Nvidia, 2026-04 Amazon·Alphabet 투자 발표. 2026-11-19 나스닥 상장(ANT, 주가 이력이 짧아 주가 분석에서는 제외)",
+  "parent": null,
+  "fsrc": "https://www.aljazeera.com/economy/2026/11/19/anthropic-starts-trading-in-the-us-after-blockbuster-ipo",
+  "ftier": "언론"
  },
  {
   "id": "deepmind",
@@ -184,7 +216,9 @@
   "country": "영국·미국",
   "business": "Gemini 모델·연구",
   "feature": "Alphabet 자회사",
-  "parent": "Alphabet"
+  "parent": "Alphabet",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "metaai",
@@ -195,7 +229,9 @@
   "country": "미국",
   "business": "Llama 모델·연구",
   "feature": "Meta 내부 조직",
-  "parent": "Meta"
+  "parent": "Meta",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "cohere",
@@ -206,7 +242,9 @@
   "country": "캐나다",
   "business": "기업용 언어모델",
   "feature": "Nvidia가 여러 라운드에 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "ai21",
@@ -217,7 +255,9 @@
   "country": "이스라엘",
   "business": "언어모델·기업용 AI",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "alephalpha",
@@ -228,7 +268,9 @@
   "country": "독일",
   "business": "주권형·기업용 AI",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "deepseek",
@@ -238,8 +280,10 @@
   "ticker": null,
   "country": "중국",
   "business": "추론·개방형 가중치 모델",
-  "feature": "미국 자본 고리와 직접 연결이 거의 없음",
-  "parent": null
+  "feature": "이번 관계망에서 출처로 확인된 직접 거래 없음",
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "cerebras",
@@ -250,7 +294,9 @@
   "country": "미국",
   "business": "웨이퍼 크기 AI 칩",
   "feature": "OpenAI와 100억 달러 이상 컴퓨팅 계약(2026-01)",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "groq",
@@ -261,7 +307,9 @@
   "country": "미국",
   "business": "추론 전용 칩(LPU)",
   "feature": "Nvidia가 기술 라이선스·핵심 인력 영입(2025-12)",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "tenstorrent",
@@ -272,7 +320,9 @@
   "country": "캐나다·미국",
   "business": "RISC-V 기반 AI 프로세서",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "qualcomm",
@@ -283,7 +333,9 @@
   "country": "미국",
   "business": "모바일·기기 내 AI 칩",
   "feature": "Figure AI에 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "sambanova",
@@ -294,7 +346,9 @@
   "country": "미국",
   "business": "AI 전용 칩·시스템",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "graphcore",
@@ -305,7 +359,9 @@
   "country": "영국",
   "business": "IPU(지능 처리 장치)",
   "feature": "SoftBank 자회사",
-  "parent": "SoftBank"
+  "parent": "SoftBank",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "dmatrix",
@@ -316,7 +372,9 @@
   "country": "미국",
   "business": "추론용 칩",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "perplexity",
@@ -327,7 +385,9 @@
   "country": "미국",
   "business": "AI 검색",
   "feature": "Nvidia가 2023년부터 계속 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "runway",
@@ -338,7 +398,9 @@
   "country": "미국",
   "business": "AI 영상 생성",
   "feature": "Nvidia·Google 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "synthesia",
@@ -349,7 +411,9 @@
   "country": "영국",
   "business": "AI 아바타 영상",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "elevenlabs",
@@ -360,7 +424,9 @@
   "country": "미국·영국",
   "business": "AI 음성 생성",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "midjourney",
@@ -371,7 +437,9 @@
   "country": "미국",
   "business": "AI 이미지 생성",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "characterai",
@@ -382,7 +450,9 @@
   "country": "미국",
   "business": "대화형 AI 캐릭터",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "glean",
@@ -393,7 +463,9 @@
   "country": "미국",
   "business": "기업용 AI 검색",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "gamma",
@@ -404,7 +476,9 @@
   "country": "미국",
   "business": "AI 발표자료·문서",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "lovable",
@@ -415,7 +489,9 @@
   "country": "스웨덴",
   "business": "AI 소프트웨어 제작",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "bostondynamics",
@@ -426,7 +502,9 @@
   "country": "미국",
   "business": "고성능 로봇",
   "feature": "현대자동차그룹 소유",
-  "parent": "현대자동차그룹"
+  "parent": "현대자동차그룹",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "physicalintelligence",
@@ -437,7 +515,9 @@
   "country": "미국",
   "business": "범용 로봇 지능",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "agility",
@@ -448,7 +528,9 @@
   "country": "미국",
   "business": "작업용 휴머노이드",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "skydio",
@@ -459,7 +541,9 @@
   "country": "미국",
   "business": "자율 드론",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "waymo",
@@ -470,7 +554,9 @@
   "country": "미국",
   "business": "자율주행",
   "feature": "Alphabet 자회사",
-  "parent": "Alphabet"
+  "parent": "Alphabet",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "tesla",
@@ -481,7 +567,9 @@
   "country": "미국",
   "business": "전기차·자율주행·휴머노이드",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "onex",
@@ -492,7 +580,9 @@
   "country": "노르웨이·미국",
   "business": "휴머노이드 로봇",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "sanctuary",
@@ -503,7 +593,9 @@
   "country": "캐나다",
   "business": "범용 휴머노이드",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "apptronik",
@@ -514,7 +606,9 @@
   "country": "미국",
   "business": "휴머노이드 로봇",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "huggingface",
@@ -525,7 +619,9 @@
   "country": "미국·프랑스",
   "business": "개방형 AI 생태계·모델 허브",
   "feature": "Nvidia 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "scaleai",
@@ -536,7 +632,9 @@
   "country": "미국",
   "business": "AI 학습 데이터·평가",
   "feature": "Meta가 49% 지분 투자(2025-06)",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "databricks",
@@ -547,7 +645,9 @@
   "country": "미국",
   "business": "데이터·AI 플랫폼",
   "feature": "Nvidia 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "snowflake",
@@ -558,7 +658,9 @@
   "country": "미국",
   "business": "클라우드 데이터 플랫폼",
   "feature": "Anthropic과 2억 달러 계약(2025-12)",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "wandb",
@@ -569,7 +671,9 @@
   "country": "미국",
   "business": "머신러닝 실험 관리 도구",
   "feature": "CoreWeave가 인수(2025-05)",
-  "parent": "CoreWeave"
+  "parent": "CoreWeave",
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "langchain",
@@ -580,7 +684,9 @@
   "country": "미국",
   "business": "AI 응용 개발 프레임워크",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "pinecone",
@@ -591,7 +697,9 @@
   "country": "미국",
   "business": "벡터 데이터베이스",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "qdrant",
@@ -602,7 +710,9 @@
   "country": "독일",
   "business": "벡터 검색·데이터베이스",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "runpod",
@@ -613,7 +723,9 @@
   "country": "미국",
   "business": "클라우드 GPU",
   "feature": "",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  },
  {
   "id": "together",
@@ -624,6 +736,8 @@
   "country": "미국",
   "business": "AI 모델 호스팅·인프라",
   "feature": "Nvidia 투자",
-  "parent": null
+  "parent": null,
+  "fsrc": null,
+  "ftier": null
  }
 ]

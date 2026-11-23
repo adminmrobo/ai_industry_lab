@@ -9,7 +9,9 @@
   "kind": "services",
   "title": "Nebius–Microsoft GPU 인프라 계약 174억 달러(최대 194억)",
   "note": "장 마감 뒤 발표, 다음 날 반응",
-  "src": "https://www.nasdaq.com/articles/nebius-shares-soar-us-174-billion-microsoft-ai-deal"
+  "src": "https://www.nasdaq.com/articles/nebius-shares-soar-us-174-billion-microsoft-ai-deal",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2025-09-09",
@@ -20,7 +22,9 @@
   "kind": "services",
   "title": "Oracle 1분기 실적: 잔여이행의무(RPO·계약했지만 아직 매출로 잡히지 않은 금액) 4,550억 달러, 359% 증가",
   "note": "장 마감 뒤 발표",
-  "src": "https://www.oracle.com/ae/news/announcement/q1fy26-earnings-release-2025-09-09/"
+  "src": "https://www.oracle.com/ae/news/announcement/q1fy26-earnings-release-2025-09-09/",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-09-09",
@@ -31,7 +35,9 @@
   "kind": "vc",
   "title": "Mistral 시리즈 C 17억 유로(ASML 주도, Nvidia 참여)",
   "note": "",
-  "src": "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/"
+  "src": "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2025-09-15",
@@ -42,9 +48,10 @@
   ],
   "kind": "services",
   "title": "Nvidia, CoreWeave 미사용 용량 63억 달러 구매 보증(2032년 4월까지)",
-  "note": "9월 공시, 일자는 대략(9월 중순)",
-  "approx": true,
-  "src": "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained"
+  "note": "9월 9일 체결, 9월 15일 8-K 공시(반응일 = 공시일)",
+  "src": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-09-16",
@@ -56,7 +63,9 @@
   "kind": "vc",
   "title": "Figure AI 시리즈 C, 기업가치 390억 달러(Nvidia·Intel Capital 참여)",
   "note": "",
-  "src": "https://figure.ai/news/series-c"
+  "src": "https://figure.ai/news/series-c",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-09-18",
@@ -68,7 +77,9 @@
   "kind": "investment",
   "title": "Nvidia, Intel 보통주 50억 달러 매입·공동 개발 발표",
   "note": "",
-  "src": "https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-and-Intel-to-Develop-AI-Infrastructure-and-Personal-Computing-Products/"
+  "src": "https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-and-Intel-to-Develop-AI-Infrastructure-and-Personal-Computing-Products/",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-09-22",
@@ -80,8 +91,10 @@
   ],
   "kind": "investment",
   "title": "Nvidia–OpenAI 의향서(LOI·정식 계약 전 합의): 최대 1,000억 달러 투자·10GW 배치",
-  "note": "정식 계약은 체결되지 않았다는 후속 보도가 있음",
-  "src": "https://dailysift.briefvane.com/2026/09/circular-ai-deals-explained.html"
+  "note": "의향서였고, 2026년 2월 300억 달러 지분 투자로 바뀌었다는 보도가 있음",
+  "src": "https://investor.nvidia.com/news/press-release-details/2025/OpenAI-and-NVIDIA-Announce-Strategic-Partnership-to-Deploy-10-Gigawatts-of-NVIDIA-Systems/",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-10-02",
@@ -90,7 +103,9 @@
   "kind": "investment",
   "title": "OpenAI 직원 지분 매각, 기업가치 5,000억 달러",
   "note": "상장사 반응 대상 아님(비상장 기업가치 기준점)",
-  "src": "https://www.bloomberg.com/news/articles/2025-10-02/openai-completes-share-sale-at-record-500-billion-valuation"
+  "src": "https://www.bloomberg.com/news/articles/2025-10-02/openai-completes-share-sale-at-record-500-billion-valuation",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2025-10-06",
@@ -101,7 +116,9 @@
   "kind": "hardware",
   "title": "AMD–OpenAI 6GW GPU 공급 + OpenAI에 AMD 주식 최대 1억6천만 주 워런트(정해진 값에 주식을 살 권리)",
   "note": "",
-  "src": "https://www.vlsi.kr/en/ai-circular-investment-loop-en/"
+  "src": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-10-07",
@@ -110,7 +127,9 @@
   "kind": "base",
   "title": "기준시점: Bloomberg 그림 공개",
   "note": "이 날 종가를 100으로 둔다",
-  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals"
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "tier": "그림",
+  "recent": false
  },
  {
   "date": "2025-11-13",
@@ -122,7 +141,9 @@
   "kind": "vc",
   "title": "Anysphere(Cursor) 23억 달러 조달, 기업가치 293억 달러(Nvidia·Google 참여)",
   "note": "",
-  "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/"
+  "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2025-11-18",
@@ -134,7 +155,9 @@
   "kind": "investment",
   "title": "Microsoft·Nvidia, Anthropic에 최대 50억·100억 달러 투자 / Anthropic, Azure 300억 달러 구매",
   "note": "",
-  "src": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships"
+  "src": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-12-03",
@@ -145,7 +168,9 @@
   "kind": "services",
   "title": "Snowflake–Anthropic 2억 달러 다년 계약",
   "note": "실적 발표 직후 공개",
-  "src": "https://snowflake.com/en/news/press-releases/snowflake-and-anthropic-announce-200-million-partnership-to-bring-agentic-ai-to-global-enterprises/"
+  "src": "https://snowflake.com/en/news/press-releases/snowflake-and-anthropic-announce-200-million-partnership-to-bring-agentic-ai-to-global-enterprises/",
+  "tier": "1차",
+  "recent": false
  },
  {
   "date": "2025-12-10",
@@ -156,7 +181,9 @@
   "kind": "services",
   "title": "Oracle 2분기 실적: 설비투자 확대(연간 약 500억 달러 전망), 주가 11% 하락",
   "note": "장 마감 뒤 발표",
-  "src": "https://fortune.com/2025/12/11/oracle-earnings-stock-falls-11-percent-why-investors-disappointed-data-centers-cloud/"
+  "src": "https://fortune.com/2025/12/11/oracle-earnings-stock-falls-11-percent-why-investors-disappointed-data-centers-cloud/",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2025-12-24",
@@ -167,7 +194,9 @@
   "kind": "hardware",
   "title": "Nvidia–Groq 추론 기술 비독점 라이선스(약 200억 달러 보도)",
   "note": "크리스마스 이브 단축장, 다음 거래일 기준",
-  "src": "https://techcrunch.com/2025/12/24/nvidia-acquires-ai-chip-challenger-groq-for-20b-report-says/"
+  "src": "https://techcrunch.com/2025/12/24/nvidia-acquires-ai-chip-challenger-groq-for-20b-report-says/",
+  "tier": "언론",
+  "recent": false
  },
  {
   "date": "2026-01-06",
@@ -177,8 +206,164 @@
   ],
   "kind": "vc",
   "title": "xAI 시리즈 E 200억 달러(Nvidia 참여)",
-  "note": "발표 시각 불명확, 다음 거래일 기준",
-  "approx": true,
-  "src": "https://multiples.vc/private-comps/xai"
+  "note": "미국 장 마감 뒤 발표, 다음 거래일 기준",
+  "src": "https://x.ai/news/series-e",
+  "tier": "1차",
+  "recent": false
+ },
+ {
+  "date": "2026-01-14",
+  "react": "2026-01-15",
+  "tickers": [],
+  "kind": "services",
+  "recent": true,
+  "title": "OpenAI–Cerebras 750MW 컴퓨팅 계약(100억 달러 이상 보도)",
+  "note": "상장사 반응 대상 아님",
+  "src": "https://techcrunch.com/2026/01/14/openai-signs-deal-reportedly-worth-10-billion-for-compute-from-cerebras/",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-02-01",
+  "react": "2026-02-02",
+  "tickers": [
+   "ORCL"
+  ],
+  "kind": "services",
+  "recent": true,
+  "title": "Oracle, 2026년 최대 500억 달러 부채·주식 조달 계획 발표",
+  "note": "일요일 밤 발표, 월요일 반응",
+  "src": "https://fortune.com/2026/02/02/why-did-oracle-stock-fall-openai-exposure-nvidia-microsoft/",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-02-02",
+  "react": "2026-02-02",
+  "tickers": [
+   "SNOW"
+  ],
+  "kind": "services",
+  "recent": true,
+  "title": "Snowflake–OpenAI 2억 달러 다년 계약",
+  "note": "",
+  "src": "https://investors.snowflake.com/news/news-details/2026/Snowflake-and-OpenAI-Forge-200-Million-Partnership-to-Bring-Enterprise-Ready-AI-to-the-Worlds-Most-Trusted-Data-Platform/default.aspx",
+  "tier": "1차"
+ },
+ {
+  "date": "2026-02-02",
+  "react": "2026-02-03",
+  "tickers": [],
+  "kind": "acquisition",
+  "recent": true,
+  "title": "SpaceX, xAI 인수(xAI 2,500억 달러 평가 보도)",
+  "note": "상장사 반응 대상 아님",
+  "src": "https://news.bloomberglaw.com/tech-and-telecom-law/elon-musks-spacex-said-to-combine-with-xai-ahead-of-mega-ipo",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-02-27",
+  "react": "2026-02-27",
+  "tickers": [
+   "NVDA"
+  ],
+  "kind": "investment",
+  "recent": true,
+  "title": "OpenAI 1,100억 달러 조달 발표(Nvidia 300억·Amazon 500억 달러 참여 보도)",
+  "note": "2025-09 의향서 대신 지분 투자",
+  "src": "https://builtin.com/articles/openai-raises-110b-730b-valuation-20260227",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-04-24",
+  "react": "2026-04-24",
+  "tickers": [
+   "GOOGL"
+  ],
+  "kind": "investment",
+  "recent": true,
+  "title": "Alphabet, Anthropic에 최대 400억 달러 투자(100억 달러 우선)",
+  "note": "",
+  "src": "https://www.thestar.com.my/tech/tech-news/2026/04/25/google-plans-to-invest-up-to-40-billion-in-anthropic-bloomberg-news-reports",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-04-28",
+  "react": "2026-04-28",
+  "tickers": [
+   "ORCL",
+   "CRWV",
+   "NVDA",
+   "AMD"
+  ],
+  "kind": "services",
+  "recent": true,
+  "title": "WSJ 보도: OpenAI가 내부 사용자·매출 목표에 못 미침",
+  "note": "보도일 기준",
+  "src": "https://www.brecorder.com/news/amp/40418678",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-06-16",
+  "react": "2026-06-16",
+  "tickers": [],
+  "kind": "acquisition",
+  "recent": true,
+  "title": "SpaceX, Cursor(Anysphere) 600억 달러 주식 인수 합의(3분기 종결 예정)",
+  "note": "상장사 반응 대상 아님(SPCX 미수집)",
+  "src": "https://techcrunch.com/2026/06/16/spacex-to-acquire-cursor-for-60b-in-stock-days-after-blockbuster-ipo/",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-11-12",
+  "react": "2026-11-12",
+  "tickers": [
+   "NVDA"
+  ],
+  "kind": "governance",
+  "recent": true,
+  "title": "Nvidia CEO 교체 발표(젠슨 황 사임, 콜레트 크레스 임시 CEO) — 8-K",
+  "note": "장 시작 전 발표",
+  "src": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+  "tier": "1차"
+ },
+ {
+  "date": "2026-11-17",
+  "react": "2026-11-18",
+  "tickers": [
+   "NVDA"
+  ],
+  "kind": "earnings",
+  "recent": true,
+  "title": "Nvidia 3분기(FY27) 실적: 매출 1,158억 달러(+103%) — 8-K",
+  "note": "장 마감 뒤 발표",
+  "src": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm",
+  "tier": "1차"
+ },
+ {
+  "date": "2026-11-19",
+  "react": "2026-11-19",
+  "tickers": [
+   "MSFT",
+   "NVDA",
+   "GOOGL"
+  ],
+  "kind": "ipo",
+  "recent": true,
+  "title": "Anthropic 나스닥 상장(ANT, 공모가 83달러)",
+  "note": "투자사 반응 비교용",
+  "src": "https://www.aljazeera.com/economy/2026/11/19/anthropic-starts-trading-in-the-us-after-blockbuster-ipo",
+  "tier": "언론"
+ },
+ {
+  "date": "2026-11-20",
+  "react": "2026-11-20",
+  "tickers": [
+   "NVDA"
+  ],
+  "kind": "report",
+  "recent": true,
+  "title": "로이터 보도: SEC가 Nvidia 회계를 들여다보는 중",
+  "note": "보도 기준, SEC는 논평 거부",
+  "src": "https://www.fool.com/investing/2026/11/20/nvidia-stock-plunge-wipes-out-nearly-usd500-billion-in-one-day-as-sec-reportedly-probes-its-accounting/",
+  "tier": "언론"
  }
 ]

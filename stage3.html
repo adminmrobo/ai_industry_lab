@@ -4,9 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>③ 거시환경·현금흐름과 주가 3D · AI 산업 연구실</title>
+<meta name="description" content="컨센서스, 금리·물가·고용과 주가의 3D 궤적, 롤링 상관 곡면, 기업 현금흐름과 연준 Z.1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="③ 거시·현금흐름과 AI 주가 3D">
+<meta property="og:description" content="컨센서스, 금리·물가·고용과 주가의 3D 궤적, 롤링 상관 곡면, 기업 현금흐름과 연준 Z.1">
+<meta property="og:url" content="https://adminmrobo.github.io/ai_industry_lab/stage3.html">
+<meta property="og:image" content="https://adminmrobo.github.io/ai_industry_lab/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<script src="assets/vendor/plotly.min.js"></script>
-<script src="assets/common.js"></script>
+<script src="assets/vendor/plotly.min.js" defer></script>
+<script src="assets/common.js" defer></script>
 </head>
 <body>
 <header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
@@ -39,6 +47,10 @@
     <button class="chip" id="anim">▶ 시간 따라 그리기</button>
   </div>
   <div id="traj" class="chart x3d"></div>
+  <div class="readx" id="readx"></div>
+  <details class="tbl"><summary>표로 보기 · CSV 내려받기(지금 고른 기업·변수)</summary>
+    <div class="btnrow"><button class="chip" id="csv3">CSV 내려받기</button></div>
+    <div class="tablewrap"><table class="data" id="t3"></table></div></details>
   <div class="grid g2">
     <div><h3 style="margin-top:6px">같은 기간 2D로 펼쳐 보기: X 변수</h3><div id="flatX" class="chart" style="min-height:240px"></div></div>
     <div><h3 style="margin-top:6px">주가</h3><div id="flatZ" class="chart" style="min-height:240px"></div></div>
@@ -54,12 +66,20 @@
     <label>Y <select id="gy"></select></label>
     <label>기간 <select id="gp"><option value="2018">2018~</option><option value="2022">2022~</option><option value="2024">2024~</option></select></label>
   </div>
+  <div class="controls"><div class="seg" id="gw"><button data-w="group" class="on">동일가중</button><button data-w="group_cw">시가총액 가중</button></div>
+    <span class="small">시가총액 가중은 현재 주식 수가 과거에도 같았다고 놓은 근사입니다(자사주 매입·증자 반영 안 됨).</span></div>
   <div id="gtraj" class="chart x3d"></div>
+  <details class="tbl"><summary>표로 보기 · CSV 내려받기(지금 고른 기업군)</summary>
+    <div class="btnrow"><button class="chip" id="csvg">CSV 내려받기</button></div>
+    <div class="tablewrap"><table class="data" id="tg"></table></div></details>
 
   <h2>4. 시간에 따라 변하는 관계: 롤링 상관 곡면</h2>
   <p class="sub">일별 주가 수익률과 거시 변수의 일별 변화가 최근 60거래일 동안 얼마나 같이 움직였는지(상관계수)를 매주 계산했습니다. <b>파랑</b> = 같은 방향, <b>빨강</b> = 반대 방향, 회색 = 관계 약함.</p>
   <div class="controls"><label>거시 변수 <select id="rv"></select></label><div class="seg" id="rMode"><button data-m="3d" class="on">3D 곡면</button><button data-m="2d">2D 열지도</button></div></div>
   <div id="roll" class="chart x3d"></div>
+  <details class="tbl"><summary>표로 보기(최근 26주) · 전체 CSV 내려받기</summary>
+    <div class="btnrow"><button class="chip" id="csvr">전체 기간 CSV 내려받기</button></div>
+    <div class="tablewrap"><table class="data" id="tr"></table></div></details>
 
   <h2>5. 장기 상관 요약(월간)</h2>
   <p class="sub">2018년 이후 월 수익률과 거시 변수의 월간 변화 사이의 상관계수입니다. 색 블록 하나가 기업×변수 한 쌍이고, 표본(월 수)이 18개 미만이면 비워 두었습니다. 숫자 뒤 <b>*</b>는 5% 수준에서 0과 다르다고 볼 수 있는 값입니다(피셔 z 검정). 여러 쌍을 한꺼번에 검정했으므로 별표가 몇 개 우연히 붙을 수 있습니다.</p>
@@ -96,6 +116,7 @@
     <li>주가·컨센서스·현금흐름표: Yahoo Finance(yfinance). 컨센서스는 수집일 스냅샷이며 매일 <code>data/consensus_history/</code>에 쌓입니다.</li>
     <li>거시: FRED(미 국채 금리, 연방기금금리, 미시간대 소비자심리, 비농업 고용, 실업률, CPI, VIX, 하이일드 스프레드, 달러 지수), 연준 Z.1(비금융기업 설비투자·총저축·부채). 소비자신뢰지수는 Conference Board 지수가 유료라서 미시간대 소비자심리지수로 대신했습니다.</li>
     <li>월간 값: 금리·VIX·스프레드·달러는 월평균, 소비자심리·고용·물가는 해당 월 값. 고용·물가는 다음 달 중순에 발표되므로 시장이 그 값을 알게 되는 시점은 한 달쯤 늦습니다.</li>
+    <li>Anthropic은 2026-11-19에 상장(ANT)해 주가 이력이 짧아 이 페이지의 주가 분석에서는 뺐습니다.</li>
     <li>CoreWeave(2025-03 상장)·Nebius(2024-10 재상장)·Snowflake(2020-09 상장)는 이력이 짧아 상관계수가 불안정합니다. 이 종목들이 들어간 기업군 지수는 편입 시점에 구성이 바뀝니다.</li>
     <li>설비투자 ÷ 영업현금 비교는 회사마다 회계연도 말이 달라(예: Oracle 5월, Microsoft 6월, Nvidia 1월) 같은 시기를 비교한 것이 아닙니다. 막대 아래에 회계연도 말을 적었습니다.</li>
     <li>좁은 화면에서는 3D 대신 2D를 먼저 보여 주고, 단추를 누르면 3D를 그립니다.</li>
@@ -103,7 +124,7 @@
   </ul>
 </main>
 <footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 데이터: Yahoo Finance, FRED, Federal Reserve Z.1 · 참고: 현금흐름 연구실, 돈의 경맥</div></footer>
-<script>
+<script type="module">
 siteHeader("stage3.html");
 let S;
 const SEQ = [[0, "#cde2fb"], [0.5, "#5598e7"], [1, "#0d366b"]];
@@ -164,8 +185,9 @@ function consensus() {
 }
 
 // ---------------------------------------------------------------- 공통: 월별 시계열 꺼내기
+let GW = "group"; // 기업군 가중 방식: group(동일가중) / group_cw(시가총액 가중)
 function seriesOf(key) { // 기업 티커 또는 기업군 이름
-  return S.monthly.price[key] || S.monthly.group[key];
+  return S.monthly.price[key] || S.monthly[GW][key];
 }
 function zTransform(arr, mode) {
   if (mode === "log") return arr.map((v) => (v > 0 ? Math.log10(v) : null));
@@ -204,7 +226,11 @@ function mobileGate(id, k, redraw) {
   document.getElementById(id + "-btn").onclick = () => { show3d[k] = true; document.getElementById(id).innerHTML = ""; redraw(); };
 }
 function draw3d(upto) {
-  if (!show3d.traj) { mobileGate("traj", "traj", () => draw3d()); flat(c3.value, x3.value, z3.value, p3.value + "-01"); return; }
+  if (!show3d.traj) {
+    mobileGate("traj", "traj", () => draw3d()); flat(c3.value, x3.value, z3.value, p3.value + "-01");
+    const F = rowsFor(c3.value, x3.value, y3.value, z3.value, p3.value + "-01");
+    t3(F, c3.value, x3.value, y3.value, z3.value); readx(F, c3.value, x3.value, y3.value, z3.value); return;
+  }
   const key = c3.value, xk = x3.value, yk = y3.value, zm = z3.value, from = p3.value + "-01";
   let R = rowsFor(key, xk, yk, zm, from);
   const full = R;
@@ -226,7 +252,7 @@ function draw3d(upto) {
   Plotly.react("traj", traces, L3({ uirevision: key + xk + yk + zm + from,
     scene: { xaxis: { ...ax3(mvLabel(xk)), range: rng("x") }, yaxis: { ...ax3(mvLabel(yk)), range: rng("y") }, zaxis: { ...ax3(zLabel(zm, key)), range: rng("z") },
       camera: { eye: { x: 1.6, y: -1.6, z: 0.9 } }, aspectmode: "cube" } }), PCONF);
-  if (upto == null) flat(key, xk, zm, from);
+  if (upto == null) { flat(key, xk, zm, from); t3(full, key, xk, yk, zm); readx(full, key, xk, yk, zm); }
 }
 function animate3d() {
   const b = document.getElementById("anim");
@@ -242,6 +268,30 @@ function flat(key, xk, zm, from) {
     shapes: [{ type: "line", x0: "2025-10", x1: "2025-10", yref: "paper", y0: 0, y1: 1, line: { color: INK.t3, width: 1, dash: "dot" } }] });
   Plotly.react("flatX", [{ x: idx.map((i) => d[i]), y: idx.map((i) => X[i]), mode: "lines", line: { color: INK.t1, width: 2 }, hovertemplate: `%{x}<br>%{y:.2f}<extra></extra>` }], lay(mvLabel(xk)), PCONF);
   Plotly.react("flatZ", [{ x: idx.map((i) => d[i]), y: idx.map((i) => Z[i]), mode: "lines", line: { color: S.monthly.price[key] ? colorOf(key) : INK.t1, width: 2 }, hovertemplate: `%{x}<br>%{y:.2f}<extra></extra>` }], lay(zLabel(zm, key)), PCONF);
+}
+
+// 3D 표·CSV
+function t3(R, key, xk, yk, zm) {
+  const name = S.names[key] || key, zl = zLabel(zm, key);
+  const head = ["월", mvLabel(xk), mvLabel(yk), `${name} ${zl}`];
+  const rows = R.map((r) => [r.m, r.x.toFixed(2), r.y.toFixed(2), r.z.toFixed(2)]);
+  renderTable(document.getElementById("t3"), head, rows.slice().reverse(), [1, 2, 3]);
+  document.getElementById("csv3").onclick = () => downloadCSV(`3d_${key}_${xk}_${yk}_${zm}.csv`.replace(/[^\w.]+/g, "_"), [head, ...rows]);
+}
+// 읽기 예시: 연도별 경로 요약(데이터로 자동 작성)
+function readx(R, key, xk, yk, zm) {
+  const name = S.names[key] || key, by = {};
+  R.forEach((r) => { (by[r.m.slice(0, 4)] ||= []).push(r); });
+  const yrs = Object.keys(by).sort();
+  const lines = yrs.map((y) => {
+    const a = by[y], ax = a.reduce((s, r) => s + r.x, 0) / a.length, ay = a.reduce((s, r) => s + r.y, 0) / a.length;
+    const z0 = a[0].z, z1 = a.at(-1).z;
+    const dz = zm === "yoy" ? `${z0.toFixed(0)}% → ${z1.toFixed(0)}%` : zm === "log" ? `${(Math.pow(10, z1 - z0) * 100 - 100).toFixed(0)}% 변화` : `${z0.toFixed(1)} → ${z1.toFixed(1)} (${fmt.pct((z1 / z0 - 1) * 100, 0)})`;
+    return `<li><b>${y}년</b>(${a.length}개월): ${S.macro_vars[xk][0]} 평균 ${ax.toFixed(2)}, ${S.macro_vars[yk][0]} 평균 ${ay.toFixed(2)} · 주가 ${dz}</li>`;
+  });
+  document.getElementById("readx").innerHTML = `<b class="t">이 3D를 읽는 법 — 지금 고른 ${name}의 연도별 경로(데이터로 자동 작성)</b>
+    <div class="small">① 바닥의 회색 선은 거시 변수만의 경로, ② 점의 높이는 그때 주가, ③ 같은 바닥 위치에서 높이만 달라졌다면 거시 변수가 비슷한데 주가가 따로 움직였다는 뜻입니다. 이 요약은 '함께 놓였던 값'일 뿐 원인을 말하지 않습니다.</div>
+    <ul>${lines.join("")}</ul>`;
 }
 
 // ---------------------------------------------------------------- 3. 기업군 3D
@@ -260,12 +310,16 @@ function setupGroups() {
   const mv = Object.keys(S.macro_vars).map((k) => [k, S.macro_vars[k][0]]);
   fillSelect("gx", mv, "DGS10"); fillSelect("gy", mv, "UMCSENT");
   ["gx", "gy", "gp"].forEach((id) => document.getElementById(id).onchange = drawG);
+  document.querySelectorAll("#gw button").forEach((b) => b.onclick = () => {
+    document.querySelectorAll("#gw button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); GW = b.dataset.w; drawG(); draw3d();
+  });
   drawG();
 }
 function drawG() {
   if (!show3d.g) { // 모바일: 기업군 지수를 시간축 2D로
     const d = S.monthly.dates, from = gp.value;
-    Plotly.react("gtraj", [...gSel].map((g) => { const v = S.monthly.group[g]; const idx = d.map((m, i) => (m >= from ? i : -1)).filter((i) => i >= 0);
+    gTable();
+    Plotly.react("gtraj", [...gSel].map((g) => { const v = S.monthly[GW][g]; const idx = d.map((m, i) => (m >= from ? i : -1)).filter((i) => i >= 0);
       return { x: idx.map((i) => d[i]), y: idx.map((i) => v[i]), name: g.split("(")[0], mode: "lines", line: { color: GROUP_STYLE[g][0], dash: GROUP_STYLE[g][1], width: 2 } }; }),
       baseLayout({ height: 340, yaxis: { type: "log", gridcolor: INK.grid, tickvals: [50, 100, 200, 500, 1000, 2000, 5000] }, legend: { orientation: "h", y: 1.15 } }), PCONF);
     const box = document.getElementById("gtraj");
@@ -283,8 +337,18 @@ function drawG() {
     const b = R.find((r) => r.m >= "2025-10");
     if (b) traces.push({ type: "scatter3d", mode: "markers", x: [b.x], y: [b.y], z: [b.z], marker: { symbol: "diamond", size: 6, color: c }, hoverinfo: "skip" });
   });
-  Plotly.react("gtraj", traces, L3({ uirevision: "g", scene: { xaxis: ax3(mvLabel(xk)), yaxis: ax3(mvLabel(yk)), zaxis: { ...ax3("기업군 지수(처음=100, 로그)"), type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] },
+  gTable();
+  Plotly.react("gtraj", traces, L3({ uirevision: "g", scene: { xaxis: ax3(mvLabel(xk)), yaxis: ax3(mvLabel(yk)), zaxis: { ...ax3(`기업군 지수(${GW === "group" ? "동일가중" : "시총가중"}, 로그)`), type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] },
     camera: { eye: { x: 1.6, y: -1.6, z: 0.9 } }, aspectmode: "cube" } }), PCONF);
+}
+
+function gTable() {
+  const d = S.monthly.dates, from = gp.value, gs = [...gSel];
+  const idx = d.map((m, i) => (m >= from ? i : -1)).filter((i) => i >= 0);
+  const head = ["월", mvLabel(gx.value), mvLabel(gy.value), ...gs.map((g) => `${g.split("(")[0]}(${GW === "group" ? "동일가중" : "시총가중"})`)];
+  const rows = idx.map((i) => [d[i], S.monthly.macro[gx.value][i]?.toFixed(2), S.monthly.macro[gy.value][i]?.toFixed(2), ...gs.map((g) => S.monthly[GW][g][i]?.toFixed(1))]);
+  renderTable(document.getElementById("tg"), head, rows.slice().reverse(), head.map((_, i) => i).slice(1));
+  document.getElementById("csvg").onclick = () => downloadCSV(`group_${GW}_${gx.value}_${gy.value}.csv`, [head, ...rows]);
 }
 
 // ---------------------------------------------------------------- 4. 롤링 상관 곡면
@@ -301,6 +365,10 @@ function setupRoll() {
 function drawRoll() {
   const R = S.roll[rv.value], tick = EQ(), names = tick.map((t) => `${S.names[t]}${isImg(t) ? "" : " ·영상"}`);
   const z = tick.map((t) => R.z[t]);
+  const head = ["주", ...tick];
+  const all = R.dates.map((dt, i) => [dt, ...tick.map((t) => R.z[t][i]?.toFixed(3))]);
+  renderTable(document.getElementById("tr"), ["주(금요일)", ...tick.map((t) => S.names[t])], all.slice(-26).reverse(), tick.map((_, i) => i + 1));
+  document.getElementById("csvr").onclick = () => downloadCSV(`rolling60_${rv.value}.csv`.replace(/[^\w.]+/g, "_"), [head, ...all]);
   const hov = `%{y}<br>%{x}<br>60일 상관 %{z:.2f}<extra></extra>`;
   if (rMode === "3d") {
     Plotly.react("roll", [{ type: "surface", x: R.dates, y: names, z, colorscale: DIV, cmin: -0.8, cmax: 0.8, hovertemplate: hov,
