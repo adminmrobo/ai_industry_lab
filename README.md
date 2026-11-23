@@ -3,6 +3,8 @@
 Bloomberg의 「How Nvidia and OpenAI Fuel the AI Money Machine」(2025-10) 그림을 기준점으로,
 AI 기업에 돈이 몰리는 길을 **주가 → 회사 간 관계망 → 거시환경·현금흐름** 세 겹으로 읽는 대시보드입니다.
 
+**사이트: https://adminmrobo.github.io/ai_industry_lab/**
+
 | 페이지 | 내용 |
 |---|---|
 | `index.html` | 개요와 읽는 원칙 |
