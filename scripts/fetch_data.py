@@ -67,11 +67,35 @@ def fetch_prices():
     df = yf.download(ALL, start="2018-01-01", auto_adjust=True, progress=False, group_by="column", threads=True)
     close = df["Close"].copy()
     vol = df["Volume"].copy()
+    # 통째로 빈 종목은 하나씩 다시 받는다(Yahoo가 가끔 일부 종목을 비워 보냄)
+    empty = [t for t in ALL if t not in close.columns or close[t].dropna().empty]
+    for t in empty:
+        for _ in range(3):
+            try:
+                one = yf.download(t, start="2018-01-01", auto_adjust=True, progress=False)
+                c = one["Close"].squeeze()
+                if not c.dropna().empty:
+                    close[t] = c
+                    vol[t] = one["Volume"].squeeze()
+                    break
+            except Exception:  # noqa: BLE001
+                pass
+            time.sleep(3)
     close.index = close.index.strftime("%Y-%m-%d")
     vol.index = vol.index.strftime("%Y-%m-%d")
-    close.round(4).to_csv(DATA / "prices.csv", index_label="date")
-    vol.to_csv(DATA / "volumes.csv", index_label="date")
-    log("prices", True, f"{close.shape[0]} rows, last {close.index[-1]}")
+    # 그래도 빈 값은 이전에 저장한 값으로 메운다(새 값이 있으면 새 값 우선)
+    for name, frame in (("prices.csv", close), ("volumes.csv", vol)):
+        path = DATA / name
+        if path.exists():
+            old = pd.read_csv(path, index_col=0)
+            old.index = old.index.astype(str)
+            frame = frame.combine_first(old)
+        frame = frame.sort_index()
+        (frame.round(4) if name == "prices.csv" else frame).to_csv(path, index_label="date")
+        if name == "prices.csv":
+            close = frame
+    still = [t for t in ALL if t not in close.columns or close[t].dropna().empty]
+    log("prices", not still, f"{close.shape[0]} rows, last {close.index[-1]}; retried {empty}; still empty {still}")
 
 
 def fetch_consensus_and_cashflow():

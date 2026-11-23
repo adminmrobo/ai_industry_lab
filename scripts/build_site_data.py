@@ -110,8 +110,8 @@ for g, mem in GROUPS.items():
     idx.iloc[0] = 100.0
     grp[g] = idx
 grp = pd.DataFrame(grp)
-first_month = {t: mp[t].first_valid_index().strftime("%Y-%m") for t in eq}
-group_entries = {g: [{"ticker": t, "month": first_month[t]} for t in mem if first_month[t] > "2018-01"] for g, mem in GROUPS.items()}
+first_month = {t: (mp[t].first_valid_index().strftime("%Y-%m") if mp[t].first_valid_index() is not None else "9999-12") for t in eq}
+group_entries = {g: [{"ticker": t, "month": first_month[t]} for t in mem if "2018-01" < first_month[t] < "9999"] for g, mem in GROUPS.items()}
 
 mm = pd.DataFrame(index=mp.index)
 for sid in ["DGS10", "DGS2", "DGS3MO", "DFF", "T10Y2Y", "VIXCLS", "BAMLH0A0HYM2", "DTWEXBGS"]:
