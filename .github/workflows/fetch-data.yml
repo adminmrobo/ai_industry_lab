@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/fetch_data.py"
+      - "scripts/*.py"
       - ".github/workflows/fetch-data.yml"
   schedule:
     - cron: "17 22 * * 1-5"   # 평일 22:17 UTC (미국장 마감 후, 한국 아침 7:17)
@@ -27,9 +27,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install
-        run: pip install --quiet yfinance pandas requests
+        run: pip install --quiet yfinance pandas numpy requests
       - name: Fetch
         run: python scripts/fetch_data.py
+      - name: Build page data
+        run: |
+          python scripts/static_data.py
+          python scripts/build_site_data.py
       - name: Commit data
         run: |
           # 커밋 작성자는 저장소 주인(마지막 사람 커밋의 작성자)과 같게 둔다

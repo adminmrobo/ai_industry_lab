@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 산업 연구실 · 순환 거래, 가치사슬, 거시환경으로 본 AI 기업</title>
+<meta name="description" content="Bloomberg의 AI 순환 거래 그림을 기준점으로, 주가·가치사슬 관계망·거시환경 3D 차트로 AI 기업을 읽는 대시보드">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/common.js"></script>
+<style>
+  .stage { display: block; color: inherit; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; transition: border-color .15s; }
+  .stage:hover { border-color: var(--text-1); text-decoration: none; }
+  .stage .no { font-size: 13px; color: var(--text-3); }
+  .stage h3 { margin: 4px 0 8px; font-size: 19px; }
+  .stage ul { margin: 8px 0 0; padding-left: 18px; color: var(--text-2); font-size: 14px; }
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }
+  .flow div { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; background: var(--surface-2); font-size: 14px; }
+  .flow b { display: block; font-size: 15px; margin-bottom: 2px; }
+  @media (max-width: 860px) { .flow { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
+<main>
+  <h1>AI 기업에 돈이 몰리는 길을, 세 겹으로 읽는다</h1>
+  <p class="lead">2025년 10월 Bloomberg가 그린 「How Nvidia and OpenAI Fuel the AI Money Machine」은 Nvidia·OpenAI·Microsoft·Oracle·AMD 등이 서로 투자하고, 그 돈으로 서로의 칩과 클라우드를 사는 <b>순환 거래</b>를 한 장에 담았습니다. 이 사이트는 그 그림을 기준점으로 삼아 <b>주가</b>, <b>회사 간 관계망</b>, <b>거시환경과 현금흐름</b>의 순서로 넓혀 봅니다.</p>
+  <p class="small" id="updated"></p>
+
+  <div class="flow">
+    <div><b>미시: 거래</b>투자·칩 구매·클라우드 계약 발표가 주가에 어떻게 반영됐나</div>
+    <div><b>산업: 가치사슬</b>칩→클라우드→모델→응용·로봇으로 이어진 57개사 관계망</div>
+    <div><b>거시: 환경</b>금리·소비자심리·고용·물가 속에서 주가가 지나온 길</div>
+    <div><b>현금흐름</b>이익이 아닌 통장에 찍힌 돈, 그리고 미국 기업 부문의 자금 부족</div>
+  </div>
+
+  <div class="grid g3">
+    <a class="stage" href="stage1.html">
+      <div class="no">① 기준시점 ±3개월</div>
+      <h3>그림 공개일 전후 주가와 거래 발표</h3>
+      <div id="k1" class="muted">불러오는 중…</div>
+      <ul><li>7개 상장사 주가(기준일=100)</li><li>거래 발표 15건의 초과 수익률</li><li>비상장 5개사 기업가치 계단</li></ul>
+    </a>
+    <a class="stage" href="stage2.html">
+      <div class="no">② 50개사·관계망</div>
+      <h3>영상 50개사 + 그림 15개사의 연결</h3>
+      <div id="k2" class="muted">불러오는 중…</div>
+      <ul><li>57개사 사업·특징 표</li><li>층 간 연결 행렬(산업 단위)</li><li>정적 가치사슬 지도 + 움직이는 관계망</li></ul>
+    </a>
+    <a class="stage" href="stage3.html">
+      <div class="no">③ 거시·현금흐름 3D</div>
+      <h3>컨센서스와 거시환경 속 주가의 길</h3>
+      <div id="k3" class="muted">불러오는 중…</div>
+      <ul><li>현재가·목표주가·투자의견</li><li>개별·기업군 3D 궤적, 롤링 상관 곡면</li><li>기업 현금흐름, 연준 Z.1 자금 부족</li></ul>
+    </a>
+  </div>
+
+  <h2>이 사이트를 읽는 원칙</h2>
+  <ol class="steps">
+    <li><b>관계의 이력이지 인과가 아니다.</b> 거래 발표와 주가, 거시 변수와 주가를 나란히 보여 줄 뿐 "무엇 때문에 올랐다"고 말하지 않습니다.</li>
+    <li><b>수준보다 변화로 비교한다.</b> 추세가 있는 값끼리는 우연히 강한 관계처럼 보이기 쉬워서, 상관 분석은 수익률·변화량으로 합니다.</li>
+    <li><b>출처가 있는 관계만 그린다.</b> 관계망의 모든 선에는 출처 링크가 붙어 있습니다. 연결이 없다고 거래가 없다는 뜻은 아닙니다.</li>
+    <li><b>평가 변동은 현금이 아니다.</b> 주가로 불어난 기업가치와 실제로 들어오고 나간 현금을 구분합니다.</li>
+  </ol>
+
+  <h2>함께 보면 좋은 글</h2>
+  <div class="grid g2">
+    <a class="card" href="https://adminmrobo.github.io/cashflow-lab/" target="_blank" rel="noopener"><b>현금흐름 연구실</b><div class="small">이익과 현금이 왜 다르게 움직이는지, 적자 기업의 현금이 어디서 오는지 — ③의 기업 현금흐름 패널을 읽는 법</div></a>
+    <a class="card" href="https://adminmrobo.github.io/fof-money-meridian-/" target="_blank" rel="noopener"><b>돈의 경맥: 자금순환으로 읽는 거시경제</b><div class="small">자금순환표로 돈이 어디에 고이고 막히는지 읽는 법 — ③의 연준 Z.1 패널을 읽는 법</div></a>
+  </div>
+
+  <h2>데이터와 갱신</h2>
+  <ul class="small">
+    <li>주가·컨센서스·현금흐름표: Yahoo Finance / 거시: FRED, 연준 Z.1 / 거래·기업가치·관계: 각 항목의 출처 링크.</li>
+    <li>GitHub Actions가 평일 아침(한국 시간 7시 무렵) 데이터를 새로 받고 페이지용 데이터를 다시 계산합니다. 컨센서스는 날마다 쌓여 이력이 됩니다.</li>
+    <li>기업 목록: Bloomberg 그림(2025-10)과 영상 「50 AI Companies You Should Know」. 원본 그림은 저작권 때문에 이 사이트에 싣지 않았습니다(<a href="https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals" target="_blank" rel="noopener">Bloomberg 원문</a>).</li>
+    <li>교육·연구용 자료이며 투자 권유가 아닙니다.</li>
+  </ul>
+</main>
+<footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · <a href="https://adminmrobo.github.io/who_am_i/who_am_i.html" target="_blank" rel="noopener">저자 소개</a> · 저장소 <a href="https://github.com/adminmrobo/ai_industry_lab" target="_blank" rel="noopener">adminmrobo/ai_industry_lab</a></div></footer>
+<script>
+siteHeader("index.html");
+(async () => {
+  try {
+    const [m, s1, s2, s3] = await Promise.all(["meta", "stage1", "stage2", "stage3"].map((n) => loadJSON(`data/site/${n}.json`)));
+    setUpdated(document.getElementById("updated"), m);
+    const post = s1.tickers.map((t) => s1.summary[t].post_pct), avg = post.reduce((a, b) => a + b, 0) / post.length;
+    const up = s1.tickers.filter((t) => s1.summary[t].post_pct > 0).length;
+    document.getElementById("k1").innerHTML = `기준일 뒤 3개월 평균 <b class="${cls(avg)}">${fmt.pct(avg)}</b> · 7곳 중 ${up}곳 상승`;
+    document.getElementById("k2").innerHTML = `<b>${s2.companies.length}개사</b> · 출처 있는 관계 <b>${s2.edges.length}건</b>`;
+    const ups = s3.consensus.rows.filter((r) => r.group === "image" && r.upside_pct != null).map((r) => r.upside_pct);
+    document.getElementById("k3").innerHTML = `그림 7개사 평균 목표주가 상승 여력 <b>${fmt.pct(ups.reduce((a, b) => a + b, 0) / ups.length)}</b>`;
+  } catch (e) { console.error(e); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>② 50개사 정리와 가치사슬 관계망 · AI 산업 연구실</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/plotly.min.js"></script>
+<script src="assets/vendor/d3.min.js"></script>
+<script src="assets/common.js"></script>
+<style>
+  #map svg, #net svg { width: 100%; display: block; }
+  .node text { font-size: 11px; fill: #0b0b0b; pointer-events: none; }
+  .lane-title { font-size: 12px; font-weight: 700; fill: #52514e; }
+  .lane-bg { fill: #f7f7f5; }
+  .dim { opacity: .12; }
+  #net { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--text-2); margin: 6px 0; }
+  .legend-row span { display: inline-flex; align-items: center; gap: 6px; }
+  svg.ln { width: 26px; height: 8px; }
+</style>
+</head>
+<body>
+<header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
+<main>
+  <h1>② 영상 속 50개사와 그림 속 15개사, 어떻게 이어져 있나</h1>
+  <p class="lead">영상 「50 AI Companies You Should Know」의 50개사 가운데 그림(Bloomberg)과 겹치는 8개사를 뺀 <b>42개사</b>를 그림 속 <b>15개사</b>와 합쳐 모두 <b>57개사</b>를 정리했습니다. 사업과 특징을 표로 보고, 회사 사이의 돈·칩·클라우드 거래를 가치사슬 지도와 움직이는 관계망으로 봅니다.</p>
+
+  <div class="grid g4" id="tiles"></div>
+
+  <div class="note"><b>'산업연관'이라는 말에 대해.</b> 산업연관표(미국 BEA 투입산출표 등)는 <b>산업 단위</b>로만 만들어지고 회사 단위 표는 없습니다. 그래서 여기서는 공개된 거래(투자·구매·서비스 계약·인수)를 모은 <b>회사 간 계약 관계망</b>을 그리고, 이를 층(칩→클라우드→모델→응용)별로 합친 <b>층 간 연결 행렬</b>을 산업 단위 요약으로 함께 보여 줍니다.</div>
+
+  <h2>57개사 사업·특징 표</h2>
+  <div class="controls">
+    <input type="search" id="q" placeholder="회사·사업 검색">
+    <label>층 <select id="fLayer"><option value="">전체</option></select></label>
+    <label>소속 <select id="fGroup"><option value="">전체</option><option value="image">그림에만</option><option value="both">그림+영상</option><option value="video">영상에만</option></select></label>
+    <span class="small" id="cnt"></span>
+  </div>
+  <div class="tablewrap"><table class="data" id="coTable"></table></div>
+  <p class="small">층: 칩(반도체) · 클라우드(데이터센터·GPU 임대) · 빅테크(플랫폼) · 모델(기초 모델 연구소) · 응용(서비스) · 로봇(로봇·자율주행) · 인프라(데이터·개발 도구). 상장 여부는 본사 기준이며, 자회사는 모회사 티커를 적었습니다. 연결 수 = 아래 관계망에서 이 회사가 들어간 관계의 수.</p>
+
+  <h2>층 간 연결 행렬(산업 단위 요약)</h2>
+  <p class="sub">행은 돈이 나가는 층, 열은 돈을 받는 층입니다. 숫자는 관계(계약·투자) 건수입니다.</p>
+  <div class="controls"><div class="seg" id="mxKind"><button data-k="" class="on">전체</button><button data-k="money">투자</button><button data-k="hardware">칩·하드웨어</button><button data-k="services">서비스·클라우드</button></div></div>
+  <div id="matrix" class="chart"></div>
+
+  <h2>가치사슬 지도(정적)</h2>
+  <p class="sub">왼쪽에서 오른쪽으로 칩 → 클라우드 → 빅테크·모델 → 응용·로봇·인프라 순서로 놓았습니다. 회사에 마우스를 올리면 그 회사의 관계만 남습니다. <b>굵은 테두리</b> = 그림 속 회사.</p>
+  <div class="legend-row" id="edgeLegend"></div>
+  <div id="map"></div>
+
+  <h2>움직이는 관계망(동적)</h2>
+  <p class="sub">원 크기는 연결 수입니다. 회사를 누르면 그 회사와 바로 이어진 회사만 남고, 빈 곳을 누르면 다시 전체가 보입니다. 시간 막대를 움직이면 그 날짜까지 발표된 관계만 쌓여서 보입니다.</p>
+  <div class="controls">
+    <label>범위 <select id="nScope"><option value="all">57개사 전체</option><option value="figure">그림에 그려진 관계만</option><option value="outside">그림 밖 관계만</option></select></label>
+    <label><input type="checkbox" id="showIso"> 연결 없는 회사도 보기</label>
+    <span id="kindChips"></span>
+  </div>
+  <div class="controls">
+    <label style="flex:1;min-width:260px">시간 <input type="range" id="tSlider" min="0" max="100" value="100" style="flex:1"></label>
+    <span class="small" id="tLabel"></span>
+    <button class="chip" id="play">▶ 재생</button>
+  </div>
+  <div id="net"></div>
+  <p class="small">그림에만 근거가 있는 관계(출처 = Bloomberg 그림)는 날짜가 대략값입니다. 표의 '날짜 대략' 열을 함께 보세요.</p>
+
+  <h3>직접 거래가 확인되지 않은 회사</h3>
+  <p class="sub" id="isolated"></p>
+
+  <h2>관계 목록(출처)</h2>
+  <details class="tbl" open><summary>61개 관계 펼치기/접기</summary><div class="tablewrap"><table class="data" id="edTable"></table></div></details>
+
+  <h2>데이터와 방법</h2>
+  <ul class="small">
+    <li>화살표 방향은 <b>돈이 나가는 쪽 → 받는 쪽</b>입니다. 투자는 투자자→피투자사, 구매는 구매자→판매자.</li>
+    <li>Bloomberg 그림에 그려진 관계는 그림 표기를 그대로 따랐고(일부는 방향·성격이 그림상 표기), 그림 밖 관계는 출처 URL이 있는 것만 넣었습니다.</li>
+    <li>Alphabet 계열(Google 투자 포함)은 영상 목록에 있는 Google DeepMind 노드로 묶었습니다. Meta 투자는 Meta AI 노드로 묶었습니다.</li>
+    <li>관계망은 '공개된 거래'만 담기 때문에, 연결이 없다고 거래가 없다는 뜻은 아닙니다.</li>
+  </ul>
+</main>
+<footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 기업 목록: 영상 「50 AI Companies You Should Know」, Bloomberg News reporting (2025-10) · 관계 출처: 표의 링크</div></footer>
+<div class="tooltip" id="tt"></div>
+<script>
+siteHeader("stage2.html");
+const LAYER = { chip: "칩", cloud: "클라우드", bigtech: "빅테크", model: "모델", app: "응용", robot: "로봇", infra: "인프라" };
+const LAYER_ORDER = ["chip", "cloud", "bigtech", "model", "app", "robot", "infra"];
+const GROUP = { image: "그림에만", both: "그림+영상", video: "영상에만" };
+// 간선 색: 서비스(파랑)·칩/하드웨어(주황)·투자(청록) + 그 밖(회색 점선). 벤처 투자는 청록 점선.
+const KIND = {
+  services: { t: "서비스·클라우드 구매", c: PAL.s1, d: "" },
+  hardware: { t: "칩·하드웨어 구매", c: PAL.s2, d: "" },
+  investment: { t: "지분 투자", c: PAL.s3, d: "" },
+  vc: { t: "벤처 투자", c: PAL.s3, d: "5,4" },
+  acquisition: { t: "인수·라이선스", c: "#6b6a65", d: "2,3" },
+  partnership: { t: "제휴·판매 계약", c: "#6b6a65", d: "8,4" },
+  ownership: { t: "같은 모회사", c: "#b0afa9", d: "1,3" },
+};
+const tt = document.getElementById("tt");
+let D, byId, deg = {};
+
+(async () => {
+  D = await loadJSON("data/site/stage2.json");
+  byId = Object.fromEntries(D.companies.map((c) => [c.id, c]));
+  D.companies.forEach((c) => deg[c.id] = 0);
+  D.edges.forEach((e) => { deg[e.source]++; deg[e.target]++; });
+  tiles(); table(); matrix(""); legend(); drawMap(); netInit(); edgeTable();
+  const iso = D.companies.filter((c) => !deg[c.id]).map((c) => c.name);
+  document.getElementById("isolated").textContent = `${iso.length}개사: ${iso.join(", ")}. 이 회사들은 이번 정리에서 출처로 확인한 직접 거래가 없어 관계망에 연결선이 없습니다.`;
+})();
+
+function tiles() {
+  const listed = D.companies.filter((c) => c.ticker).length;
+  const fig = D.edges.filter((e) => e.in_figure).length;
+  document.getElementById("tiles").innerHTML = [
+    ["전체 회사", D.companies.length + "개", "그림 15 + 영상에만 42"],
+    ["그림·영상 둘 다", D.companies.filter((c) => c.group === "both").length + "개", "OpenAI·Nvidia·AMD·Intel·xAI·Mistral·Figure·Harvey"],
+    ["상장(모회사 포함)", listed + "개", "나머지는 비상장"],
+    ["관계(출처 확인)", D.edges.length + "건", `그림 ${fig}건 + 그림 밖 ${D.edges.length - fig}건`],
+  ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+}
+
+function table() {
+  const sel = document.getElementById("fLayer");
+  LAYER_ORDER.forEach((l) => sel.insertAdjacentHTML("beforeend", `<option value="${l}">${LAYER[l]}</option>`));
+  const tb = document.getElementById("coTable");
+  const render = () => {
+    const q = document.getElementById("q").value.trim().toLowerCase(), fl = sel.value, fg = document.getElementById("fGroup").value;
+    const rows = D.companies.filter((c) => (!fl || c.layer === fl) && (!fg || c.group === fg) &&
+      (!q || (c.name + c.business + c.feature + c.country).toLowerCase().includes(q)));
+    document.getElementById("cnt").textContent = `${rows.length}개사`;
+    tb.innerHTML = `<thead><tr><th>회사</th><th>층</th><th>소속</th><th>상장</th><th>국가</th><th>사업</th><th>특징</th><th>연결 수</th></tr></thead><tbody>` +
+      rows.map((c) => `<tr><td><b>${c.name}</b></td><td class="nw">${LAYER[c.layer]}</td><td><span class="badge ${c.group !== "video" ? "img" : ""}">${GROUP[c.group]}</span></td>
+        <td class="nw">${c.ticker ? c.ticker + (c.parent ? `<div class="small">모회사 ${c.parent}</div>` : "") : (c.parent ? `<span class="small">모회사 ${c.parent}</span>` : "비상장")}</td>
+        <td class="nw">${c.country}</td><td>${c.business}</td><td class="muted">${c.feature || "–"}</td><td class="n" data-v="${deg[c.id]}">${deg[c.id]}</td></tr>`).join("") + "</tbody>";
+    sortableTable(tb);
+  };
+  ["q", "fLayer", "fGroup"].forEach((id) => document.getElementById(id).addEventListener("input", render));
+  render();
+}
+
+function matrix(k) {
+  const L = LAYER_ORDER;
+  const z = L.map(() => L.map(() => 0));
+  D.edges.filter((e) => !k || (k === "money" ? ["investment", "vc"].includes(e.kind) : e.kind === k))
+    .forEach((e) => z[L.indexOf(byId[e.source].layer)][L.indexOf(byId[e.target].layer)]++);
+  const names = L.map((l) => LAYER[l]);
+  Plotly.react("matrix", [{ type: "heatmap", z, x: names, y: names, xgap: 2, ygap: 2,
+    colorscale: [[0, "#f7f7f5"], [0.001, "#cde2fb"], [0.35, "#6da7ec"], [0.7, "#2a78d6"], [1, "#104281"]],
+    text: z.map((r) => r.map((v) => (v ? v : ""))), texttemplate: "%{text}", textfont: { size: 13 },
+    hovertemplate: "%{y} → %{x}: %{z}건<extra></extra>", showscale: false }],
+    baseLayout({ height: 380, hovermode: "closest", margin: { l: 80, r: 20, t: 10, b: 60 },
+      xaxis: { title: { text: "받는 쪽(판매자·피투자사)", font: { size: 12, color: INK.t2 } }, side: "bottom", tickfont: { color: INK.t2 } },
+      yaxis: { title: { text: "내는 쪽(구매자·투자자)", font: { size: 12, color: INK.t2 } }, autorange: "reversed", tickfont: { color: INK.t2 } } }), PCONF);
+  document.querySelectorAll("#mxKind button").forEach((b) => b.onclick = () => {
+    document.querySelectorAll("#mxKind button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); matrix(b.dataset.k);
+  });
+}
+
+function legend() {
+  document.getElementById("edgeLegend").innerHTML = Object.values(KIND).map((k) =>
+    `<span><svg class="ln"><line x1="1" y1="4" x2="25" y2="4" stroke="${k.c}" stroke-width="2" stroke-dasharray="${k.d}"/></svg>${k.t}</span>`).join("") +
+    `<span><svg class="ln" viewBox="0 0 26 8"><circle cx="13" cy="4" r="3.4" fill="#fff" stroke="#0b0b0b" stroke-width="2.2"/></svg>그림 속 회사</span>`;
+}
+
+function showTip(ev, html) { tt.innerHTML = html; tt.style.display = "block"; tt.style.left = Math.min(ev.clientX + 14, innerWidth - 330) + "px"; tt.style.top = ev.clientY + 14 + "px"; }
+function hideTip() { tt.style.display = "none"; }
+function coTip(c) { return `<b>${c.name}</b> <span class="small">${LAYER[c.layer]} · ${GROUP[c.group]}${c.ticker ? " · " + c.ticker : ""}</span><br>${c.business}${c.feature ? `<br><span class="small">${c.feature}</span>` : ""}<br><span class="small">연결 ${deg[c.id]}건</span>`; }
+function edTip(e) { return `<b>${byId[e.source].name} → ${byId[e.target].name}</b><br>${KIND[e.kind].t}: ${e.label}<br><span class="small">${e.date}${e.date_approx ? " (대략)" : ""}</span>`; }
+
+// ---------- 정적 가치사슬 지도: 열 = 층
+function drawMap() {
+  const cols = [["chip"], ["cloud"], ["bigtech", "model"], ["app", "robot", "infra"]];
+  const W = Math.max(document.getElementById("map").clientWidth, 760), colW = W / cols.length, rowH = 22;
+  const pos = {};
+  let H = 0;
+  cols.forEach((ls, ci) => {
+    let y = 40;
+    ls.forEach((l) => {
+      const cs = D.companies.filter((c) => c.layer === l).sort((a, b) => (a.group === "video") - (b.group === "video") || deg[b.id] - deg[a.id]);
+      y += 18;
+      cs.forEach((c) => { pos[c.id] = { x: ci * colW + 24, y, l }; y += rowH; });
+      y += 10;
+    });
+    H = Math.max(H, y + 10);
+  });
+  const svg = d3.select("#map").html("").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("height", H);
+  cols.forEach((ls, ci) => {
+    svg.append("rect").attr("class", "lane-bg").attr("x", ci * colW + 6).attr("y", 6).attr("width", colW - 12).attr("height", H - 12).attr("rx", 10);
+    svg.append("text").attr("class", "lane-title").attr("x", ci * colW + 20).attr("y", 28).text(ls.map((l) => LAYER[l]).join(" · "));
+  });
+  // 층 소제목
+  const seen = new Set();
+  Object.entries(pos).forEach(([id, p]) => { if (!seen.has(p.l) && cols.find((c) => c.includes(p.l)).length > 1) { seen.add(p.l); svg.append("text").attr("x", p.x).attr("y", p.y - 14).attr("class", "small").attr("fill", "#7a7974").attr("font-size", 11).text("— " + LAYER[p.l]); } });
+  const g = svg.append("g");
+  const link = g.selectAll("path").data(D.edges).join("path")
+    .attr("d", (e) => { const a = pos[e.source], b = pos[e.target]; const ax = a.x + 6, bx = b.x + 6; const mx = (ax + bx) / 2 + (a.x === b.x ? 70 : 0); return `M${ax},${a.y} C${mx},${a.y} ${mx},${b.y} ${bx},${b.y}`; })
+    .attr("fill", "none").attr("stroke", (e) => KIND[e.kind].c).attr("stroke-width", 1.4).attr("stroke-dasharray", (e) => KIND[e.kind].d).attr("opacity", 0.55)
+    .on("mousemove", (ev, e) => showTip(ev, edTip(e))).on("mouseleave", hideTip);
+  const node = svg.append("g").selectAll("g").data(D.companies).join("g").attr("class", "node").attr("transform", (c) => `translate(${pos[c.id].x + 6},${pos[c.id].y})`);
+  node.append("circle").attr("r", 5).attr("fill", "#fff").attr("stroke", "#0b0b0b").attr("stroke-width", (c) => (c.group === "video" ? 1 : 2.6));
+  node.append("text").attr("x", 10).attr("dy", "0.35em").text((c) => c.name + (c.ticker ? "" : " ·비상장")).style("font-weight", (c) => (c.group === "video" ? 400 : 700));
+  node.on("mouseenter", (ev, c) => {
+    const nb = new Set([c.id]); D.edges.forEach((e) => { if (e.source === c.id) nb.add(e.target); if (e.target === c.id) nb.add(e.source); });
+    link.classed("dim", (e) => e.source !== c.id && e.target !== c.id).attr("opacity", (e) => (e.source === c.id || e.target === c.id ? 0.95 : 0.55));
+    node.classed("dim", (n) => !nb.has(n.id)); showTip(ev, coTip(c));
+  }).on("mousemove", (ev, c) => showTip(ev, coTip(c))).on("mouseleave", () => { link.classed("dim", false).attr("opacity", 0.55); node.classed("dim", false); hideTip(); });
+}
+
+// ---------- 동적 네트워크
+let net = {};
+function netInit() {
+  const W = document.getElementById("net").clientWidth || 900, H = Math.min(720, Math.max(520, W * 0.66));
+  const svg = d3.select("#net").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("height", H);
+  svg.append("defs").selectAll("marker").data(Object.keys(KIND)).join("marker").attr("id", (k) => "ar-" + k)
+    .attr("viewBox", "0 -4 8 8").attr("refX", 8).attr("markerWidth", 7).attr("markerHeight", 7).attr("orient", "auto")
+    .append("path").attr("d", "M0,-4L8,0L0,4").attr("fill", (k) => KIND[k].c);
+  const zoomG = svg.append("g");
+  svg.call(d3.zoom().scaleExtent([0.4, 4]).on("zoom", (ev) => zoomG.attr("transform", ev.transform)));
+  const nodes = D.companies.map((c) => ({ ...c }));
+  const dates = [...new Set(D.edges.map((e) => e.date))].sort();
+  net = { svg, zoomG, nodes, W, H, dates, kinds: new Set(Object.keys(KIND)), focus: null };
+  document.getElementById("kindChips").innerHTML = Object.entries(KIND).map(([k, v]) =>
+    `<span class="chip" data-k="${k}"><svg class="ln"><line x1="1" y1="4" x2="25" y2="4" stroke="${v.c}" stroke-width="2" stroke-dasharray="${v.d}"/></svg>${v.t}</span>`).join(" ");
+  document.querySelectorAll("#kindChips .chip").forEach((c) => c.onclick = () => { const k = c.dataset.k; net.kinds.has(k) ? net.kinds.delete(k) : net.kinds.add(k); c.classList.toggle("off"); netUpdate(); });
+  const sl = document.getElementById("tSlider"); sl.max = dates.length - 1; sl.value = dates.length - 1;
+  sl.oninput = netUpdate; document.getElementById("nScope").onchange = netUpdate; document.getElementById("showIso").onchange = netUpdate;
+  let timer = null;
+  document.getElementById("play").onclick = (ev) => {
+    if (timer) { clearInterval(timer); timer = null; ev.target.textContent = "▶ 재생"; return; }
+    sl.value = 0; ev.target.textContent = "■ 멈춤";
+    timer = setInterval(() => { if (+sl.value >= +sl.max) { clearInterval(timer); timer = null; ev.target.textContent = "▶ 재생"; return; } sl.value = +sl.value + 1; netUpdate(); }, 450);
+  };
+  svg.on("click", (ev) => { if (ev.target.tagName === "svg") { net.focus = null; netUpdate(); } });
+  net.sim = d3.forceSimulation(nodes)
+    .force("charge", d3.forceManyBody().strength(-260))
+    .force("center", d3.forceCenter(W / 2, H / 2))
+    .force("x", d3.forceX((d) => (LAYER_ORDER.indexOf(d.layer) + 0.5) * W / LAYER_ORDER.length).strength(0.04))
+    .force("y", d3.forceY(H / 2).strength(0.05))
+    .force("collide", d3.forceCollide((d) => r(d) + 14));
+  net.linkG = zoomG.append("g"); net.nodeG = zoomG.append("g");
+  netUpdate();
+}
+const r = (d) => 5 + Math.sqrt(deg[d.id] || 0) * 3.2;
+
+function netUpdate() {
+  const sl = document.getElementById("tSlider"), cut = net.dates[+sl.value], scope = document.getElementById("nScope").value;
+  document.getElementById("tLabel").textContent = `${cut}까지 발표된 관계`;
+  let edges = D.edges.filter((e) => e.date <= cut && net.kinds.has(e.kind) && (scope === "all" || (scope === "figure" ? e.in_figure : !e.in_figure)));
+  if (net.focus) edges = edges.filter((e) => e.source === net.focus || e.target === net.focus);
+  const live = new Set(edges.flatMap((e) => [e.source, e.target]));
+  const showAll = !net.focus && scope === "all" && document.getElementById("showIso").checked;
+  const nodes = net.nodes.filter((n) => live.has(n.id) || showAll);
+  const links = edges.map((e) => ({ ...e }));
+  net.sim.nodes(nodes);
+  net.sim.force("link", d3.forceLink(links).id((d) => d.id).distance(95).strength(0.22));
+  net.sim.alpha(0.6).restart();
+  const L = net.linkG.selectAll("path").data(links, (e) => e.source.id + e.target.id + e.kind + e.label)
+    .join("path").attr("fill", "none").attr("stroke", (e) => KIND[e.kind].c).attr("stroke-width", 1.6)
+    .attr("stroke-dasharray", (e) => KIND[e.kind].d).attr("marker-end", (e) => `url(#ar-${e.kind})`).attr("opacity", 0.8)
+    .on("mousemove", (ev, e) => showTip(ev, edTip({ ...e, source: e.source.id, target: e.target.id }))).on("mouseleave", hideTip);
+  const N = net.nodeG.selectAll("g.node").data(nodes, (d) => d.id).join((enter) => {
+    const g = enter.append("g").attr("class", "node").style("cursor", "pointer");
+    g.append("circle"); g.append("text");
+    return g;
+  });
+  N.select("circle").attr("r", r).attr("fill", (d) => (live.has(d.id) ? "#fff" : "#f2f1ed")).attr("stroke", "#0b0b0b").attr("stroke-width", (d) => (d.group === "video" ? 1 : 2.8));
+  N.select("text").attr("y", (d) => r(d) + 12).attr("text-anchor", "middle").text((d) => d.name.replace("(Cursor)", "")).style("font-weight", (d) => (d.group === "video" ? 400 : 700));
+  N.on("mousemove", (ev, d) => showTip(ev, coTip(d))).on("mouseleave", hideTip)
+    .on("click", (ev, d) => { ev.stopPropagation(); net.focus = net.focus === d.id ? null : d.id; netUpdate(); })
+    .call(d3.drag().on("start", (ev, d) => { if (!ev.active) net.sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on("drag", (ev, d) => { d.fx = ev.x; d.fy = ev.y; }).on("end", (ev, d) => { if (!ev.active) net.sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+  net.sim.on("tick", () => {
+    L.attr("d", (e) => {
+      const sx = e.source.x, sy = e.source.y, tx = e.target.x, ty = e.target.y, dx = tx - sx, dy = ty - sy, dist = Math.hypot(dx, dy) || 1;
+      const rr = r(e.target) + 3, ex = tx - dx / dist * rr, ey = ty - dy / dist * rr;
+      const bend = (e.kind === "services" || e.kind === "hardware") ? 0.18 : 0.08;
+      return `M${sx},${sy} Q${(sx + tx) / 2 - dy * bend},${(sy + ty) / 2 + dx * bend} ${ex},${ey}`;
+    });
+    // 화면 밖으로 나가지 않게 가둔다
+    N.attr("transform", (d) => { d.x = Math.max(40, Math.min(net.W - 40, d.x)); d.y = Math.max(20, Math.min(net.H - 30, d.y)); return `translate(${d.x},${d.y})`; });
+  });
+}
+
+function edgeTable() {
+  const tb = document.getElementById("edTable");
+  tb.innerHTML = "<thead><tr><th>내는 쪽</th><th>받는 쪽</th><th>종류</th><th>내용</th><th>날짜</th><th>날짜 대략</th><th>그림</th><th>출처</th></tr></thead><tbody>" +
+    D.edges.map((e) => `<tr><td>${byId[e.source].name}</td><td>${byId[e.target].name}</td><td class="nw">${KIND[e.kind].t}</td><td>${e.label}</td><td class="nw">${e.date}</td><td>${e.date_approx ? "예" : ""}</td><td>${e.in_figure ? "●" : ""}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`).join("") + "</tbody>";
+  sortableTable(tb);
+}
+</script>
+</body>
+</html>

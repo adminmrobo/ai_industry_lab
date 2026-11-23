@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>③ 거시환경·현금흐름과 주가 3D · AI 산업 연구실</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/plotly.min.js"></script>
+<script src="assets/common.js"></script>
+</head>
+<body>
+<header class="site"><div class="in"><a class="brand" href="index.html">AI 산업 연구실</a><nav></nav></div></header>
+<main>
+  <h1>③ 지금 주가·컨센서스, 그리고 거시환경과의 관계 이력</h1>
+  <p class="lead">그림 속 상장사 7곳과 영상 속 상장사 5곳의 현재 주가와 애널리스트 컨센서스를 먼저 보고, 금리·소비자심리·고용·물가 같은 거시 변수와 주가가 <b>함께 움직여 온 길</b>을 3D로 따라갑니다. 마지막에는 기업의 현금흐름과 미국 기업 부문의 자금 흐름(연준 Z.1)을 붙여 봅니다.</p>
+  <p class="small" id="updated"></p>
+
+  <div class="note"><b>먼저 읽어 주세요.</b> 이 페이지의 3D 차트와 상관계수는 <b>관계의 이력</b>을 보여 줄 뿐 원인과 결과를 말하지 않습니다. 주가와 금리·물가는 모두 추세가 있어서 수준값끼리는 우연히도 강한 관계처럼 보이기 쉽습니다. 그래서 상관 분석은 <b>수익률과 변화량</b>으로 했고, 3D 궤적은 "어떤 환경에서 주가가 어디에 있었나"를 보는 지도로만 써 주세요.</div>
+
+  <h2>1. 지금 주가와 컨센서스</h2>
+  <p class="sub" id="consNote"></p>
+  <div class="grid g4" id="consTiles"></div>
+  <h3>평균 목표주가까지의 거리(상승 여력)</h3>
+  <div id="upside" class="chart"></div>
+  <h3>현재가와 목표주가 범위</h3>
+  <p class="sub">회색 막대 = 애널리스트 최저~최고 목표주가, 검은 세로선 = 평균 목표주가, 색 점 = 현재가. 회사마다 가격 단위가 달라 각각 따로 그렸습니다.</p>
+  <div class="grid g4" id="ranges"></div>
+  <details class="tbl"><summary>표로 보기(컨센서스 전체)</summary><div class="tablewrap"><table class="data" id="consTable"></table></div></details>
+
+  <h2>2. 개별 기업 3D 궤적: 거시 환경 속 주가의 길</h2>
+  <p class="sub">한 달을 점 하나로 찍고 시간 순서대로 이었습니다. X·Y는 거시 변수, 높이(Z)는 그 달 말 주가입니다. 점 색이 진할수록 최근이고, ◆는 기준시점(2025-10)입니다. 그 달 지표가 발표되지 않은 경우(2025년 10월 미국 정부 업무 중단으로 일부 지표 누락)에는 가장 가까운 다음 달에 표시합니다. 마우스로 돌려 보세요.</p>
+  <div class="controls">
+    <label>기업 <select id="c3"></select></label>
+    <label>X <select id="x3"></select></label>
+    <label>Y <select id="y3"></select></label>
+    <label>높이 <select id="z3"><option value="price">주가(달러·지수)</option><option value="log">주가(로그)</option><option value="yoy">주가 1년 수익률(%)</option></select></label>
+    <label>기간 <select id="p3"><option value="2018">2018~</option><option value="2022">2022~</option><option value="2024">2024~</option></select></label>
+    <button class="chip" id="anim">▶ 시간 따라 그리기</button>
+  </div>
+  <div id="traj" class="chart x3d"></div>
+  <div class="grid g2">
+    <div><h3 style="margin-top:6px">같은 기간 2D로 펼쳐 보기: X 변수</h3><div id="flatX" class="chart" style="min-height:240px"></div></div>
+    <div><h3 style="margin-top:6px">주가</h3><div id="flatZ" class="chart" style="min-height:240px"></div></div>
+  </div>
+  <p class="small">3D는 보는 각도에 따라 관계가 달라 보입니다. 아래 2D 두 장은 같은 시간축에 X 변수와 주가를 따로 그린 것이니 함께 보세요(축 두 개를 겹쳐 그리지 않았습니다).</p>
+
+  <h2>3. 기업군 3D 비교</h2>
+  <p class="sub">기업군 지수는 그 안의 종목 월 수익률을 같은 비중으로 평균해 처음 달을 100으로 둔 값입니다(상장 전 종목은 상장 뒤부터 들어감). 최대 3개 기업군을 함께 볼 수 있습니다.</p>
+  <div class="controls" id="gChips"></div>
+  <div class="controls">
+    <label>X <select id="gx"></select></label>
+    <label>Y <select id="gy"></select></label>
+    <label>기간 <select id="gp"><option value="2018">2018~</option><option value="2022">2022~</option><option value="2024">2024~</option></select></label>
+  </div>
+  <div id="gtraj" class="chart x3d"></div>
+
+  <h2>4. 시간에 따라 변하는 관계: 롤링 상관 곡면</h2>
+  <p class="sub">일별 주가 수익률과 거시 변수의 일별 변화가 최근 60거래일 동안 얼마나 같이 움직였는지(상관계수)를 매주 계산했습니다. <b>파랑</b> = 같은 방향, <b>빨강</b> = 반대 방향, 회색 = 관계 약함.</p>
+  <div class="controls"><label>거시 변수 <select id="rv"></select></label><div class="seg" id="rMode"><button data-m="3d" class="on">3D 곡면</button><button data-m="2d">2D 열지도</button></div></div>
+  <div id="roll" class="chart x3d"></div>
+
+  <h2>5. 장기 상관 요약(월간)</h2>
+  <p class="sub">2018년 이후 월 수익률과 거시 변수의 월간 변화 사이의 상관계수입니다. 색 블록 하나가 기업×변수 한 쌍이고, 표본(월 수)이 18개 미만이면 비워 두었습니다.</p>
+  <div id="cmat" class="chart tall"></div>
+
+  <h2>6. 기업 현금흐름: 이익이 아닌 '통장에 찍힌 돈'</h2>
+  <p class="sub">영업활동 현금(벌어들인 현금), 설비투자(데이터센터·칩 구매), 잉여현금(둘의 차이), 재무활동 현금(빚·주식으로 조달한 돈)을 분기별로 봅니다. 손익과 현금의 차이를 읽는 법은 <a href="https://adminmrobo.github.io/cashflow-lab/" target="_blank" rel="noopener">현금흐름 연구실</a>을 참고하세요.</p>
+  <div class="controls"><label>기업 <select id="cfc"></select></label><div class="seg" id="cff"><button data-f="quarterly" class="on">분기</button><button data-f="annual">연간</button></div></div>
+  <div id="cf" class="chart"></div>
+  <h3>기업별 비교: 최근 연간 설비투자 ÷ 영업현금</h3>
+  <p class="sub">100%를 넘으면 벌어들인 현금보다 더 많이 투자하고 있다는 뜻이고, 모자란 부분은 빚·주식 발행·보유 현금으로 메웁니다.</p>
+  <div id="capexRatio" class="chart"></div>
+  <details class="tbl"><summary>표로 보기(최근 연간 현금흐름)</summary><div class="tablewrap"><table class="data" id="cfTable"></table></div></details>
+
+  <h2>7. 미국 기업 부문의 자금 흐름(연준 Z.1)과 AI 주가</h2>
+  <p class="sub">한국의 자금순환표에 해당하는 미국 연준 Z.1 금융계정에서 비금융기업 부문을 가져왔습니다. <b>자금 부족</b> = 설비투자 − 총저축(내부자금). 양수면 기업 부문이 밖에서 돈을 빌려야 하고, 음수면 내부자금이 남는다는 뜻입니다. 자금순환표 읽는 법은 <a href="https://adminmrobo.github.io/fof-money-meridian-/" target="_blank" rel="noopener">돈의 경맥</a>을 참고하세요.</p>
+  <div id="z1gap" class="chart"></div>
+  <p class="small">분기 값은 연율(1년치로 환산)이라 한 분기의 일회성 항목(세법 변경에 따른 해외 이익 송금 등)이 크게 튀어 보일 수 있습니다. 한 분기보다 여러 분기의 방향으로 읽어 주세요.</p>
+  <div class="grid g2">
+    <div><h3 style="margin-top:6px">부채 ÷ 주식 시가총액(%)</h3><div id="z1de" class="chart" style="min-height:260px"></div></div>
+    <div><h3 style="margin-top:6px">기업군 지수(분기 말)</h3><div id="z1g" class="chart" style="min-height:260px"></div></div>
+  </div>
+  <div class="note"><b>평가 변동을 기억하세요.</b> 주가가 오르면 '부채 ÷ 시가총액'은 빚이 줄지 않아도 내려갑니다. 주가로 불어난 값은 평가 변동이지 실제 현금이 아닙니다. 그래서 이 비율은 위의 자금 부족(실제 현금 흐름)과 나란히 읽어야 합니다.</div>
+
+  <h2>데이터와 방법</h2>
+  <ul class="small" id="method">
+    <li>주가·컨센서스·현금흐름표: Yahoo Finance(yfinance). 컨센서스는 수집일 스냅샷이며 매일 <code>data/consensus_history/</code>에 쌓입니다.</li>
+    <li>거시: FRED(미 국채 금리, 연방기금금리, 미시간대 소비자심리, 비농업 고용, 실업률, CPI, VIX, 하이일드 스프레드, 달러 지수), 연준 Z.1(비금융기업 설비투자·총저축·부채). 소비자신뢰지수는 Conference Board 지수가 유료라서 미시간대 소비자심리지수로 대신했습니다.</li>
+    <li>월간 값: 금리·VIX·스프레드·달러는 월평균, 소비자심리·고용·물가는 해당 월 값. 고용·물가는 다음 달 중순에 발표되므로 시장이 그 값을 알게 되는 시점은 한 달쯤 늦습니다.</li>
+    <li>CoreWeave(2025-03 상장)·Nebius(2024-10 재상장)·Snowflake(2020-09 상장)는 이력이 짧아 상관계수가 불안정합니다.</li>
+    <li>교육·연구용 자료이며 투자 권유가 아닙니다.</li>
+  </ul>
+</main>
+<footer class="site"><div class="in">글 · 안상선 ((주)M-Robo 대표) · 데이터: Yahoo Finance, FRED, Federal Reserve Z.1 · 참고: 현금흐름 연구실, 돈의 경맥</div></footer>
+<script>
+siteHeader("stage3.html");
+let S;
+const SEQ = [[0, "#cde2fb"], [0.5, "#5598e7"], [1, "#0d366b"]];
+const DIV = [[0, "#c23b3a"], [0.25, "#ea9a99"], [0.5, "#f0efec"], [0.75, "#86b6ef"], [1, "#1c5cab"]];
+const GROUP_STYLE = { "그림 7개사(순환 고리)": ["#0b0b0b", "solid"], "영상 5개사(고리 바깥)": ["#8a8984", "solid"],
+  "칩(NVDA·AMD·INTC·QCOM)": ["#0b0b0b", "dash"], "클라우드·네오클라우드(ORCL·CRWV·NBIS)": ["#0b0b0b", "dot"], "빅테크(MSFT·GOOGL·META)": ["#8a8984", "dash"] };
+const L3 = (extra = {}) => Object.assign({ font: { family: "Pretendard Variable, Pretendard, sans-serif", size: 12, color: INK.t1 }, paper_bgcolor: "#fff", margin: { l: 0, r: 0, t: 10, b: 0 }, showlegend: false }, extra);
+const ax3 = (t) => ({ title: { text: t, font: { size: 12 } }, backgroundcolor: "#fff", gridcolor: "#e6e5e0", zerolinecolor: "#cfcec8", showbackground: true, tickfont: { size: 10, color: INK.t2 } });
+
+(async () => {
+  S = await loadJSON("data/site/stage3.json");
+  setUpdated(document.getElementById("updated"), await loadJSON("data/site/meta.json"));
+  consensus(); setup3d(); setupGroups(); setupRoll(); corrMatrix(); setupCF(); z1();
+})();
+
+const EQ = () => [...S.image, ...S.video];
+const isImg = (t) => S.image.includes(t);
+
+// ---------------------------------------------------------------- 1. 컨센서스
+function consensus() {
+  const C = S.consensus, rows = C.rows.slice();
+  const snap = new Date(C.snapshot_utc).toLocaleString("ko-KR", { timeZone: "Asia/Seoul", hour12: false });
+  document.getElementById("consNote").innerHTML = `스냅샷 시각: ${snap}(한국 시간), 출처 Yahoo Finance. 목표주가는 애널리스트들이 제시한 12개월 목표의 평균이며 예측이 아닌 '의견의 평균'입니다. 투자의견 평균은 1(강력 매수)~5(매도) 척도입니다.`;
+  const avg = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+  const up = (g) => avg(rows.filter((r) => r.group === g && r.upside_pct != null).map((r) => r.upside_pct));
+  const mc = (g) => rows.filter((r) => r.group === g).reduce((s, r) => s + (r.mcap_bn || 0), 0);
+  document.getElementById("consTiles").innerHTML = [
+    ["그림 7개사 평균 상승 여력", fmt.pct(up("image")), "평균 목표주가 기준"],
+    ["영상 5개사 평균 상승 여력", fmt.pct(up("video")), "평균 목표주가 기준"],
+    ["그림 7개사 시가총액 합", fmt.bn(mc("image")), "스냅샷 기준"],
+    ["애널리스트 수(중앙값)", rows.map((r) => r.n).sort((a, b) => a - b)[Math.floor(rows.length / 2)] + "명", "기업별 커버리지"],
+  ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+
+  const srt = rows.filter((r) => r.upside_pct != null).sort((a, b) => b.upside_pct - a.upside_pct);
+  Plotly.react("upside", [{ type: "bar", x: srt.map((r) => `${r.name}`), y: srt.map((r) => r.upside_pct),
+    marker: { color: srt.map((r) => colorOf(r.ticker)), line: { width: 0 } },
+    text: srt.map((r) => fmt.pct(r.upside_pct, 0)), textposition: "outside", textfont: { size: 11, color: INK.t2 },
+    hovertemplate: srt.map((r) => `${r.name} (${r.ticker})<br>현재 ${fmt.usd(r.price)} · 목표 평균 ${fmt.usd(r.target_mean)}<br>의견 ${r.rec} (${r.rec_mean}) · ${r.n}명<extra></extra>`) }],
+    baseLayout({ hovermode: "closest", margin: { l: 50, r: 10, t: 20, b: 70 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%", title: { text: "평균 목표주가 ÷ 현재가 − 1", font: { size: 12, color: INK.t2 } } },
+      annotations: [{ xref: "paper", yref: "paper", x: 1, y: 1.08, showarrow: false, text: "색 = 그림 속 회사(고유색) · 회색 = 영상 속 회사", font: { size: 11, color: INK.t3 }, xanchor: "right" }] }), PCONF);
+
+  const box = document.getElementById("ranges");
+  box.innerHTML = rows.map((r, i) => `<div class="card" style="padding:10px 12px"><div style="font-size:13px"><b>${r.name}</b> <span class="small">${r.ticker} · ${r.n}명</span></div><div id="rg${i}" style="height:78px"></div></div>`).join("");
+  rows.forEach((r, i) => {
+    if (r.target_low == null) return;
+    Plotly.react("rg" + i, [
+      { x: [r.target_low, r.target_high], y: [0, 0], mode: "lines", line: { color: "#d9d8d2", width: 10 }, hoverinfo: "skip" },
+      { x: [r.target_mean], y: [0], mode: "markers", marker: { symbol: "line-ns", size: 18, line: { width: 2.5, color: INK.t1 } }, hovertemplate: `평균 목표 ${fmt.usd(r.target_mean)}<extra></extra>` },
+      { x: [r.price], y: [0], mode: "markers", marker: { size: 11, color: colorOf(r.ticker), line: { color: "#fff", width: 2 } }, hovertemplate: `현재 ${fmt.usd(r.price)}<extra></extra>` },
+    ], baseLayout({ showlegend: false, hovermode: "closest", margin: { l: 8, r: 8, t: 4, b: 22 }, yaxis: { visible: false, range: [-1, 1] },
+      xaxis: { gridcolor: INK.grid, tickprefix: "$", tickfont: { size: 10, color: INK.t2 }, nticks: 4 } }), { displayModeBar: false, responsive: true });
+  });
+  const tb = document.getElementById("consTable");
+  tb.innerHTML = "<thead><tr><th>기업</th><th>소속</th><th>현재가</th><th>목표 평균</th><th>최저</th><th>최고</th><th>상승 여력</th><th>의견</th><th>의견 평균</th><th>애널리스트</th><th>시가총액</th><th>선행 PER</th></tr></thead><tbody>" +
+    rows.map((r) => `<tr><td>${r.name} (${r.ticker})</td><td>${r.group === "image" ? "그림" : "영상"}</td><td class="n">${fmt.usd(r.price)}</td><td class="n">${fmt.usd(r.target_mean)}</td><td class="n">${fmt.usd(r.target_low)}</td><td class="n">${fmt.usd(r.target_high)}</td>
+      <td class="n ${cls(r.upside_pct)}" data-v="${r.upside_pct}">${fmt.pct(r.upside_pct)}</td><td>${r.rec || "–"}</td><td class="n">${r.rec_mean ?? "–"}</td><td class="n">${r.n ?? "–"}</td><td class="n" data-v="${r.mcap_bn}">${fmt.bn(r.mcap_bn)}</td><td class="n">${r.fpe ?? "–"}</td></tr>`).join("") + "</tbody>";
+  sortableTable(tb);
+}
+
+// ---------------------------------------------------------------- 공통: 월별 시계열 꺼내기
+function seriesOf(key) { // 기업 티커 또는 기업군 이름
+  return S.monthly.price[key] || S.monthly.group[key];
+}
+function zTransform(arr, mode) {
+  if (mode === "log") return arr.map((v) => (v > 0 ? Math.log10(v) : null));
+  if (mode === "yoy") return arr.map((v, i) => (i >= 12 && arr[i - 12] && v ? (v / arr[i - 12] - 1) * 100 : null));
+  return arr;
+}
+function rowsFor(key, xk, yk, zmode, from) {
+  const d = S.monthly.dates, X = S.monthly.macro[xk], Y = S.monthly.macro[yk], Z = zTransform(seriesOf(key), zmode);
+  const out = [];
+  d.forEach((m, i) => { if (m >= from && X[i] != null && Y[i] != null && Z[i] != null) out.push({ m, x: X[i], y: Y[i], z: Z[i] }); });
+  return out;
+}
+const mvLabel = (k) => `${S.macro_vars[k][0]}(${S.macro_vars[k][1]})`;
+const zLabel = (mode, key) => (mode === "log" ? "주가(log10)" : mode === "yoy" ? "1년 수익률(%)" : (S.monthly.price[key] ? "주가(달러)" : "지수(처음=100)"));
+
+function fillSelect(id, opts, val) {
+  const s = document.getElementById(id);
+  s.innerHTML = opts.map(([v, t]) => `<option value="${v}">${t}</option>`).join("");
+  if (val) s.value = val;
+}
+
+// ---------------------------------------------------------------- 2. 개별 3D 궤적
+let animTimer = null;
+function setup3d() {
+  const comp = [...EQ().map((t) => [t, `${S.names[t]} (${t})${isImg(t) ? "" : " · 영상"}`]), ...Object.keys(S.groups).map((g) => [g, "기업군: " + g])];
+  fillSelect("c3", comp, "NVDA");
+  const mv = Object.keys(S.macro_vars).map((k) => [k, S.macro_vars[k][0]]);
+  fillSelect("x3", mv, "DGS10"); fillSelect("y3", mv, "CPI_YOY");
+  ["c3", "x3", "y3", "z3", "p3"].forEach((id) => document.getElementById(id).onchange = () => draw3d());
+  document.getElementById("anim").onclick = animate3d;
+  draw3d();
+}
+function draw3d(upto) {
+  const key = c3.value, xk = x3.value, yk = y3.value, zm = z3.value, from = p3.value + "-01";
+  let R = rowsFor(key, xk, yk, zm, from);
+  const full = R;
+  if (upto != null) R = R.slice(0, upto);
+  const baseI = R.findIndex((r) => r.m >= "2025-10");
+  const name = S.names[key] || key;
+  const traces = [
+    { type: "scatter3d", mode: "lines", x: R.map((r) => r.x), y: R.map((r) => r.y), z: R.map((r) => r.z), line: { width: 4, color: R.map((_, i) => i), colorscale: SEQ }, hoverinfo: "skip" },
+    { type: "scatter3d", mode: "markers", x: R.map((r) => r.x), y: R.map((r) => r.y), z: R.map((r) => r.z),
+      marker: { size: 3.5, color: R.map((_, i) => i), colorscale: SEQ, cmin: 0, cmax: full.length - 1, line: { width: 0 } },
+      customdata: R.map((r) => r.m), hovertemplate: `%{customdata}<br>${S.macro_vars[xk][0]} %{x:.2f}<br>${S.macro_vars[yk][0]} %{y:.2f}<br>${name} %{z:.2f}<extra></extra>` },
+    // 바닥 그림자: 거시 변수만의 경로
+    { type: "scatter3d", mode: "lines", x: R.map((r) => r.x), y: R.map((r) => r.y), z: R.map(() => Math.min(...full.map((r) => r.z))), line: { width: 2, color: "#d9d8d2" }, hoverinfo: "skip" },
+  ];
+  if (baseI >= 0) traces.push({ type: "scatter3d", mode: "markers+text", x: [R[baseI].x], y: [R[baseI].y], z: [R[baseI].z], text: [R[baseI].m === "2025-10" ? "기준 2025-10" : `기준 무렵(${R[baseI].m})`], textposition: "top center",
+    textfont: { size: 11 }, marker: { symbol: "diamond", size: 7, color: INK.t1 }, hoverinfo: "skip" });
+  if (R.length) { const l = R.at(-1); traces.push({ type: "scatter3d", mode: "text", x: [l.x], y: [l.y], z: [l.z], text: [l.m], textposition: "middle right", textfont: { size: 11, color: INK.t2 }, hoverinfo: "skip" }); }
+  const rng = (k) => { const v = full.map((r) => r[k]); const a = Math.min(...v), b = Math.max(...v), p = (b - a) * 0.05 || 1; return [a - p, b + p]; };
+  Plotly.react("traj", traces, L3({ uirevision: key + xk + yk + zm + from,
+    scene: { xaxis: { ...ax3(mvLabel(xk)), range: rng("x") }, yaxis: { ...ax3(mvLabel(yk)), range: rng("y") }, zaxis: { ...ax3(zLabel(zm, key)), range: rng("z") },
+      camera: { eye: { x: 1.6, y: -1.6, z: 0.9 } }, aspectmode: "cube" } }), PCONF);
+  if (upto == null) flat(key, xk, zm, from);
+}
+function animate3d() {
+  const b = document.getElementById("anim");
+  if (animTimer) { clearInterval(animTimer); animTimer = null; b.textContent = "▶ 시간 따라 그리기"; draw3d(); return; }
+  const n = rowsFor(c3.value, x3.value, y3.value, z3.value, p3.value + "-01").length;
+  let i = 2; b.textContent = "■ 멈춤";
+  animTimer = setInterval(() => { draw3d(i); i++; if (i > n) { clearInterval(animTimer); animTimer = null; b.textContent = "▶ 시간 따라 그리기"; } }, 120);
+}
+function flat(key, xk, zm, from) {
+  const d = S.monthly.dates, idx = d.map((m, i) => (m >= from ? i : -1)).filter((i) => i >= 0);
+  const X = S.monthly.macro[xk], Z = zTransform(seriesOf(key), zm);
+  const lay = (t) => baseLayout({ margin: { l: 50, r: 10, t: 6, b: 30 }, showlegend: false, yaxis: { gridcolor: INK.grid, title: { text: t, font: { size: 11, color: INK.t2 } } },
+    shapes: [{ type: "line", x0: "2025-10", x1: "2025-10", yref: "paper", y0: 0, y1: 1, line: { color: INK.t3, width: 1, dash: "dot" } }] });
+  Plotly.react("flatX", [{ x: idx.map((i) => d[i]), y: idx.map((i) => X[i]), mode: "lines", line: { color: INK.t1, width: 2 }, hovertemplate: `%{x}<br>%{y:.2f}<extra></extra>` }], lay(mvLabel(xk)), PCONF);
+  Plotly.react("flatZ", [{ x: idx.map((i) => d[i]), y: idx.map((i) => Z[i]), mode: "lines", line: { color: S.monthly.price[key] ? colorOf(key) : INK.t1, width: 2 }, hovertemplate: `%{x}<br>%{y:.2f}<extra></extra>` }], lay(zLabel(zm, key)), PCONF);
+}
+
+// ---------------------------------------------------------------- 3. 기업군 3D
+let gSel = new Set(["그림 7개사(순환 고리)", "영상 5개사(고리 바깥)"]);
+function setupGroups() {
+  const box = document.getElementById("gChips");
+  box.innerHTML = Object.keys(S.groups).map((g) => { const [c, d] = GROUP_STYLE[g];
+    return `<span class="chip ${gSel.has(g) ? "" : "off"}" data-g="${g}"><svg class="ln" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="${c}" stroke-width="2.4" stroke-dasharray="${d === "dash" ? "6,4" : d === "dot" ? "2,3" : ""}"/></svg>${g}</span>`; }).join("") + `<span class="small">최대 3개</span>`;
+  box.querySelectorAll(".chip").forEach((c) => c.onclick = () => {
+    const g = c.dataset.g;
+    if (gSel.has(g)) { gSel.delete(g); c.classList.add("off"); } else if (gSel.size < 3) { gSel.add(g); c.classList.remove("off"); }
+    drawG();
+  });
+  const mv = Object.keys(S.macro_vars).map((k) => [k, S.macro_vars[k][0]]);
+  fillSelect("gx", mv, "DGS10"); fillSelect("gy", mv, "UMCSENT");
+  ["gx", "gy", "gp"].forEach((id) => document.getElementById(id).onchange = drawG);
+  drawG();
+}
+function drawG() {
+  const xk = gx.value, yk = gy.value, from = gp.value + "-01", traces = [];
+  [...gSel].forEach((g) => {
+    const R = rowsFor(g, xk, yk, "price", from), [c, d] = GROUP_STYLE[g];
+    traces.push({ type: "scatter3d", mode: "lines+markers", name: g, x: R.map((r) => r.x), y: R.map((r) => r.y), z: R.map((r) => r.z),
+      line: { color: c, width: 4, dash: d }, marker: { size: 2.5, color: c }, customdata: R.map((r) => r.m),
+      hovertemplate: `${g}<br>%{customdata}<br>${S.macro_vars[xk][0]} %{x:.2f}<br>${S.macro_vars[yk][0]} %{y:.2f}<br>지수 %{z:.1f}<extra></extra>` });
+    if (R.length) { const l = R.at(-1); traces.push({ type: "scatter3d", mode: "text", x: [l.x], y: [l.y], z: [l.z], text: [g.split("(")[0]], textposition: "middle right", textfont: { size: 11, color: c }, hoverinfo: "skip" }); }
+    const b = R.find((r) => r.m >= "2025-10");
+    if (b) traces.push({ type: "scatter3d", mode: "markers", x: [b.x], y: [b.y], z: [b.z], marker: { symbol: "diamond", size: 6, color: c }, hoverinfo: "skip" });
+  });
+  Plotly.react("gtraj", traces, L3({ uirevision: "g", scene: { xaxis: ax3(mvLabel(xk)), yaxis: ax3(mvLabel(yk)), zaxis: { ...ax3("기업군 지수(처음=100, 로그)"), type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] },
+    camera: { eye: { x: 1.6, y: -1.6, z: 0.9 } }, aspectmode: "cube" } }), PCONF);
+}
+
+// ---------------------------------------------------------------- 4. 롤링 상관 곡면
+let rMode = "3d";
+function setupRoll() {
+  fillSelect("rv", Object.keys(S.roll).map((k) => [k, k]), "Δ10년 금리");
+  rv.onchange = drawRoll;
+  document.querySelectorAll("#rMode button").forEach((b) => b.onclick = () => {
+    document.querySelectorAll("#rMode button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); rMode = b.dataset.m; drawRoll();
+  });
+  drawRoll();
+}
+function drawRoll() {
+  const R = S.roll[rv.value], tick = EQ(), names = tick.map((t) => `${S.names[t]}${isImg(t) ? "" : " ·영상"}`);
+  const z = tick.map((t) => R.z[t]);
+  const hov = `%{y}<br>%{x}<br>60일 상관 %{z:.2f}<extra></extra>`;
+  if (rMode === "3d") {
+    Plotly.react("roll", [{ type: "surface", x: R.dates, y: names, z, colorscale: DIV, cmin: -0.8, cmax: 0.8, hovertemplate: hov,
+      colorbar: { title: { text: "상관", font: { size: 11 } }, len: 0.6, thickness: 12, tickfont: { size: 10 } }, contours: { z: { show: false } } }],
+      L3({ uirevision: "roll", scene: { xaxis: ax3("날짜"), yaxis: { ...ax3(""), tickfont: { size: 9 } }, zaxis: { ...ax3("상관계수"), range: [-1, 1] }, camera: { eye: { x: 1.5, y: -1.7, z: 0.8 } }, aspectratio: { x: 1.6, y: 1.1, z: 0.6 } } }), PCONF);
+  } else {
+    Plotly.react("roll", [{ type: "heatmap", x: R.dates, y: names, z, colorscale: DIV, zmin: -0.8, zmax: 0.8, ygap: 2, hovertemplate: hov,
+      colorbar: { title: { text: "상관", font: { size: 11 } }, thickness: 12, tickfont: { size: 10 } } }],
+      baseLayout({ hovermode: "closest", margin: { l: 120, r: 10, t: 10, b: 40 }, yaxis: { autorange: "reversed", tickfont: { size: 11, color: INK.t2 } },
+        shapes: [{ type: "line", x0: "2025-10-07", x1: "2025-10-07", yref: "paper", y0: 0, y1: 1, line: { color: INK.t1, width: 1.2, dash: "dot" } }] }), PCONF);
+  }
+}
+
+// ---------------------------------------------------------------- 5. 월간 상관 행렬
+function corrMatrix() {
+  const C = S.corr_month;
+  const rows = C.rows.map((r, i) => (C.row_ids[i] in S.groups ? "▣ " + r : r + (S.video.includes(C.row_ids[i]) ? " ·영상" : "")));
+  Plotly.react("cmat", [{ type: "heatmap", x: C.cols, y: rows, z: C.z, colorscale: DIV, zmin: -0.6, zmax: 0.6, xgap: 2, ygap: 2,
+    text: C.z.map((r) => r.map((v) => (v == null ? "" : v.toFixed(2)))), texttemplate: "%{text}", textfont: { size: 11 },
+    customdata: C.n, hovertemplate: "%{y} × %{x}<br>상관 %{z:.2f} (표본 %{customdata}개월)<extra></extra>",
+    colorbar: { title: { text: "상관", font: { size: 11 } }, thickness: 12, tickfont: { size: 10 } } }],
+    baseLayout({ hovermode: "closest", height: 640, margin: { l: 250, r: 10, t: 10, b: 60 }, yaxis: { autorange: "reversed", tickfont: { size: 11, color: INK.t2 } }, xaxis: { side: "bottom", tickfont: { size: 11, color: INK.t2 } } }), PCONF);
+}
+
+// ---------------------------------------------------------------- 6. 현금흐름
+let cfFreq = "quarterly";
+function setupCF() {
+  fillSelect("cfc", EQ().map((t) => [t, `${S.names[t]} (${t})`]), "ORCL");
+  cfc.onchange = drawCF;
+  document.querySelectorAll("#cff button").forEach((b) => b.onclick = () => {
+    document.querySelectorAll("#cff button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); cfFreq = b.dataset.f; drawCF();
+  });
+  drawCF(); capexRatio();
+}
+function drawCF() {
+  const d = S.cashflow[cfc.value]?.[cfFreq] || {};
+  const dates = [...new Set(Object.keys(d.ocf || {}))].sort();
+  const items = [["ocf", "영업활동 현금", PAL.s1], ["capex", "설비투자", PAL.s2], ["fcf", "잉여현금", PAL.s3], ["fcf_fin", "재무활동 현금", "#8a8984"]];
+  const traces = items.map(([k, t, c]) => ({ type: "bar", name: t, x: dates, y: dates.map((x) => (d[k]?.[x] ?? null) / 1e9), marker: { color: c, line: { width: 0 } },
+    hovertemplate: `${t}: %{y:.2f}십억 달러<extra></extra>` }));
+  Plotly.react("cf", traces, baseLayout({ barmode: "group", bargap: 0.25, bargroupgap: 0.06, margin: { l: 56, r: 10, t: 10, b: 60 },
+    yaxis: { gridcolor: INK.grid, zeroline: true, zerolinecolor: INK.t3, title: { text: "십억 달러", font: { size: 12, color: INK.t2 } } } }), PCONF);
+}
+function capexRatio() {
+  const rows = EQ().map((t) => {
+    const a = S.cashflow[t]?.annual || {}, last = Object.keys(a.ocf || {}).sort().at(-1);
+    const ocf = a.ocf?.[last], cap = a.capex?.[last], fcf = a.fcf?.[last], fin = a.fcf_fin?.[last];
+    return { t, last, ocf, cap, fcf, fin, ratio: ocf && cap != null ? Math.abs(cap) / ocf * 100 : null };
+  }).filter((r) => r.ratio != null).sort((a, b) => b.ratio - a.ratio);
+  Plotly.react("capexRatio", [{ type: "bar", x: rows.map((r) => S.names[r.t]), y: rows.map((r) => r.ratio), marker: { color: rows.map((r) => colorOf(r.t)), line: { width: 0 } },
+    text: rows.map((r) => r.ratio.toFixed(0) + "%"), textposition: "outside", textfont: { size: 11, color: INK.t2 },
+    hovertemplate: rows.map((r) => `${S.names[r.t]} · 회계연도 말 ${r.last}<br>설비투자 ${fmt.num(Math.abs(r.cap) / 1e9, 1)}십억 달러 ÷ 영업현금 ${fmt.num(r.ocf / 1e9, 1)}십억 달러<extra></extra>`) }],
+    baseLayout({ hovermode: "closest", margin: { l: 50, r: 10, t: 20, b: 70 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%" },
+      shapes: [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 100, y1: 100, line: { color: INK.t1, width: 1.2, dash: "dash" } }],
+      annotations: [{ xref: "paper", x: 1, y: 100, text: "100% = 번 만큼 투자", showarrow: false, xanchor: "right", yanchor: "bottom", font: { size: 11, color: INK.t2 } }] }), PCONF);
+  const tb = document.getElementById("cfTable");
+  tb.innerHTML = "<thead><tr><th>기업</th><th>회계연도 말</th><th>영업현금</th><th>설비투자</th><th>잉여현금</th><th>재무활동</th><th>설비투자÷영업현금</th></tr></thead><tbody>" +
+    rows.map((r) => `<tr><td>${S.names[r.t]} (${r.t})</td><td class="nw">${r.last}</td><td class="n">${fmt.num(r.ocf / 1e9, 1)}</td><td class="n">${fmt.num(r.cap / 1e9, 1)}</td><td class="n ${cls(r.fcf)}">${fmt.num(r.fcf / 1e9, 1)}</td><td class="n">${fmt.num(r.fin / 1e9, 1)}</td><td class="n" data-v="${r.ratio}">${r.ratio.toFixed(0)}%</td></tr>`).join("") +
+    "</tbody><caption class='small' style='caption-side:bottom;text-align:left;padding:6px'>단위: 십억 달러</caption>";
+  sortableTable(tb);
+}
+
+// ---------------------------------------------------------------- 7. Z.1
+function z1() {
+  const Z = S.z1;
+  Plotly.react("z1gap", [{ type: "bar", x: Z.dates, y: Z.gap_bn, marker: { color: Z.gap_bn.map((v) => (v > 0 ? PAL.s2 : PAL.s1)), line: { width: 0 } },
+    hovertemplate: "%{x}<br>자금 부족 %{y:,.0f}십억 달러(연율)<extra></extra>" }],
+    baseLayout({ hovermode: "closest", margin: { l: 60, r: 10, t: 10, b: 36 }, yaxis: { gridcolor: INK.grid, zeroline: true, zerolinecolor: INK.t1, title: { text: "설비투자 − 총저축(십억 달러, 연율)", font: { size: 12, color: INK.t2 } } },
+      annotations: [{ xref: "paper", yref: "paper", x: 0.01, y: 0.98, showarrow: false, xanchor: "left", text: "주황 = 밖에서 조달 필요 · 파랑 = 내부자금 여유", font: { size: 11, color: INK.t2 } }] }), PCONF);
+  Plotly.react("z1de", [{ x: Z.dates, y: Z.debt_to_equity_pct, mode: "lines", line: { color: INK.t1, width: 2 }, hovertemplate: "%{x}<br>%{y:.1f}%<extra></extra>" }],
+    baseLayout({ showlegend: false, margin: { l: 46, r: 10, t: 6, b: 30 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%" } }), PCONF);
+  const gs = ["그림 7개사(순환 고리)", "영상 5개사(고리 바깥)"];
+  Plotly.react("z1g", gs.map((g) => ({ x: Z.dates, y: Z.group_q[g], name: g, mode: "lines", connectgaps: true,
+    line: { color: GROUP_STYLE[g][0], width: 2 }, hovertemplate: `${g}: %{y:.0f}<extra></extra>` })),
+    baseLayout({ margin: { l: 46, r: 10, t: 6, b: 30 }, legend: { orientation: "h", y: 1.12, font: { size: 11 } }, yaxis: { gridcolor: INK.grid, type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] } }), PCONF);
+}
+</script>
+</body>
+</html>
