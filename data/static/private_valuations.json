@@ -29,7 +29,7 @@
   {
    "date": "2025-03-28",
    "value_bn": 113,
-   "note": "X와 합병 당시",
+   "note": "X와 합병 당시(2025년 3월)",
    "src": "https://www.mexc.com/news/509538"
   },
   {
@@ -49,7 +49,7 @@
   {
    "date": "2024-02-29",
    "value_bn": 2.6,
-   "note": "시리즈 B 6.75억 달러",
+   "note": "시리즈 B 6.75억 달러(2024년 2월)",
    "src": "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html"
   },
   {
@@ -61,9 +61,9 @@
  ],
  "Anysphere(Cursor)": [
   {
-   "date": "2025-06-05",
+   "date": "2025-06-01",
    "value_bn": 9.9,
-   "note": "시리즈 C 9억 달러",
+   "note": "시리즈 C 9억 달러(6월, 일자 대략)",
    "src": "https://finance.yahoo.com/news/anysphere-secures-900m-funding-083823106.html"
   },
   {
@@ -73,17 +73,17 @@
    "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/"
   },
   {
-   "date": "2026-07-15",
+   "date": "2026-07-01",
    "value_bn": 50,
-   "note": "후속 라운드(7월 발표)",
+   "note": "후속 라운드(7월 발표, 일자 대략)",
    "src": "https://dealroom.co/news/138472-cursor-hits-50b-valuation-in-quick-re-raise/"
   }
  ],
  "Mistral AI": [
   {
-   "date": "2024-06-11",
+   "date": "2024-06-01",
    "value_bn": 6.0,
-   "note": "6.4억 달러 라운드",
+   "note": "6.4억 달러 라운드(2024년 6월, 일자 대략)",
    "src": "https://siliconangle.com/2025/09/09/mistral-ai-raises-2b-led-chip-equipment-maker-asml-14b-valuation/"
   },
   {

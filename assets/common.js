@@ -79,3 +79,20 @@ function siteHeader(active) {
   if (!h) return;
   h.innerHTML = items.map(([href, t]) => `<a href="${href}" class="${href === active ? "on" : ""}">${t}</a>`).join("");
 }
+
+const MOBILE = window.innerWidth < 600;
+const REC_KO = { strong_buy: "강력 매수", buy: "매수", hold: "보유", underperform: "비중 축소", sell: "매도", none: "의견 없음" };
+const recKo = (k) => REC_KO[k] || k || "–";
+
+// 용어 풀이 상자: [[용어, 풀이], ...]
+function glossary(id, items, title = "이 페이지의 용어 풀이") {
+  const box = document.getElementById(id);
+  if (!box) return;
+  box.innerHTML = `<details class="gloss"><summary>${title} (${items.length}개)</summary><dl>${items.map(([t, d]) => `<dt>${t}</dt><dd>${d}</dd>`).join("")}</dl></details>`;
+}
+// 자동 요약 3줄
+function autoSummary(id, lines) {
+  const box = document.getElementById(id);
+  if (box) box.innerHTML = `<div class="t">이 페이지에서 보이는 것 (데이터로 자동 작성)</div><ol>${lines.map((l) => `<li>${l}</li>`).join("")}</ol>`;
+}
+function median(a) { const v = a.filter((x) => x != null).sort((x, y) => x - y); if (!v.length) return null; const m = Math.floor(v.length / 2); return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; }

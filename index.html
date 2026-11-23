@@ -38,7 +38,7 @@
       <div class="no">① 기준시점 ±3개월</div>
       <h3>그림 공개일 전후 주가와 거래 발표</h3>
       <div id="k1" class="muted">불러오는 중…</div>
-      <ul><li>7개 상장사 주가(기준일=100)</li><li>거래 발표 15건의 초과 수익률</li><li>비상장 5개사 기업가치 계단</li></ul>
+      <ul><li>7개 상장사 주가(기준일=100)</li><li>거래 발표 15건의 초과 수익률(시장모형)</li><li>비상장 5개사 기업가치 계단</li></ul>
     </a>
     <a class="stage" href="stage2.html">
       <div class="no">② 50개사·관계망</div>
@@ -87,8 +87,8 @@ siteHeader("index.html");
     const up = s1.tickers.filter((t) => s1.summary[t].post_pct > 0).length;
     document.getElementById("k1").innerHTML = `기준일 뒤 3개월 평균 <b class="${cls(avg)}">${fmt.pct(avg)}</b> · 7곳 중 ${up}곳 상승`;
     document.getElementById("k2").innerHTML = `<b>${s2.companies.length}개사</b> · 출처 있는 관계 <b>${s2.edges.length}건</b>`;
-    const ups = s3.consensus.rows.filter((r) => r.group === "image" && r.upside_pct != null).map((r) => r.upside_pct);
-    document.getElementById("k3").innerHTML = `그림 7개사 평균 목표주가 상승 여력 <b>${fmt.pct(ups.reduce((a, b) => a + b, 0) / ups.length)}</b>`;
+    const cs = s3.consensus.summary;
+    document.getElementById("k3").innerHTML = `그림 7개사 목표주가 상승 여력 중앙값 <b>${fmt.pct(cs.median_upside.image)}</b> <span class="small">(평균 ${fmt.pct(cs.mean_upside.image)})</span>`;
   } catch (e) { console.error(e); }
 })();
 </script>

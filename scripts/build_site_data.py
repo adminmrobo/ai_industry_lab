@@ -78,9 +78,20 @@ for ev in events:
         ab = day - ndx_ret.loc[d0]
         cum5 = (1 + ret.loc[d0:d5]).prod() - 1
         cum5n = (1 + ndx_ret.loc[d0:d5]).prod() - 1
+        # 시장모형: 반응일 130~11거래일 전(120일) 구간에서 종목 수익률 = a + b × 나스닥100 수익률 추정
+        est = pd.concat([ret, ndx_ret], axis=1).iloc[max(0, idx - 130): idx - 10].dropna()
+        beta = alpha = mm_ab = mm_car5 = None
+        if len(est) >= 60:
+            b_, a_ = np.polyfit(est.iloc[:, 1], est.iloc[:, 0], 1)
+            beta, alpha = float(b_), float(a_)
+            win5 = pd.concat([ret, ndx_ret], axis=1).loc[d0:d5]
+            ar = win5.iloc[:, 0] - (alpha + beta * win5.iloc[:, 1])
+            mm_ab, mm_car5 = float(ar.iloc[0]), float(ar.sum())
         reactions.append({"date": ev["date"], "react": d0.strftime("%Y-%m-%d"), "ticker": t, "title": ev["title"],
                           "day_pct": r(day * 100, 2), "abn_pct": r(ab * 100, 2),
-                          "cum5_pct": r(cum5 * 100, 2), "abn5_pct": r((cum5 - cum5n) * 100, 2)})
+                          "cum5_pct": r(cum5 * 100, 2), "abn5_pct": r((cum5 - cum5n) * 100, 2),
+                          "beta": r(beta, 2), "mm_abn_pct": r(mm_ab * 100 if mm_ab is not None else None, 2),
+                          "mm_car5_pct": r(mm_car5 * 100 if mm_car5 is not None else None, 2), "est_n": int(len(est))})
 stage1["events"] = events
 stage1["reactions"] = reactions
 stage1["private"] = private
@@ -99,6 +110,8 @@ for g, mem in GROUPS.items():
     idx.iloc[0] = 100.0
     grp[g] = idx
 grp = pd.DataFrame(grp)
+first_month = {t: mp[t].first_valid_index().strftime("%Y-%m") for t in eq}
+group_entries = {g: [{"ticker": t, "month": first_month[t]} for t in mem if first_month[t] > "2018-01"] for g, mem in GROUPS.items()}
 
 mm = pd.DataFrame(index=mp.index)
 for sid in ["DGS10", "DGS2", "DGS3MO", "DFF", "T10Y2Y", "VIXCLS", "BAMLH0A0HYM2", "DTWEXBGS"]:
@@ -132,17 +145,21 @@ chg = pd.DataFrame({
 })
 cols = eq + list(GROUPS)
 gret = grp.pct_change()
-corr_rows, nobs = [], []
+corr_rows, nobs, sig = [], [], []
 for c in cols:
     y = mret[c] if c in mret else gret[c]
-    row, nrow = [], []
+    row, nrow, srow = [], [], []
     for k in chg.columns:
         d = pd.concat([y, chg[k]], axis=1).loc[start:].dropna()
-        row.append(r(d.corr().iloc[0, 1], 3) if len(d) >= 18 else None)
+        cc = d.corr().iloc[0, 1] if len(d) >= 18 else None
+        row.append(r(cc, 3))
         nrow.append(int(len(d)))
+        # 피셔 z 변환: |atanh(r)|·√(n−3) > 1.96 이면 5% 수준에서 0과 다르다고 본다
+        srow.append(bool(cc is not None and abs(np.arctanh(cc)) * np.sqrt(len(d) - 3) > 1.96))
     corr_rows.append(row)
     nobs.append(nrow)
-corr_month = {"rows": [NAMES.get(c, c) for c in cols], "row_ids": cols, "cols": list(chg.columns), "z": corr_rows, "n": nobs}
+    sig.append(srow)
+corr_month = {"rows": [NAMES.get(c, c) for c in cols], "row_ids": cols, "cols": list(chg.columns), "z": corr_rows, "n": nobs, "sig": sig}
 
 # --- 롤링 상관(일간 60거래일): 일 수익률 vs 일간 거시 변화
 dret = prices[eq + list(BENCH)].pct_change()
@@ -185,10 +202,17 @@ for t in eq:
                       "n": v.get("numberOfAnalystOpinions"), "mcap_bn": r((v.get("marketCap") or 0) / 1e9, 1),
                       "fpe": r(v.get("forwardPE"), 1), "tpe": r(v.get("trailingPE"), 1)})
 
+def _med(g):
+    v = [x["upside_pct"] for x in cons_rows if x["group"] == g and x["upside_pct"] is not None]
+    return r(float(np.median(v)), 1) if v else None
+
+
+cons_summary = {"median_upside": {"image": _med("image"), "video": _med("video")},
+                "mean_upside": {g: r(float(np.mean([x["upside_pct"] for x in cons_rows if x["group"] == g and x["upside_pct"] is not None])), 1) for g in ("image", "video")}}
 stage3 = {"generated": meta["fetched_at_utc"], "names": NAMES | BENCH, "image": IMAGE, "video": VIDEO,
-          "groups": GROUPS, "macro_vars": MACRO_VARS, "macro_titles": macro_meta,
+          "groups": GROUPS, "group_entries": group_entries, "macro_vars": MACRO_VARS, "macro_titles": macro_meta,
           "monthly": monthly, "corr_month": corr_month, "roll": roll, "z1": z1q,
-          "cashflow": cf, "consensus": {"snapshot_utc": cons["snapshot_utc"], "rows": cons_rows},
+          "cashflow": cf, "consensus": {"snapshot_utc": cons["snapshot_utc"], "rows": cons_rows, "summary": cons_summary},
           "macro_last": {k: macro[k].last_valid_index().strftime("%Y-%m-%d") for k in macro.columns}}
 (SITE / "stage3.json").write_text(json.dumps(stage3, ensure_ascii=False))
 

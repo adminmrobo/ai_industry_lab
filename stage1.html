@@ -14,6 +14,7 @@
   <h1>① Bloomberg 그림 공개일 ±3개월, 7개 상장사 주가</h1>
   <p class="lead">기준시점은 그림이 나온 <b>2025년 10월 7일</b>입니다. 그 전후 3개월(2025-07-07 ~ 2026-01-07) 동안 그림 속 상장사 7곳의 주가가 어떻게 움직였는지, 그리고 그 사이에 나온 거래 발표가 주가에 어떻게 반영됐는지 봅니다.</p>
   <p class="small" id="updated"></p>
+  <div class="auto" id="auto"></div>
 
   <div class="note"><b>이 페이지가 말하는 것과 말하지 않는 것.</b> 거래 발표일과 주가 변화를 나란히 보여 줄 뿐, "이 발표 때문에 주가가 올랐다"고 주장하지 않습니다. 같은 날 실적 발표나 시장 전체 움직임이 섞일 수 있어서, 아래 표에서는 나스닥100 대비 <b>초과 수익률</b>을 함께 적었습니다.</div>
 
@@ -33,7 +34,8 @@
   <details class="tbl"><summary>표로 보기(기준일·시작·끝 값)</summary><div class="tablewrap"><table class="data" id="sumTable"></table></div></details>
 
   <h2>거래 발표별 주가 반응</h2>
-  <p class="sub">반응일 하루 수익률에서 같은 날 나스닥100 수익률을 뺀 값이 <b>초과 수익률</b>입니다. 5일 누적은 반응일부터 다섯 거래일 동안의 누적 초과 수익률입니다.</p>
+  <p class="sub"><b>초과 수익률</b>은 그 종목이 시장 움직임만으로는 설명되지 않게 더 오르거나 내린 부분입니다. 두 가지로 계산했습니다. <b>시장모형</b>은 반응일 전 120거래일 동안 종목이 나스닥100에 얼마나 민감했는지(<abbr class="g" title="시장이 1% 움직일 때 종목이 평균 몇 % 움직이는지">베타</abbr>)를 구해 그만큼을 뺀 값이고, <b>단순 차감</b>은 나스닥100 수익률을 그대로 뺀 값입니다. 베타가 큰 CoreWeave·Nebius는 단순 차감이 초과 수익률을 부풀릴 수 있어 시장모형을 기본으로 보여 줍니다.</p>
+  <div class="controls"><div class="seg" id="abMode"><button data-m="mm" class="on">시장모형(베타 조정)</button><button data-m="simple">단순 차감(나스닥100)</button></div></div>
   <div id="react" class="chart"></div>
   <div class="tablewrap"><table class="data" id="evTable"></table></div>
   <div class="note warn"><b>읽을 때 주의할 점.</b> Oracle(9/10)·Snowflake(12/4)처럼 실적 발표와 같은 날인 경우, 반응에는 실적 자체가 크게 섞여 있습니다. Nvidia–OpenAI 1,000억 달러는 <b>의향서</b>였고 정식 계약으로 이어지지 않았다는 후속 보도가 있습니다.</div>
@@ -43,10 +45,18 @@
   <div class="grid g3" id="priv"></div>
   <details class="tbl"><summary>표로 보기(기업가치·출처)</summary><div class="tablewrap"><table class="data" id="privTable"></table></div></details>
 
+  <div class="qbox"><b>생각해 볼 질문</b><ol>
+    <li>기준일 전 3개월과 후 3개월의 수익률 부호가 바뀐 회사는 어디인가요? 그 사이 표에 있는 발표 가운데 어느 것이 그 회사와 관련 있나요?</li>
+    <li>Oracle은 9월 10일 크게 오르고 12월 11일 크게 내렸습니다. 두 날 모두 실적 발표일인데, 어떤 숫자(RPO, 설비투자)가 달랐나요? ③의 현금흐름 패널과 함께 보세요.</li>
+    <li>OpenAI의 기업가치는 계단처럼 오르는데 상장사 주가는 출렁입니다. 비상장 기업가치가 '매일 값이 없다'는 점은 비교에 어떤 착시를 만들까요?</li>
+  </ol></div>
+  <div id="gloss"></div>
+
   <h2>데이터와 방법</h2>
   <ul class="small">
     <li>주가: Yahoo Finance 수정 종가(GitHub Actions로 평일마다 자동 갱신).</li>
-    <li>거래 발표일·비상장 기업가치: 각 행의 출처 링크. 장 마감 뒤 발표는 다음 거래일을 반응일로 둠.</li>
+    <li>거래 발표일·비상장 기업가치: 각 행의 출처 링크. 장 마감 뒤 발표는 다음 거래일을 반응일로 둠. 출처에서 일(日)까지 확인하지 못한 날짜는 '일자 대략'으로 적었습니다.</li>
+    <li>시장모형: 반응일 130~11거래일 전(120거래일) 일별 수익률로 종목 = α + β × 나스닥100을 추정하고, 반응일과 그 뒤 4거래일의 실제 수익률에서 예상 수익률을 뺐습니다. 통계적 유의성 검정은 하지 않았으니 크기 비교용으로만 보세요.</li>
     <li>CoreWeave는 2025년 3월, Nebius는 2024년 10월부터 현재 티커로 거래되어 비교 기간이 짧습니다.</li>
     <li>교육·연구용 자료이며 투자 권유가 아닙니다.</li>
   </ul>
@@ -55,12 +65,15 @@
 <div class="tooltip" id="tt"></div>
 <script>
 siteHeader("stage1.html");
-let S, mode = "index", hidden = new Set();
+let S, mode = "index", hidden = new Set(), abMode = "mm";
 
 (async () => {
   [S] = await Promise.all([loadJSON("data/site/stage1.json")]);
   setUpdated(document.getElementById("updated"), await loadJSON("data/site/meta.json"));
-  tiles(); chips(); draw(); reactions(); privates(); sumTable();
+  tiles(); chips(); draw(); reactions(); privates(); sumTable(); summary(); terms();
+  document.querySelectorAll("#abMode button").forEach((b) => b.onclick = () => {
+    document.querySelectorAll("#abMode button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); abMode = b.dataset.m; reactions();
+  });
   document.querySelectorAll("#mode button").forEach((b) => b.onclick = () => {
     document.querySelectorAll("#mode button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); mode = b.dataset.m; draw();
   });
@@ -121,22 +134,24 @@ function reactions() {
   const ev = evList();
   const rows = S.reactions.filter((r) => S.tickers.includes(r.ticker) || r.ticker === "GOOGL" || r.ticker === "SNOW");
   const lab = rows.map((r) => `${ev.findIndex((e) => e.title === r.title) + 1}. ${r.ticker} (${r.react.slice(5)})`);
+  const key = abMode === "mm" ? "mm_abn_pct" : "abn_pct";
   Plotly.react("react", [{
-    type: "bar", orientation: "h", y: lab, x: rows.map((r) => r.abn_pct),
+    type: "bar", orientation: "h", y: lab, x: rows.map((r) => r[key]),
     marker: { color: rows.map((r) => colorOf(r.ticker)), line: { width: 0 } },
-    text: rows.map((r) => fmt.pct(r.abn_pct)), textposition: "outside", textfont: { size: 11, color: INK.t2 },
-    hovertemplate: rows.map((r) => `${r.title}<br>${r.ticker} 하루 ${fmt.pct(r.day_pct)} · 초과 ${fmt.pct(r.abn_pct)} · 5일 초과 ${fmt.pct(r.abn5_pct)}<extra></extra>`),
+    text: rows.map((r) => fmt.pct(r[key])), textposition: "outside", textfont: { size: 11, color: INK.t2 },
+    hovertemplate: rows.map((r) => `${r.title}<br>${r.ticker} 하루 ${fmt.pct(r.day_pct)} · 베타 ${r.beta ?? "–"}<br>시장모형 초과 ${fmt.pct(r.mm_abn_pct)} · 단순 차감 ${fmt.pct(r.abn_pct)}<extra></extra>`),
   }], baseLayout({ height: 40 + rows.length * 24, hovermode: "closest", margin: { l: 150, r: 50, t: 10, b: 36 },
     yaxis: { autorange: "reversed", tickfont: { size: 11, color: INK.t2 } },
-    xaxis: { gridcolor: INK.grid, ticksuffix: "%", zeroline: true, zerolinecolor: INK.t3, title: { text: "반응일 초과 수익률(나스닥100 대비)", font: { size: 12, color: INK.t2 } } } }), PCONF);
+    xaxis: { gridcolor: INK.grid, ticksuffix: "%", zeroline: true, zerolinecolor: INK.t3, title: { text: abMode === "mm" ? "반응일 초과 수익률(시장모형, 베타 조정)" : "반응일 초과 수익률(나스닥100 단순 차감)", font: { size: 12, color: INK.t2 } } } }), PCONF);
 
   const tb = document.getElementById("evTable");
-  tb.innerHTML = `<thead><tr><th>#</th><th>발표일</th><th>거래 내용</th><th>반응 종목</th><th>하루</th><th>초과</th><th>5일 누적 초과</th><th>출처</th></tr></thead><tbody>` +
+  tb.innerHTML = `<thead><tr><th>#</th><th>발표일</th><th>거래 내용</th><th>반응 종목</th><th>하루</th><th>베타</th><th>초과(시장모형)</th><th>5일 누적(시장모형)</th><th>초과(단순 차감)</th><th>출처</th></tr></thead><tbody>` +
     ev.map((e, i) => {
       const rs = S.reactions.filter((r) => r.title === e.title);
       const cell = (k) => rs.map((r) => `<div class="${cls(r[k])}">${r.ticker} ${fmt.pct(r[k])}</div>`).join("") || "–";
+      const bcell = rs.map((r) => `<div>${r.ticker} ${r.beta ?? "–"}</div>`).join("") || "–";
       return `<tr><td data-v="${i + 1}">${i + 1}</td><td class="nw">${e.date}${e.react !== e.date ? `<div class="small">반응 ${e.react}</div>` : ""}</td><td>${e.title}${e.note ? `<div class="small">${e.note}</div>` : ""}</td>
-      <td>${e.tickers.join(", ") || "–"}</td><td class="n">${cell("day_pct")}</td><td class="n">${cell("abn_pct")}</td><td class="n">${cell("abn5_pct")}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`;
+      <td>${e.tickers.join(", ") || "–"}</td><td class="n">${cell("day_pct")}</td><td class="n">${bcell}</td><td class="n">${cell("mm_abn_pct")}</td><td class="n">${cell("mm_car5_pct")}</td><td class="n">${cell("abn_pct")}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`;
     }).join("") + "</tbody>";
   sortableTable(tb);
 }
@@ -168,6 +183,34 @@ function sumTable() {
       <td class="n ${cls(s.pre_pct)}" data-v="${s.pre_pct}">${fmt.pct(s.pre_pct)}</td><td class="n ${cls(s.post_pct)}" data-v="${s.post_pct}">${fmt.pct(s.post_pct)}</td>
       <td class="n">${fmt.num(s.high, 2)} (${s.high_date.slice(5)})</td><td class="n">${fmt.num(s.low, 2)} (${s.low_date.slice(5)})</td><td class="n" data-v="${s.max_dd_pct}">${fmt.pct(s.max_dd_pct)}</td></tr>`; }).join("") + "</tbody>";
   sortableTable(tb);
+}
+
+function summary() {
+  const t = S.tickers.map((x) => [x, S.summary[x].post_pct]).sort((a, b) => b[1] - a[1]);
+  const up = t.filter((x) => x[1] > 0).length;
+  const rs = S.reactions.filter((r) => r.mm_abn_pct != null).sort((a, b) => b.mm_abn_pct - a.mm_abn_pct);
+  const hi = rs[0], lo = rs.at(-1);
+  const ndx = S.summary["^NDX"].post_pct;
+  autoSummary("auto", [
+    `기준일 뒤 3개월 동안 7곳 중 <b>${up}곳</b>이 올랐습니다(나스닥100 ${fmt.pct(ndx)}). 가장 많이 오른 곳은 <b>${S.names[t[0][0]]} ${fmt.pct(t[0][1])}</b>, 가장 많이 내린 곳은 <b>${S.names[t.at(-1)[0]]} ${fmt.pct(t.at(-1)[1])}</b>입니다.`,
+    `시장 움직임을 뺀 반응이 가장 컸던 발표는 <b>${hi.ticker} ${fmt.pct(hi.mm_abn_pct)}</b>(${hi.react}, ${hi.title.split("(")[0]})입니다.`,
+    `가장 큰 하락 반응은 <b>${lo.ticker} ${fmt.pct(lo.mm_abn_pct)}</b>(${lo.react}, ${lo.title.split(":")[0]})이며, 실적 발표와 겹친 날입니다.`,
+  ]);
+}
+function terms() {
+  glossary("gloss", [
+    ["수정 종가", "배당·액면분할을 반영해 과거 가격을 고친 종가. 기간 수익률 비교에 씁니다."],
+    ["기준일=100", "2025-10-07 종가를 100으로 놓고 다른 날을 비율로 바꾼 값. 110이면 기준일보다 10% 높다는 뜻."],
+    ["초과 수익률", "종목 수익률 가운데 시장 전체 움직임으로 설명되지 않는 부분."],
+    ["베타", "시장(나스닥100)이 1% 움직일 때 종목이 평균 몇 % 움직이는지. 2면 시장보다 두 배 크게 출렁입니다."],
+    ["시장모형", "종목 수익률 = α + β × 시장 수익률로 '평소 같으면 이만큼'을 예상하고, 실제와의 차이를 초과 수익률로 보는 방법."],
+    ["RPO(잔여이행의무)", "계약은 했지만 아직 매출로 잡히지 않은 금액. 앞으로 들어올 매출의 예약분."],
+    ["의향서(LOI)", "정식 계약 전에 큰 방향을 합의한 문서. 법적 구속력이 약하고 계약으로 이어지지 않을 수 있습니다."],
+    ["워런트", "정해진 가격에 주식을 살 수 있는 권리. AMD는 OpenAI에 주당 0.01달러에 살 권리를 조건부로 줬습니다."],
+    ["SAFE", "지금 돈을 넣고 나중 투자 라운드에서 지분으로 바뀌는 투자 약정."],
+    ["세컨더리", "회사가 새 주식을 파는 것이 아니라 기존 주주(직원 등)끼리 지분을 사고파는 거래."],
+    ["최대 낙폭", "기간 중 가장 높았던 값에서 이후 가장 많이 떨어진 비율."],
+  ]);
 }
 </script>
 </body>

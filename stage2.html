@@ -26,6 +26,7 @@
   <h1>② 영상 속 50개사와 그림 속 15개사, 어떻게 이어져 있나</h1>
   <p class="lead">영상 「50 AI Companies You Should Know」의 50개사 가운데 그림(Bloomberg)과 겹치는 8개사를 뺀 <b>42개사</b>를 그림 속 <b>15개사</b>와 합쳐 모두 <b>57개사</b>를 정리했습니다. 사업과 특징을 표로 보고, 회사 사이의 돈·칩·클라우드 거래를 가치사슬 지도와 움직이는 관계망으로 봅니다.</p>
 
+  <div class="auto" id="auto"></div>
   <div class="grid g4" id="tiles"></div>
 
   <div class="note"><b>'산업연관'이라는 말에 대해.</b> 산업연관표(미국 BEA 투입산출표 등)는 <b>산업 단위</b>로만 만들어지고 회사 단위 표는 없습니다. 그래서 여기서는 공개된 거래(투자·구매·서비스 계약·인수)를 모은 <b>회사 간 계약 관계망</b>을 그리고, 이를 층(칩→클라우드→모델→응용)별로 합친 <b>층 간 연결 행렬</b>을 산업 단위 요약으로 함께 보여 줍니다.</div>
@@ -54,7 +55,7 @@
   <h2>움직이는 관계망(동적)</h2>
   <p class="sub">원 크기는 연결 수입니다. 회사를 누르면 그 회사와 바로 이어진 회사만 남고, 빈 곳을 누르면 다시 전체가 보입니다. 시간 막대를 움직이면 그 날짜까지 발표된 관계만 쌓여서 보입니다.</p>
   <div class="controls">
-    <label>범위 <select id="nScope"><option value="all">57개사 전체</option><option value="figure">그림에 그려진 관계만</option><option value="outside">그림 밖 관계만</option></select></label>
+    <label>범위 <select id="nScope"><option value="all">57개사 전체</option><option value="figure">그림에 그려진 관계만</option><option value="outside">그림 밖 관계만</option><option value="verified">일자까지 확인된 관계만</option></select></label>
     <label><input type="checkbox" id="showIso"> 연결 없는 회사도 보기</label>
     <span id="kindChips"></span>
   </div>
@@ -64,13 +65,21 @@
     <button class="chip" id="play">▶ 재생</button>
   </div>
   <div id="net"></div>
-  <p class="small">그림에만 근거가 있는 관계(출처 = Bloomberg 그림)는 날짜가 대략값입니다. 표의 '날짜 대략' 열을 함께 보세요.</p>
+  <p class="small">출처에서 일(日)까지 확인하지 못한 관계는 날짜가 대략값입니다(표의 '일자' 열). 시간 재생은 "대략 이 무렵"으로 읽어 주세요.</p>
+  <div class="note">Bloomberg 원본 그림과 대조하려면 <a href="https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals" target="_blank" rel="noopener">원문</a>을 옆에 띄우고 <button class="chip" id="figOnly">그림에 그려진 관계만 보기</button>를 눌러 보세요. 그림의 화살표만으로는 성격을 단정하기 어려운 2건(Intel→CoreWeave, AMD→Nscale)은 '그림 해석'으로 표시했습니다.</div>
 
   <h3>직접 거래가 확인되지 않은 회사</h3>
   <p class="sub" id="isolated"></p>
 
+  <div class="qbox"><b>생각해 볼 질문</b><ol>
+    <li>층 간 연결 행렬에서 '칩 → 모델'(투자)과 '모델 → 칩'(구매)이 둘 다 큰 이유는 무엇일까요? 이것이 순환 거래와 어떻게 이어지나요?</li>
+    <li>'범위'를 '그림에 그려진 관계만'과 '그림 밖 관계만'으로 바꿔 보세요. 그림 이후 고리에 새로 들어온 회사는 누구인가요?</li>
+    <li>직접 거래가 확인되지 않은 회사가 20개가 넘습니다. 연결선이 없다는 사실을 "산업과 관계없다"로 읽으면 안 되는 이유는?</li>
+  </ol></div>
+  <div id="gloss"></div>
+
   <h2>관계 목록(출처)</h2>
-  <details class="tbl" open><summary>61개 관계 펼치기/접기</summary><div class="tablewrap"><table class="data" id="edTable"></table></div></details>
+  <details class="tbl" open><summary>관계 펼치기/접기</summary><div class="tablewrap"><table class="data" id="edTable"></table></div></details>
 
   <h2>데이터와 방법</h2>
   <ul class="small">
@@ -105,7 +114,8 @@ let D, byId, deg = {};
   byId = Object.fromEntries(D.companies.map((c) => [c.id, c]));
   D.companies.forEach((c) => deg[c.id] = 0);
   D.edges.forEach((e) => { deg[e.source]++; deg[e.target]++; });
-  tiles(); table(); matrix(""); legend(); drawMap(); netInit(); edgeTable();
+  tiles(); table(); matrix(""); legend(); drawMap(); netInit(); edgeTable(); summary(); terms();
+  document.getElementById("figOnly").onclick = () => { document.getElementById("nScope").value = "figure"; net.focus = null; netUpdate(); document.getElementById("net").scrollIntoView({ behavior: "smooth", block: "center" }); };
   const iso = D.companies.filter((c) => !deg[c.id]).map((c) => c.name);
   document.getElementById("isolated").textContent = `${iso.length}개사: ${iso.join(", ")}. 이 회사들은 이번 정리에서 출처로 확인한 직접 거래가 없어 관계망에 연결선이 없습니다.`;
 })();
@@ -117,7 +127,7 @@ function tiles() {
     ["전체 회사", D.companies.length + "개", "그림 15 + 영상에만 42"],
     ["그림·영상 둘 다", D.companies.filter((c) => c.group === "both").length + "개", "OpenAI·Nvidia·AMD·Intel·xAI·Mistral·Figure·Harvey"],
     ["상장(모회사 포함)", listed + "개", "나머지는 비상장"],
-    ["관계(출처 확인)", D.edges.length + "건", `그림 ${fig}건 + 그림 밖 ${D.edges.length - fig}건`],
+    ["관계(출처 있음)", D.edges.length + "건", `그림 ${fig}건 + 그림 밖 ${D.edges.length - fig}건 · 일자 확인 ${D.edges.filter((e) => !e.date_approx).length}건`],
   ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
 }
 
@@ -167,7 +177,7 @@ function legend() {
 function showTip(ev, html) { tt.innerHTML = html; tt.style.display = "block"; tt.style.left = Math.min(ev.clientX + 14, innerWidth - 330) + "px"; tt.style.top = ev.clientY + 14 + "px"; }
 function hideTip() { tt.style.display = "none"; }
 function coTip(c) { return `<b>${c.name}</b> <span class="small">${LAYER[c.layer]} · ${GROUP[c.group]}${c.ticker ? " · " + c.ticker : ""}</span><br>${c.business}${c.feature ? `<br><span class="small">${c.feature}</span>` : ""}<br><span class="small">연결 ${deg[c.id]}건</span>`; }
-function edTip(e) { return `<b>${byId[e.source].name} → ${byId[e.target].name}</b><br>${KIND[e.kind].t}: ${e.label}<br><span class="small">${e.date}${e.date_approx ? " (대략)" : ""}</span>`; }
+function edTip(e) { return `<b>${byId[e.source].name} → ${byId[e.target].name}</b><br>${KIND[e.kind].t}: ${e.label}<br><span class="small">${e.date}${e.date_approx ? " (일자 대략)" : ""}${e.interp ? " · 그림 해석" : ""}</span>`; }
 
 // ---------- 정적 가치사슬 지도: 열 = 층
 function drawMap() {
@@ -247,7 +257,7 @@ const r = (d) => 5 + Math.sqrt(deg[d.id] || 0) * 3.2;
 function netUpdate() {
   const sl = document.getElementById("tSlider"), cut = net.dates[+sl.value], scope = document.getElementById("nScope").value;
   document.getElementById("tLabel").textContent = `${cut}까지 발표된 관계`;
-  let edges = D.edges.filter((e) => e.date <= cut && net.kinds.has(e.kind) && (scope === "all" || (scope === "figure" ? e.in_figure : !e.in_figure)));
+  let edges = D.edges.filter((e) => e.date <= cut && net.kinds.has(e.kind) && (scope === "all" || (scope === "figure" ? e.in_figure : scope === "verified" ? !e.date_approx : !e.in_figure)));
   if (net.focus) edges = edges.filter((e) => e.source === net.focus || e.target === net.focus);
   const live = new Set(edges.flatMap((e) => [e.source, e.target]));
   const showAll = !net.focus && scope === "all" && document.getElementById("showIso").checked;
@@ -285,9 +295,36 @@ function netUpdate() {
 
 function edgeTable() {
   const tb = document.getElementById("edTable");
-  tb.innerHTML = "<thead><tr><th>내는 쪽</th><th>받는 쪽</th><th>종류</th><th>내용</th><th>날짜</th><th>날짜 대략</th><th>그림</th><th>출처</th></tr></thead><tbody>" +
-    D.edges.map((e) => `<tr><td>${byId[e.source].name}</td><td>${byId[e.target].name}</td><td class="nw">${KIND[e.kind].t}</td><td>${e.label}</td><td class="nw">${e.date}</td><td>${e.date_approx ? "예" : ""}</td><td>${e.in_figure ? "●" : ""}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`).join("") + "</tbody>";
+  tb.innerHTML = "<thead><tr><th>내는 쪽</th><th>받는 쪽</th><th>종류</th><th>내용</th><th>날짜</th><th>일자</th><th>그림</th><th>출처</th></tr></thead><tbody>" +
+    D.edges.map((e) => `<tr><td>${byId[e.source].name}</td><td>${byId[e.target].name}</td><td class="nw">${KIND[e.kind].t}</td><td>${e.label}${e.interp ? ' <span class="badge">그림 해석</span>' : ""}</td><td class="nw">${e.date_approx ? e.date.slice(0, 7) : e.date}</td><td class="nw">${e.date_approx ? "대략" : "확인"}</td><td>${e.in_figure ? "●" : ""}</td><td><a href="${e.src}" target="_blank" rel="noopener">링크</a></td></tr>`).join("") + "</tbody>";
   sortableTable(tb);
+}
+
+function summary() {
+  const top = Object.entries(deg).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([id, n]) => `${byId[id].name}(${n}건)`);
+  const pair = {};
+  D.edges.forEach((e) => { const k = LAYER[byId[e.source].layer] + " → " + LAYER[byId[e.target].layer]; pair[k] = (pair[k] || 0) + 1; });
+  const tp = Object.entries(pair).sort((a, b) => b[1] - a[1]).slice(0, 2);
+  const outside = D.edges.filter((e) => !e.in_figure);
+  const newcos = [...new Set(outside.flatMap((e) => [e.source, e.target]))].filter((id) => byId[id].group === "video").length;
+  autoSummary("auto", [
+    `연결이 가장 많은 회사는 <b>${top.join(", ")}</b>입니다.`,
+    `층 사이 흐름은 <b>${tp.map(([k, n]) => `${k} ${n}건`).join(", ")}</b>이 가장 많습니다.`,
+    `그림 밖 관계 ${outside.length}건을 더하면 영상에만 있는 회사 <b>${newcos}곳</b>이 고리에 이어지고, ${D.companies.filter((c) => !deg[c.id]).length}곳은 확인된 직접 거래가 없습니다.`,
+  ]);
+}
+function terms() {
+  glossary("gloss", [
+    ["가치사슬", "원재료에서 최종 서비스까지 가치가 더해지는 단계. 여기서는 칩 → 클라우드 → 모델 → 응용·로봇."],
+    ["네오클라우드", "GPU 임대에 특화된 신생 클라우드 회사(CoreWeave·Nebius·Nscale 등)."],
+    ["산업연관표", "산업과 산업 사이에 무엇을 얼마나 사고파는지 정리한 국가 통계표. 회사 단위로는 만들어지지 않습니다."],
+    ["지분 투자", "회사의 주식을 사서 주주가 되는 투자. 전략적 제휴와 함께 오는 경우가 많습니다."],
+    ["벤처 투자", "비상장 스타트업의 투자 라운드(시리즈 A·B·C…)에 참여하는 투자."],
+    ["라이선스", "기술을 쓸 권리를 사는 계약. Nvidia–Groq처럼 인수 대신 라이선스와 인력 영입을 묶기도 합니다."],
+    ["자회사·모회사", "다른 회사가 지배하는 회사(자회사)와 그 지배 회사(모회사). Waymo·Google DeepMind의 모회사는 Alphabet."],
+    ["연결 수", "관계망에서 그 회사가 들어간 관계(선)의 수. 많다고 거래 금액이 크다는 뜻은 아닙니다."],
+    ["일자 대략", "출처가 월·연까지만 확인되는 관계. 시간 재생에서 위치가 실제와 조금 다를 수 있습니다."],
+  ]);
 }
 </script>
 </body>

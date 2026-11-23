@@ -14,6 +14,7 @@
   <h1>③ 지금 주가·컨센서스, 그리고 거시환경과의 관계 이력</h1>
   <p class="lead">그림 속 상장사 7곳과 영상 속 상장사 5곳의 현재 주가와 애널리스트 컨센서스를 먼저 보고, 금리·소비자심리·고용·물가 같은 거시 변수와 주가가 <b>함께 움직여 온 길</b>을 3D로 따라갑니다. 마지막에는 기업의 현금흐름과 미국 기업 부문의 자금 흐름(연준 Z.1)을 붙여 봅니다.</p>
   <p class="small" id="updated"></p>
+  <div class="auto" id="auto"></div>
 
   <div class="note"><b>먼저 읽어 주세요.</b> 이 페이지의 3D 차트와 상관계수는 <b>관계의 이력</b>을 보여 줄 뿐 원인과 결과를 말하지 않습니다. 주가와 금리·물가는 모두 추세가 있어서 수준값끼리는 우연히도 강한 관계처럼 보이기 쉽습니다. 그래서 상관 분석은 <b>수익률과 변화량</b>으로 했고, 3D 궤적은 "어떤 환경에서 주가가 어디에 있었나"를 보는 지도로만 써 주세요.</div>
 
@@ -45,7 +46,8 @@
   <p class="small">3D는 보는 각도에 따라 관계가 달라 보입니다. 아래 2D 두 장은 같은 시간축에 X 변수와 주가를 따로 그린 것이니 함께 보세요(축 두 개를 겹쳐 그리지 않았습니다).</p>
 
   <h2>3. 기업군 3D 비교</h2>
-  <p class="sub">기업군 지수는 그 안의 종목 월 수익률을 같은 비중으로 평균해 처음 달을 100으로 둔 값입니다(상장 전 종목은 상장 뒤부터 들어감). 최대 3개 기업군을 함께 볼 수 있습니다.</p>
+  <p class="sub">기업군 지수는 그 안의 종목 월 수익률을 같은 비중으로 평균해 처음 달을 100으로 둔 값입니다. 최대 3개 기업군을 함께 볼 수 있습니다.</p>
+  <p class="small" id="entries"></p>
   <div class="controls" id="gChips"></div>
   <div class="controls">
     <label>X <select id="gx"></select></label>
@@ -60,7 +62,7 @@
   <div id="roll" class="chart x3d"></div>
 
   <h2>5. 장기 상관 요약(월간)</h2>
-  <p class="sub">2018년 이후 월 수익률과 거시 변수의 월간 변화 사이의 상관계수입니다. 색 블록 하나가 기업×변수 한 쌍이고, 표본(월 수)이 18개 미만이면 비워 두었습니다.</p>
+  <p class="sub">2018년 이후 월 수익률과 거시 변수의 월간 변화 사이의 상관계수입니다. 색 블록 하나가 기업×변수 한 쌍이고, 표본(월 수)이 18개 미만이면 비워 두었습니다. 숫자 뒤 <b>*</b>는 5% 수준에서 0과 다르다고 볼 수 있는 값입니다(피셔 z 검정). 여러 쌍을 한꺼번에 검정했으므로 별표가 몇 개 우연히 붙을 수 있습니다.</p>
   <div id="cmat" class="chart tall"></div>
 
   <h2>6. 기업 현금흐름: 이익이 아닌 '통장에 찍힌 돈'</h2>
@@ -82,12 +84,21 @@
   </div>
   <div class="note"><b>평가 변동을 기억하세요.</b> 주가가 오르면 '부채 ÷ 시가총액'은 빚이 줄지 않아도 내려갑니다. 주가로 불어난 값은 평가 변동이지 실제 현금이 아닙니다. 그래서 이 비율은 위의 자금 부족(실제 현금 흐름)과 나란히 읽어야 합니다.</div>
 
+  <div class="qbox"><b>생각해 볼 질문</b><ol>
+    <li>상승 여력의 평균과 중앙값이 크게 다른 이유는 무엇인가요? 목표주가가 현재가의 두 배 가까운 회사들은 최근 주가가 어떻게 움직였나요(①과 함께 보세요)?</li>
+    <li>장기 상관 행렬에서 금리 변화보다 ΔVIX·Δ하이일드 열이 더 진한 이유는 무엇일까요? '위험 선호'라는 말로 설명해 보세요.</li>
+    <li>설비투자 ÷ 영업현금이 100%를 넘는 회사는 모자란 돈을 어디서 메우나요? 재무활동 현금 막대와 연준 Z.1의 자금 부족을 함께 보세요.</li>
+  </ol></div>
+  <div id="gloss"></div>
+
   <h2>데이터와 방법</h2>
   <ul class="small" id="method">
     <li>주가·컨센서스·현금흐름표: Yahoo Finance(yfinance). 컨센서스는 수집일 스냅샷이며 매일 <code>data/consensus_history/</code>에 쌓입니다.</li>
     <li>거시: FRED(미 국채 금리, 연방기금금리, 미시간대 소비자심리, 비농업 고용, 실업률, CPI, VIX, 하이일드 스프레드, 달러 지수), 연준 Z.1(비금융기업 설비투자·총저축·부채). 소비자신뢰지수는 Conference Board 지수가 유료라서 미시간대 소비자심리지수로 대신했습니다.</li>
     <li>월간 값: 금리·VIX·스프레드·달러는 월평균, 소비자심리·고용·물가는 해당 월 값. 고용·물가는 다음 달 중순에 발표되므로 시장이 그 값을 알게 되는 시점은 한 달쯤 늦습니다.</li>
-    <li>CoreWeave(2025-03 상장)·Nebius(2024-10 재상장)·Snowflake(2020-09 상장)는 이력이 짧아 상관계수가 불안정합니다.</li>
+    <li>CoreWeave(2025-03 상장)·Nebius(2024-10 재상장)·Snowflake(2020-09 상장)는 이력이 짧아 상관계수가 불안정합니다. 이 종목들이 들어간 기업군 지수는 편입 시점에 구성이 바뀝니다.</li>
+    <li>설비투자 ÷ 영업현금 비교는 회사마다 회계연도 말이 달라(예: Oracle 5월, Microsoft 6월, Nvidia 1월) 같은 시기를 비교한 것이 아닙니다. 막대 아래에 회계연도 말을 적었습니다.</li>
+    <li>좁은 화면에서는 3D 대신 2D를 먼저 보여 주고, 단추를 누르면 3D를 그립니다.</li>
     <li>교육·연구용 자료이며 투자 권유가 아닙니다.</li>
   </ul>
 </main>
@@ -105,7 +116,7 @@ const ax3 = (t) => ({ title: { text: t, font: { size: 12 } }, backgroundcolor: "
 (async () => {
   S = await loadJSON("data/site/stage3.json");
   setUpdated(document.getElementById("updated"), await loadJSON("data/site/meta.json"));
-  consensus(); setup3d(); setupGroups(); setupRoll(); corrMatrix(); setupCF(); z1();
+  consensus(); setup3d(); setupGroups(); setupRoll(); corrMatrix(); setupCF(); z1(); summary(); terms();
 })();
 
 const EQ = () => [...S.image, ...S.video];
@@ -117,11 +128,11 @@ function consensus() {
   const snap = new Date(C.snapshot_utc).toLocaleString("ko-KR", { timeZone: "Asia/Seoul", hour12: false });
   document.getElementById("consNote").innerHTML = `스냅샷 시각: ${snap}(한국 시간), 출처 Yahoo Finance. 목표주가는 애널리스트들이 제시한 12개월 목표의 평균이며 예측이 아닌 '의견의 평균'입니다. 투자의견 평균은 1(강력 매수)~5(매도) 척도입니다.`;
   const avg = (a) => a.reduce((s, v) => s + v, 0) / a.length;
-  const up = (g) => avg(rows.filter((r) => r.group === g && r.upside_pct != null).map((r) => r.upside_pct));
+  const up = (g) => C.summary.median_upside[g], mean = (g) => C.summary.mean_upside[g];
   const mc = (g) => rows.filter((r) => r.group === g).reduce((s, r) => s + (r.mcap_bn || 0), 0);
   document.getElementById("consTiles").innerHTML = [
-    ["그림 7개사 평균 상승 여력", fmt.pct(up("image")), "평균 목표주가 기준"],
-    ["영상 5개사 평균 상승 여력", fmt.pct(up("video")), "평균 목표주가 기준"],
+    ["그림 7개사 상승 여력(중앙값)", fmt.pct(up("image")), `평균은 ${fmt.pct(mean("image"))} · 몇 회사가 평균을 끌어올림`],
+    ["영상 5개사 상승 여력(중앙값)", fmt.pct(up("video")), `평균은 ${fmt.pct(mean("video"))}`],
     ["그림 7개사 시가총액 합", fmt.bn(mc("image")), "스냅샷 기준"],
     ["애널리스트 수(중앙값)", rows.map((r) => r.n).sort((a, b) => a - b)[Math.floor(rows.length / 2)] + "명", "기업별 커버리지"],
   ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
@@ -130,7 +141,7 @@ function consensus() {
   Plotly.react("upside", [{ type: "bar", x: srt.map((r) => `${r.name}`), y: srt.map((r) => r.upside_pct),
     marker: { color: srt.map((r) => colorOf(r.ticker)), line: { width: 0 } },
     text: srt.map((r) => fmt.pct(r.upside_pct, 0)), textposition: "outside", textfont: { size: 11, color: INK.t2 },
-    hovertemplate: srt.map((r) => `${r.name} (${r.ticker})<br>현재 ${fmt.usd(r.price)} · 목표 평균 ${fmt.usd(r.target_mean)}<br>의견 ${r.rec} (${r.rec_mean}) · ${r.n}명<extra></extra>`) }],
+    hovertemplate: srt.map((r) => `${r.name} (${r.ticker})<br>현재 ${fmt.usd(r.price)} · 목표 평균 ${fmt.usd(r.target_mean)}<br>의견 ${recKo(r.rec)} (평균 ${r.rec_mean}) · ${r.n}명<extra></extra>`) }],
     baseLayout({ hovermode: "closest", margin: { l: 50, r: 10, t: 20, b: 70 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%", title: { text: "평균 목표주가 ÷ 현재가 − 1", font: { size: 12, color: INK.t2 } } },
       annotations: [{ xref: "paper", yref: "paper", x: 1, y: 1.08, showarrow: false, text: "색 = 그림 속 회사(고유색) · 회색 = 영상 속 회사", font: { size: 11, color: INK.t3 }, xanchor: "right" }] }), PCONF);
 
@@ -148,7 +159,7 @@ function consensus() {
   const tb = document.getElementById("consTable");
   tb.innerHTML = "<thead><tr><th>기업</th><th>소속</th><th>현재가</th><th>목표 평균</th><th>최저</th><th>최고</th><th>상승 여력</th><th>의견</th><th>의견 평균</th><th>애널리스트</th><th>시가총액</th><th>선행 PER</th></tr></thead><tbody>" +
     rows.map((r) => `<tr><td>${r.name} (${r.ticker})</td><td>${r.group === "image" ? "그림" : "영상"}</td><td class="n">${fmt.usd(r.price)}</td><td class="n">${fmt.usd(r.target_mean)}</td><td class="n">${fmt.usd(r.target_low)}</td><td class="n">${fmt.usd(r.target_high)}</td>
-      <td class="n ${cls(r.upside_pct)}" data-v="${r.upside_pct}">${fmt.pct(r.upside_pct)}</td><td>${r.rec || "–"}</td><td class="n">${r.rec_mean ?? "–"}</td><td class="n">${r.n ?? "–"}</td><td class="n" data-v="${r.mcap_bn}">${fmt.bn(r.mcap_bn)}</td><td class="n">${r.fpe ?? "–"}</td></tr>`).join("") + "</tbody>";
+      <td class="n ${cls(r.upside_pct)}" data-v="${r.upside_pct}">${fmt.pct(r.upside_pct)}</td><td class="nw">${recKo(r.rec)}</td><td class="n">${r.rec_mean ?? "–"}</td><td class="n">${r.n ?? "–"}</td><td class="n" data-v="${r.mcap_bn}">${fmt.bn(r.mcap_bn)}</td><td class="n">${r.fpe ?? "–"}</td></tr>`).join("") + "</tbody>";
   sortableTable(tb);
 }
 
@@ -187,7 +198,13 @@ function setup3d() {
   document.getElementById("anim").onclick = animate3d;
   draw3d();
 }
+let show3d = { traj: !MOBILE, g: !MOBILE };
+function mobileGate(id, k, redraw) {
+  document.getElementById(id).innerHTML = `<div class="mobile3d">좁은 화면에서는 3D 회전이 불편해 아래 2D 차트를 먼저 보여 줍니다.<br><br><button class="chip" id="${id}-btn">3D로 그리기</button></div>`;
+  document.getElementById(id + "-btn").onclick = () => { show3d[k] = true; document.getElementById(id).innerHTML = ""; redraw(); };
+}
 function draw3d(upto) {
+  if (!show3d.traj) { mobileGate("traj", "traj", () => draw3d()); flat(c3.value, x3.value, z3.value, p3.value + "-01"); return; }
   const key = c3.value, xk = x3.value, yk = y3.value, zm = z3.value, from = p3.value + "-01";
   let R = rowsFor(key, xk, yk, zm, from);
   const full = R;
@@ -238,12 +255,24 @@ function setupGroups() {
     if (gSel.has(g)) { gSel.delete(g); c.classList.add("off"); } else if (gSel.size < 3) { gSel.add(g); c.classList.remove("off"); }
     drawG();
   });
+  const ent = Object.entries(S.group_entries).filter(([, v]) => v.length).map(([g, v]) => `${g.split("(")[0]}: ${v.map((e) => `${e.ticker} ${e.month}`).join(", ")}`);
+  document.getElementById("entries").textContent = "구성 변경(상장 뒤 편입) — " + ent.join(" / ") + ". 편입 전에는 나머지 종목만으로 계산합니다.";
   const mv = Object.keys(S.macro_vars).map((k) => [k, S.macro_vars[k][0]]);
   fillSelect("gx", mv, "DGS10"); fillSelect("gy", mv, "UMCSENT");
   ["gx", "gy", "gp"].forEach((id) => document.getElementById(id).onchange = drawG);
   drawG();
 }
 function drawG() {
+  if (!show3d.g) { // 모바일: 기업군 지수를 시간축 2D로
+    const d = S.monthly.dates, from = gp.value;
+    Plotly.react("gtraj", [...gSel].map((g) => { const v = S.monthly.group[g]; const idx = d.map((m, i) => (m >= from ? i : -1)).filter((i) => i >= 0);
+      return { x: idx.map((i) => d[i]), y: idx.map((i) => v[i]), name: g.split("(")[0], mode: "lines", line: { color: GROUP_STYLE[g][0], dash: GROUP_STYLE[g][1], width: 2 } }; }),
+      baseLayout({ height: 340, yaxis: { type: "log", gridcolor: INK.grid, tickvals: [50, 100, 200, 500, 1000, 2000, 5000] }, legend: { orientation: "h", y: 1.15 } }), PCONF);
+    const box = document.getElementById("gtraj");
+    if (!document.getElementById("g3btn")) box.insertAdjacentHTML("afterend", `<div id="g3btn" style="text-align:center;margin:8px 0"><button class="chip">3D로 그리기</button></div>`);
+    document.querySelector("#g3btn button").onclick = () => { show3d.g = true; document.getElementById("g3btn").remove(); Plotly.purge("gtraj"); drawG(); };
+    return;
+  }
   const xk = gx.value, yk = gy.value, from = gp.value + "-01", traces = [];
   [...gSel].forEach((g) => {
     const R = rowsFor(g, xk, yk, "price", from), [c, d] = GROUP_STYLE[g];
@@ -259,9 +288,10 @@ function drawG() {
 }
 
 // ---------------------------------------------------------------- 4. 롤링 상관 곡면
-let rMode = "3d";
+let rMode = MOBILE ? "2d" : "3d";
 function setupRoll() {
   fillSelect("rv", Object.keys(S.roll).map((k) => [k, k]), "Δ10년 금리");
+  if (MOBILE) document.querySelectorAll("#rMode button").forEach((x) => x.classList.toggle("on", x.dataset.m === "2d"));
   rv.onchange = drawRoll;
   document.querySelectorAll("#rMode button").forEach((b) => b.onclick = () => {
     document.querySelectorAll("#rMode button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); rMode = b.dataset.m; drawRoll();
@@ -289,7 +319,7 @@ function corrMatrix() {
   const C = S.corr_month;
   const rows = C.rows.map((r, i) => (C.row_ids[i] in S.groups ? "▣ " + r : r + (S.video.includes(C.row_ids[i]) ? " ·영상" : "")));
   Plotly.react("cmat", [{ type: "heatmap", x: C.cols, y: rows, z: C.z, colorscale: DIV, zmin: -0.6, zmax: 0.6, xgap: 2, ygap: 2,
-    text: C.z.map((r) => r.map((v) => (v == null ? "" : v.toFixed(2)))), texttemplate: "%{text}", textfont: { size: 11 },
+    text: C.z.map((r, i) => r.map((v, j) => (v == null ? "" : v.toFixed(2) + (C.sig[i][j] ? "*" : "")))), texttemplate: "%{text}", textfont: { size: 11 },
     customdata: C.n, hovertemplate: "%{y} × %{x}<br>상관 %{z:.2f} (표본 %{customdata}개월)<extra></extra>",
     colorbar: { title: { text: "상관", font: { size: 11 } }, thickness: 12, tickfont: { size: 10 } } }],
     baseLayout({ hovermode: "closest", height: 640, margin: { l: 250, r: 10, t: 10, b: 60 }, yaxis: { autorange: "reversed", tickfont: { size: 11, color: INK.t2 } }, xaxis: { side: "bottom", tickfont: { size: 11, color: INK.t2 } } }), PCONF);
@@ -320,10 +350,10 @@ function capexRatio() {
     const ocf = a.ocf?.[last], cap = a.capex?.[last], fcf = a.fcf?.[last], fin = a.fcf_fin?.[last];
     return { t, last, ocf, cap, fcf, fin, ratio: ocf && cap != null ? Math.abs(cap) / ocf * 100 : null };
   }).filter((r) => r.ratio != null).sort((a, b) => b.ratio - a.ratio);
-  Plotly.react("capexRatio", [{ type: "bar", x: rows.map((r) => S.names[r.t]), y: rows.map((r) => r.ratio), marker: { color: rows.map((r) => colorOf(r.t)), line: { width: 0 } },
+  Plotly.react("capexRatio", [{ type: "bar", x: rows.map((r) => `${S.names[r.t]}<br><span style="font-size:10px">FY말 ${r.last.slice(0, 7)}</span>`), y: rows.map((r) => r.ratio), marker: { color: rows.map((r) => colorOf(r.t)), line: { width: 0 } },
     text: rows.map((r) => r.ratio.toFixed(0) + "%"), textposition: "outside", textfont: { size: 11, color: INK.t2 },
     hovertemplate: rows.map((r) => `${S.names[r.t]} · 회계연도 말 ${r.last}<br>설비투자 ${fmt.num(Math.abs(r.cap) / 1e9, 1)}십억 달러 ÷ 영업현금 ${fmt.num(r.ocf / 1e9, 1)}십억 달러<extra></extra>`) }],
-    baseLayout({ hovermode: "closest", margin: { l: 50, r: 10, t: 20, b: 70 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%" },
+    baseLayout({ hovermode: "closest", margin: { l: 50, r: 10, t: 20, b: 84 }, yaxis: { gridcolor: INK.grid, ticksuffix: "%" },
       shapes: [{ type: "line", xref: "paper", x0: 0, x1: 1, y0: 100, y1: 100, line: { color: INK.t1, width: 1.2, dash: "dash" } }],
       annotations: [{ xref: "paper", x: 1, y: 100, text: "100% = 번 만큼 투자", showarrow: false, xanchor: "right", yanchor: "bottom", font: { size: 11, color: INK.t2 } }] }), PCONF);
   const tb = document.getElementById("cfTable");
@@ -345,7 +375,41 @@ function z1() {
   const gs = ["그림 7개사(순환 고리)", "영상 5개사(고리 바깥)"];
   Plotly.react("z1g", gs.map((g) => ({ x: Z.dates, y: Z.group_q[g], name: g, mode: "lines", connectgaps: true,
     line: { color: GROUP_STYLE[g][0], width: 2 }, hovertemplate: `${g}: %{y:.0f}<extra></extra>` })),
-    baseLayout({ margin: { l: 46, r: 10, t: 6, b: 30 }, legend: { orientation: "h", y: 1.12, font: { size: 11 } }, yaxis: { gridcolor: INK.grid, type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] } }), PCONF);
+    baseLayout({ margin: { l: 46, r: 10, t: 6, b: 30 }, legend: { orientation: "h", y: 1.12, font: { size: 11 } },
+      shapes: [...new Set(S.group_entries[gs[0]].concat(S.group_entries[gs[1]]).map((e) => e.month))].map((m) => ({ type: "line", x0: m + "-01", x1: m + "-01", yref: "paper", y0: 0, y1: 1, line: { color: INK.t3, width: 1, dash: "dot" } })),
+      annotations: S.group_entries[gs[0]].concat(S.group_entries[gs[1]]).map((e, i) => ({ x: e.month + "-01", yref: "paper", y: 0.02 + i * 0.08, text: e.ticker + " 편입", showarrow: false, xanchor: "left", font: { size: 10, color: INK.t3 } })),
+      yaxis: { gridcolor: INK.grid, type: "log", tickvals: [50, 100, 200, 500, 1000, 2000, 5000], ticktext: ["50", "100", "200", "500", "1000", "2000", "5000"] } }), PCONF);
+}
+
+function summary() {
+  const C = S.corr_month, cs = S.consensus.summary;
+  const colSig = C.cols.map((c, j) => [c, C.row_ids.filter((id, i) => !(id in S.groups) && C.sig[i][j] && C.z[i][j] < 0).length]).sort((a, b) => b[1] - a[1]);
+  const over = EQ().filter((t) => { const a = S.cashflow[t]?.annual || {}, l = Object.keys(a.ocf || {}).sort().at(-1); return l && a.ocf[l] > 0 && Math.abs(a.capex?.[l] || 0) > a.ocf[l]; }).map((t) => S.names[t]);
+  autoSummary("auto", [
+    `평균 목표주가까지의 상승 여력 중앙값은 그림 7개사 <b>${fmt.pct(cs.median_upside.image)}</b>, 영상 5개사 <b>${fmt.pct(cs.median_upside.video)}</b>입니다(평균은 각각 ${fmt.pct(cs.mean_upside.image)}, ${fmt.pct(cs.mean_upside.video)}).`,
+    `2018년 이후 월간 기준으로 가장 많은 회사에서 유의한 음(-)의 관계가 나온 변수는 <b>${colSig[0][0]}(${colSig[0][1]}개사)</b>, <b>${colSig[1][0]}(${colSig[1][1]}개사)</b>입니다. 같은 기준으로 Δ10년 금리는 ${colSig.find((x) => x[0] === "Δ10년 금리")[1]}개사입니다.`,
+    `최근 연간 기준 설비투자가 영업현금보다 많은 회사: <b>${over.join(", ") || "없음"}</b>.`,
+  ]);
+}
+function terms() {
+  glossary("gloss", [
+    ["컨센서스", "여러 애널리스트 의견(목표주가·투자의견·이익 추정)의 평균."],
+    ["목표주가", "애널리스트가 12개월 뒤 적정하다고 보는 주가. 예측이라기보다 의견입니다."],
+    ["상승 여력", "평균 목표주가 ÷ 현재가 − 1. 주가가 급락한 회사는 목표주가가 따라 내려가기 전까지 크게 나옵니다."],
+    ["중앙값", "값을 크기순으로 세웠을 때 가운데 값. 몇 개의 극단값에 덜 휘둘립니다."],
+    ["선행 PER", "주가 ÷ 앞으로 1년 예상 주당순이익. 이익 대비 주가가 얼마나 비싼지."],
+    ["상관계수", "두 값이 같은 방향(+1)·반대 방향(−1)으로 얼마나 함께 움직였는지. 원인과 결과는 말하지 않습니다."],
+    ["롤링 상관", "기간 창(여기서는 60거래일)을 한 주씩 옮겨 가며 다시 계산한 상관계수. 관계가 언제 바뀌었는지 보입니다."],
+    ["VIX", "S&P500 옵션 가격으로 계산한 시장의 예상 변동성. 흔히 '공포 지수'."],
+    ["하이일드 스프레드", "신용등급 낮은 회사채 금리와 국채 금리의 차이. 커지면 시장이 위험을 더 크게 본다는 뜻."],
+    ["금리차(10년−2년)", "장기금리 − 단기금리. 음수(역전)면 경기 둔화 신호로 자주 해석됩니다."],
+    ["영업활동 현금", "본업으로 실제 들어온 현금에서 나간 현금을 뺀 값."],
+    ["잉여현금", "영업활동 현금 − 설비투자. 빚을 갚거나 배당·자사주에 쓸 수 있는 여유 현금."],
+    ["재무활동 현금", "빚을 내거나 갚고, 주식을 발행하거나 사들이는 데서 생긴 현금."],
+    ["연준 Z.1", "미국 연준이 분기마다 내는 금융계정. 한국의 자금순환표에 해당합니다."],
+    ["총저축(내부자금)", "기업이 번 돈 가운데 배당 등을 하고 남겨 둔 돈에 감가상각을 더한 값. 설비투자를 스스로 댈 수 있는 몫."],
+    ["연율", "분기 값을 1년치로 환산한 값(대략 ×4)."],
+  ]);
 }
 </script>
 </body>

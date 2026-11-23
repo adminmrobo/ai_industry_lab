@@ -122,3 +122,20 @@ footer.site .in { max-width: var(--max); margin: 0 auto; padding: 18px 20px 40px
   .tile .v { font-size: 22px; }
 }
 .hscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* 자동 요약 · 용어 풀이 · 생각해 볼 질문 */
+.auto { border: 1px solid var(--text-1); border-radius: var(--radius); padding: 14px 18px; margin: 14px 0 6px; }
+.auto .t { font-size: 13px; font-weight: 700; color: var(--text-2); margin-bottom: 4px; }
+.auto ol { margin: 0; padding-left: 20px; }
+.auto li { margin: 2px 0; }
+details.gloss { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 16px; margin: 16px 0; background: var(--surface-2); }
+details.gloss summary { cursor: pointer; font-weight: 700; }
+details.gloss dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 12px 0 4px; font-size: 14px; }
+details.gloss dt { font-weight: 700; white-space: nowrap; }
+details.gloss dd { margin: 0; color: var(--text-2); }
+@media (max-width: 600px) { details.gloss dl { grid-template-columns: 1fr; } details.gloss dd { margin-bottom: 8px; } }
+.qbox { border-left: 3px solid var(--accent); background: #f3f8fe; padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; }
+.qbox b { display: block; margin-bottom: 4px; }
+.qbox ol { margin: 0; padding-left: 20px; color: var(--text-2); }
+.mobile3d { border: 1px dashed var(--line); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--text-2); font-size: 14px; }
+abbr.g { text-decoration: underline dotted; cursor: help; }

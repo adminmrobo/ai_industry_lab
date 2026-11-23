@@ -22,14 +22,14 @@ EVENTS = [
          title="Nebius–Microsoft GPU 인프라 계약 174억 달러(최대 194억)",
          note="장 마감 뒤 발표, 다음 날 반응", src="https://www.nasdaq.com/articles/nebius-shares-soar-us-174-billion-microsoft-ai-deal"),
     dict(date="2025-09-09", react="2025-09-10", tickers=["ORCL"], kind="services",
-         title="Oracle 1분기 실적: 잔여이행의무(RPO) 4,550억 달러, 359% 증가",
+         title="Oracle 1분기 실적: 잔여이행의무(RPO·계약했지만 아직 매출로 잡히지 않은 금액) 4,550억 달러, 359% 증가",
          note="장 마감 뒤 발표", src="https://www.oracle.com/ae/news/announcement/q1fy26-earnings-release-2025-09-09/"),
     dict(date="2025-09-09", react="2025-09-09", tickers=["NVDA"], kind="vc",
          title="Mistral 시리즈 C 17억 유로(ASML 주도, Nvidia 참여)",
          note="", src="https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/"),
     dict(date="2025-09-15", react="2025-09-15", tickers=["CRWV", "NVDA"], kind="services",
          title="Nvidia, CoreWeave 미사용 용량 63억 달러 구매 보증(2032년 4월까지)",
-         note="공시 시점 기준(9월 중순)", src="https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained"),
+         note="9월 공시, 일자는 대략(9월 중순)", approx=True, src="https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained"),
     dict(date="2025-09-16", react="2025-09-16", tickers=["NVDA", "INTC"], kind="vc",
          title="Figure AI 시리즈 C, 기업가치 390억 달러(Nvidia·Intel Capital 참여)",
          note="", src="https://figure.ai/news/series-c"),
@@ -37,13 +37,13 @@ EVENTS = [
          title="Nvidia, Intel 보통주 50억 달러 매입·공동 개발 발표",
          note="", src="https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-and-Intel-to-Develop-AI-Infrastructure-and-Personal-Computing-Products/"),
     dict(date="2025-09-22", react="2025-09-22", tickers=["NVDA", "ORCL", "MSFT"], kind="investment",
-         title="Nvidia–OpenAI 의향서: 최대 1,000억 달러 투자·10GW 배치",
+         title="Nvidia–OpenAI 의향서(LOI·정식 계약 전 합의): 최대 1,000억 달러 투자·10GW 배치",
          note="정식 계약은 체결되지 않았다는 후속 보도가 있음", src="https://dailysift.briefvane.com/2026/09/circular-ai-deals-explained.html"),
     dict(date="2025-10-02", react="2025-10-02", tickers=[], kind="investment",
          title="OpenAI 직원 지분 매각, 기업가치 5,000억 달러",
          note="상장사 반응 대상 아님(비상장 기업가치 기준점)", src="https://www.bloomberg.com/news/articles/2025-10-02/openai-completes-share-sale-at-record-500-billion-valuation"),
     dict(date="2025-10-06", react="2025-10-06", tickers=["AMD"], kind="hardware",
-         title="AMD–OpenAI 6GW GPU 공급 + OpenAI에 AMD 주식 최대 1억6천만 주 워런트",
+         title="AMD–OpenAI 6GW GPU 공급 + OpenAI에 AMD 주식 최대 1억6천만 주 워런트(정해진 값에 주식을 살 권리)",
          note="", src="https://www.vlsi.kr/en/ai-circular-investment-loop-en/"),
     dict(date="2025-10-07", react="2025-10-07", tickers=[], kind="base",
          title="기준시점: Bloomberg 그림 공개",
@@ -65,7 +65,7 @@ EVENTS = [
          note="크리스마스 이브 단축장, 다음 거래일 기준", src="https://techcrunch.com/2025/12/24/nvidia-acquires-ai-chip-challenger-groq-for-20b-report-says/"),
     dict(date="2026-01-06", react="2026-01-07", tickers=["NVDA"], kind="vc",
          title="xAI 시리즈 E 200억 달러(Nvidia 참여)",
-         note="발표 시각 불명확, 다음 거래일 기준", src="https://multiples.vc/private-comps/xai"),
+         note="발표 시각 불명확, 다음 거래일 기준", approx=True, src="https://multiples.vc/private-comps/xai"),
 ]
 
 # ---------------------------------------------------------------- 비상장 기업가치(십억 달러)
@@ -77,21 +77,21 @@ PRIVATE = {
         ("2026-03-31", 852, "1,220억 달러 라운드", "https://openai.com/en-US/index/accelerating-the-next-phase-ai/"),
     ],
     "xAI": [
-        ("2025-03-28", 113, "X와 합병 당시", "https://www.mexc.com/news/509538"),
+        ("2025-03-28", 113, "X와 합병 당시(2025년 3월)", "https://www.mexc.com/news/509538"),
         ("2026-01-06", 230, "시리즈 E 200억 달러", "https://sacra.com/c/xai/"),
         ("2026-02-02", 250, "SpaceX에 주식 교환 방식으로 인수", "https://sacra.com/c/xai/"),
     ],
     "Figure AI": [
-        ("2024-02-29", 2.6, "시리즈 B 6.75억 달러", "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html"),
+        ("2024-02-29", 2.6, "시리즈 B 6.75억 달러(2024년 2월)", "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html"),
         ("2025-09-16", 39, "시리즈 C 10억 달러 이상", "https://figure.ai/news/series-c"),
     ],
     "Anysphere(Cursor)": [
-        ("2025-06-05", 9.9, "시리즈 C 9억 달러", "https://finance.yahoo.com/news/anysphere-secures-900m-funding-083823106.html"),
+        ("2025-06-01", 9.9, "시리즈 C 9억 달러(6월, 일자 대략)", "https://finance.yahoo.com/news/anysphere-secures-900m-funding-083823106.html"),
         ("2025-11-13", 29.3, "시리즈 D 23억 달러", "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/"),
-        ("2026-07-15", 50, "후속 라운드(7월 발표)", "https://dealroom.co/news/138472-cursor-hits-50b-valuation-in-quick-re-raise/"),
+        ("2026-07-01", 50, "후속 라운드(7월 발표, 일자 대략)", "https://dealroom.co/news/138472-cursor-hits-50b-valuation-in-quick-re-raise/"),
     ],
     "Mistral AI": [
-        ("2024-06-11", 6.0, "6.4억 달러 라운드", "https://siliconangle.com/2025/09/09/mistral-ai-raises-2b-led-chip-equipment-maker-asml-14b-valuation/"),
+        ("2024-06-01", 6.0, "6.4억 달러 라운드(2024년 6월, 일자 대략)", "https://siliconangle.com/2025/09/09/mistral-ai-raises-2b-led-chip-equipment-maker-asml-14b-valuation/"),
         ("2025-09-09", 13.7, "시리즈 C 17억 유로(117억 유로)", "https://mistral.ai/fr/news/mistral-ai-raises-1-7-b-to-accelerate-technological-progress-with-ai"),
     ],
 }
@@ -180,17 +180,18 @@ co("together", "Together AI", "infra", "video", None, "미국", "AI 모델 호�
 E = []
 
 
-def ed(a, b, kind, label, date, src, fig=False):
-    # 그림 출처만 있는 관계의 날짜는 시간 슬라이더용 대략값이다
+def ed(a, b, kind, label, date, src, fig=False, approx=False, interp=False):
+    # date_approx: 출처에서 일(日)까지 확인하지 못한 날짜(시간 슬라이더용 대략값)
+    # interp: Bloomberg 그림의 화살표를 해석한 관계(성격·방향 확인 필요)
     E.append(dict(source=a, target=b, kind=kind, label=label, date=date, src=src, in_figure=fig,
-                  date_approx=(src == BLOOMBERG)))
+                  date_approx=(src == BLOOMBERG) or approx, interp=interp))
 
 
 # Bloomberg 그림에 그려진 관계(2025-10 기준)
 ed("nvidia", "openai", "investment", "최대 1,000억 달러 투자 의향", "2025-09-22", BLOOMBERG, True)
 ed("openai", "nvidia", "hardware", "Nvidia 시스템 10GW 배치", "2025-09-22", BLOOMBERG, True)
 ed("openai", "amd", "hardware", "AMD GPU 6GW", "2025-10-06", BLOOMBERG, True)
-ed("amd", "openai", "investment", "주식 최대 1억6천만 주 워런트", "2025-10-06", BLOOMBERG, True)
+ed("amd", "openai", "investment", "주식 최대 1억6천만 주 워런트(주식을 살 권리)", "2025-10-06", BLOOMBERG, True)
 ed("openai", "oracle", "services", "3,000억 달러 클라우드 계약", "2025-09-10", BLOOMBERG, True)
 ed("oracle", "nvidia", "hardware", "Nvidia 칩 수백억 달러 구매", "2025-09-10", BLOOMBERG, True)
 ed("microsoft", "openai", "investment", "OpenAI 투자", "2019-07-22", BLOOMBERG, True)
@@ -198,22 +199,22 @@ ed("openai", "microsoft", "services", "Azure 사용", "2019-07-22", BLOOMBERG, T
 ed("microsoft", "nvidia", "hardware", "GPU 구매", "2023-01-01", BLOOMBERG, True)
 ed("microsoft", "coreweave", "services", "GPU 용량 임차", "2023-06-01", BLOOMBERG, True)
 ed("microsoft", "nebius", "services", "GPU 인프라 174억 달러", "2025-09-08", "https://www.nasdaq.com/articles/nebius-shares-soar-us-174-billion-microsoft-ai-deal", True)
-ed("openai", "coreweave", "services", "컴퓨팅 계약 119억 달러+", "2025-03-10", "https://www.fierce-network.com/cloud/fierce-networks-encyclopedia-ai-deals", True)
+ed("openai", "coreweave", "services", "컴퓨팅 계약 119억 달러+", "2025-03-10", "https://www.fierce-network.com/cloud/fierce-networks-encyclopedia-ai-deals", True, approx=True)
 ed("coreweave", "nvidia", "hardware", "Nvidia 시스템 구매", "2023-01-01", BLOOMBERG, True)
-ed("nvidia", "coreweave", "services", "미사용 용량 63억 달러 구매 보증", "2025-09-15", "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained", True)
-ed("nvidia", "coreweave", "investment", "지분 보유(상장 전부터)", "2023-04-01", "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained", True)
+ed("nvidia", "coreweave", "services", "미사용 용량 63억 달러 구매 보증", "2025-09-15", "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained", True, approx=True)
+ed("nvidia", "coreweave", "investment", "지분 보유(상장 전부터)", "2023-04-01", "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained", True, approx=True)
 ed("nvidia", "nebius", "investment", "지분 투자", "2024-12-02", BLOOMBERG, True)
 ed("nvidia", "intel", "investment", "보통주 50억 달러", "2025-09-18", "https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-and-Intel-to-Develop-AI-Infrastructure-and-Personal-Computing-Products/", True)
-ed("intel", "coreweave", "hardware", "그림 표기: 하드웨어·소프트웨어 거래", "2025-10-01", BLOOMBERG, True)
-ed("nvidia", "xai", "vc", "xAI 라운드 참여", "2024-12-01", "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far", True)
+ed("intel", "coreweave", "hardware", "그림 표기: 하드웨어·소프트웨어 거래(성격 확인 필요)", "2025-10-01", BLOOMBERG, True, interp=True)
+ed("nvidia", "xai", "vc", "xAI 라운드 참여", "2024-12-01", "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far", True, approx=True)
 ed("xai", "nvidia", "hardware", "GPU 구매", "2024-06-01", BLOOMBERG, True)
 ed("nvidia", "mistral", "vc", "시리즈 C 참여", "2025-09-09", "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/", True)
 ed("mistral", "nvidia", "hardware", "GPU 구매(Mistral Compute)", "2025-06-11", BLOOMBERG, True)
 ed("nvidia", "figure", "vc", "시리즈 C 참여", "2025-09-16", "https://siliconangle.com/?p=711441", True)
 ed("figure", "nvidia", "hardware", "학습 인프라용 GPU", "2025-09-16", "https://siliconangle.com/2025/09/16/humanoid-robot-startup-figure-raises-1b-39b-valuation/", True)
-ed("nvidia", "nscale", "investment", "SAFE 4.33억 달러 라운드 참여", "2025-10-01", "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far", True)
+ed("nvidia", "nscale", "investment", "SAFE(나중에 지분으로 바뀌는 투자 약정) 4.33억 달러 라운드 참여", "2025-10-01", "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far", True, approx=True)
 ed("openai", "nscale", "services", "유럽 데이터센터 용량", "2025-09-16", BLOOMBERG, True)
-ed("amd", "nscale", "hardware", "그림 표기: 하드웨어 거래", "2025-10-01", BLOOMBERG, True)
+ed("amd", "nscale", "hardware", "그림 표기: 하드웨어 거래(방향·성격 확인 필요)", "2025-10-01", BLOOMBERG, True, interp=True)
 for s in ("harvey", "anysphere", "ambience"):
     ed("openai", s, "vc", "OpenAI 스타트업 펀드 투자", "2024-01-01", BLOOMBERG, True)
     ed(s, "openai", "services", "OpenAI 모델 사용", "2024-01-01", BLOOMBERG, True)
@@ -222,10 +223,10 @@ for s in ("harvey", "anysphere", "ambience"):
 ed("microsoft", "anthropic", "investment", "최대 50억 달러", "2025-11-18", "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships")
 ed("nvidia", "anthropic", "investment", "최대 100억 달러", "2025-11-18", "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships")
 ed("anthropic", "microsoft", "services", "Azure 300억 달러 구매", "2025-11-18", "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships")
-ed("deepmind", "anthropic", "investment", "Google, 최대 400억 달러 투자 약정(모회사 Alphabet)", "2026-04-24", "https://pq-cybarg.github.io/bubble-map/r-fin-google-amazon-anthropic-meta.html")
-ed("anthropic", "deepmind", "services", "Google TPU·클라우드 사용(모회사 Alphabet)", "2026-04-24", "https://pq-cybarg.github.io/bubble-map/r-fin-google-amazon-anthropic-meta.html")
+ed("deepmind", "anthropic", "investment", "Google, 최대 400억 달러 투자(100억 달러 우선, 300억 달러는 성과 조건)", "2026-04-24", "https://www.thestar.com.my/tech/tech-news/2026/04/25/google-plans-to-invest-up-to-40-billion-in-anthropic-bloomberg-news-reports")
+ed("anthropic", "deepmind", "services", "Google 맞춤형 칩(TPU)·클라우드 사용", "2026-04-24", "https://www.wam.ae/en/article/176tjwp-google-invest-40-billion-rival-anthropic")
 ed("snowflake", "anthropic", "partnership", "2억 달러 다년 계약", "2025-12-03", "https://snowflake.com/en/news/press-releases/snowflake-and-anthropic-announce-200-million-partnership-to-bring-agentic-ai-to-global-enterprises/")
-ed("snowflake", "openai", "partnership", "2억 달러 다년 계약", "2026-02-02", "https://techcrunch.com/?p=3088754")
+ed("snowflake", "openai", "partnership", "2억 달러 다년 계약", "2026-02-02", "https://investors.snowflake.com/news/news-details/2026/Snowflake-and-OpenAI-Forge-200-Million-Partnership-to-Bring-Enterprise-Ready-AI-to-the-Worlds-Most-Trusted-Data-Platform/default.aspx")
 ed("nvidia", "anysphere", "vc", "시리즈 D 참여", "2025-11-13", "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/")
 ed("deepmind", "anysphere", "vc", "Google, 시리즈 D 참여(모델 공급사)", "2025-11-13", "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/")
 ed("openai", "cerebras", "services", "750MW 컴퓨팅, 100억 달러 이상", "2026-01-14", "https://techcrunch.com/2026/01/14/openai-signs-deal-reportedly-worth-10-billion-for-compute-from-cerebras/")
@@ -234,19 +235,19 @@ ed("metaai", "scaleai", "investment", "Meta, 143억 달러로 49% 지분", "2025
 ed("coreweave", "wandb", "acquisition", "인수 완료", "2025-05-05", "https://coreweave.com/blog/coreweave-completes-acquisition-of-weights-biases")
 ed("intel", "figure", "vc", "Intel Capital, 시리즈 C 참여", "2025-09-16", "https://www.intelcapital.com/?p=11952")
 ed("qualcomm", "figure", "vc", "Qualcomm Ventures, 시리즈 C 참여", "2025-09-16", "https://siliconangle.com/?p=711441")
-ed("microsoft", "figure", "vc", "시리즈 B 참여", "2024-02-29", "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html")
-ed("nvidia", "perplexity", "vc", "2023년부터 여러 라운드 참여", "2023-11-01", "https://techcrunch.com/2025/06/19/nvidias-ai-empire-a-look-at-its-top-startup-investments/")
-ed("nvidia", "cohere", "vc", "2023년부터 여러 라운드 참여", "2023-06-01", "https://techcrunch.com/2025/10/12/nvidias-ai-empire-a-look-at-its-top-startup-investments")
-ed("nvidia", "together", "vc", "시리즈 B 참여", "2024-02-01", "https://techcrunch.com/2026/01/02/nvidias-ai-empire-a-look-at-its-top-startup-investments/")
-ed("nvidia", "runway", "vc", "시리즈 C 확장 참여", "2023-06-29", "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments")
-ed("deepmind", "runway", "vc", "Google, 시리즈 C 확장 참여", "2023-06-29", "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments")
-ed("nvidia", "huggingface", "vc", "지분 투자", "2023-08-24", "https://blogs.nvidia.com/blog/nvidia-investments/")
-ed("nvidia", "databricks", "vc", "지분 투자", "2023-09-14", "https://blogs.nvidia.com/blog/nvidia-investments/")
-ed("nvidia", "scaleai", "vc", "지분 투자", "2024-05-21", "https://www.businessinsider.nl/ai-startup-founders-discuss-what-its-like-to-be-a-part-of-nvidias-sprawling-startup-empire/")
-ed("nvidia", "physicalintelligence", "vc", "포트폴리오 포함", "2024-11-04", "https://dealroom.co/investors/nvidia/")
-ed("nvidia", "skydio", "vc", "포트폴리오 포함", "2024-01-01", "https://dealroom.co/investors/nvidia/")
-ed("nvidia", "elevenlabs", "vc", "투자자 그룹에 포함", "2025-01-30", "https://dealroom.co/investors/nvidia/")
-ed("deepmind", "waymo", "ownership", "같은 모회사(Alphabet)", "2016-12-13", "https://abc.xyz/")
+ed("microsoft", "figure", "vc", "시리즈 B 참여", "2024-02-29", "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html", approx=True)
+ed("nvidia", "perplexity", "vc", "2023년 11월부터 여러 라운드 참여", "2023-11-01", "https://techcrunch.com/2025/06/19/nvidias-ai-empire-a-look-at-its-top-startup-investments/", approx=True)
+ed("nvidia", "cohere", "vc", "2023년부터 여러 라운드 참여", "2023-06-01", "https://techcrunch.com/2025/10/12/nvidias-ai-empire-a-look-at-its-top-startup-investments", approx=True)
+ed("nvidia", "together", "vc", "시리즈 B 참여", "2024-02-01", "https://techcrunch.com/2026/01/02/nvidias-ai-empire-a-look-at-its-top-startup-investments/", approx=True)
+ed("nvidia", "runway", "vc", "시리즈 C 확장 참여", "2023-06-01", "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments", approx=True)
+ed("deepmind", "runway", "vc", "Google, 시리즈 C 확장 참여", "2023-06-01", "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments", approx=True)
+ed("nvidia", "huggingface", "vc", "지분 투자(연도 대략)", "2023-08-01", "https://blogs.nvidia.com/blog/nvidia-investments/", approx=True)
+ed("nvidia", "databricks", "vc", "지분 투자(연도 대략)", "2023-09-01", "https://blogs.nvidia.com/blog/nvidia-investments/", approx=True)
+ed("nvidia", "scaleai", "vc", "지분 투자(날짜 미확인)", "2024-05-01", "https://www.businessinsider.nl/ai-startup-founders-discuss-what-its-like-to-be-a-part-of-nvidias-sprawling-startup-empire/", approx=True)
+ed("nvidia", "physicalintelligence", "vc", "포트폴리오 포함(날짜 미확인)", "2024-11-01", "https://dealroom.co/investors/nvidia/", approx=True)
+ed("nvidia", "skydio", "vc", "포트폴리오 포함(날짜 미확인)", "2024-01-01", "https://dealroom.co/investors/nvidia/", approx=True)
+ed("nvidia", "elevenlabs", "vc", "투자자 그룹에 포함(날짜 미확인)", "2025-01-01", "https://dealroom.co/investors/nvidia/", approx=True)
+ed("deepmind", "waymo", "ownership", "같은 모회사(Alphabet)", "2016-12-13", "https://abc.xyz/", approx=True)
 
 json_dump = lambda name, obj: (OUT / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1))
 json_dump("events.json", EVENTS)
