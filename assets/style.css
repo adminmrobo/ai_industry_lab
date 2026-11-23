@@ -112,3 +112,13 @@ footer.site .in { max-width: var(--max); margin: 0 auto; padding: 18px 20px 40px
   border-radius: 8px; padding: 8px 10px; font-size: 13px; box-shadow: 0 4px 16px rgba(0,0,0,.08); max-width: 320px; display: none;
 }
 .loading { color: var(--text-3); font-size: 14px; padding: 30px 0; text-align: center; }
+
+/* 모바일 */
+@media (max-width: 600px) {
+  main { padding: 20px 14px 60px; }
+  .controls label { width: 100%; }
+  .controls label select, .controls input[type="search"] { flex: 1; min-width: 0; max-width: 100%; }
+  select { max-width: 100%; }
+  .tile .v { font-size: 22px; }
+}
+.hscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
