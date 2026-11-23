@@ -64,7 +64,7 @@ def log(key, ok, note=""):
 def fetch_prices():
     import yfinance as yf
 
-    df = yf.download(ALL, start="2023-01-01", auto_adjust=True, progress=False, group_by="column", threads=True)
+    df = yf.download(ALL, start="2018-01-01", auto_adjust=True, progress=False, group_by="column", threads=True)
     close = df["Close"].copy()
     vol = df["Volume"].copy()
     close.index = close.index.strftime("%Y-%m-%d")

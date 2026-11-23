@@ -1,0 +1,612 @@
+[
+ {
+  "source": "nvidia",
+  "target": "openai",
+  "kind": "investment",
+  "label": "최대 1,000억 달러 투자 의향",
+  "date": "2025-09-22",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "Nvidia 시스템 10GW 배치",
+  "date": "2025-09-22",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "amd",
+  "kind": "hardware",
+  "label": "AMD GPU 6GW",
+  "date": "2025-10-06",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "amd",
+  "target": "openai",
+  "kind": "investment",
+  "label": "주식 최대 1억6천만 주 워런트",
+  "date": "2025-10-06",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "oracle",
+  "kind": "services",
+  "label": "3,000억 달러 클라우드 계약",
+  "date": "2025-09-10",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "oracle",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "Nvidia 칩 수백억 달러 구매",
+  "date": "2025-09-10",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "microsoft",
+  "target": "openai",
+  "kind": "investment",
+  "label": "OpenAI 투자",
+  "date": "2019-07-22",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "microsoft",
+  "kind": "services",
+  "label": "Azure 사용",
+  "date": "2019-07-22",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "microsoft",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "GPU 구매",
+  "date": "2023-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "microsoft",
+  "target": "coreweave",
+  "kind": "services",
+  "label": "GPU 용량 임차",
+  "date": "2023-06-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "microsoft",
+  "target": "nebius",
+  "kind": "services",
+  "label": "GPU 인프라 174억 달러",
+  "date": "2025-09-08",
+  "src": "https://www.nasdaq.com/articles/nebius-shares-soar-us-174-billion-microsoft-ai-deal",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "openai",
+  "target": "coreweave",
+  "kind": "services",
+  "label": "컴퓨팅 계약 119억 달러+",
+  "date": "2025-03-10",
+  "src": "https://www.fierce-network.com/cloud/fierce-networks-encyclopedia-ai-deals",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "coreweave",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "Nvidia 시스템 구매",
+  "date": "2023-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "nvidia",
+  "target": "coreweave",
+  "kind": "services",
+  "label": "미사용 용량 63억 달러 구매 보증",
+  "date": "2025-09-15",
+  "src": "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "coreweave",
+  "kind": "investment",
+  "label": "지분 보유(상장 전부터)",
+  "date": "2023-04-01",
+  "src": "https://applescoop.org/story/ai-circular-money-nvidia-openai-deals-explained",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "nebius",
+  "kind": "investment",
+  "label": "지분 투자",
+  "date": "2024-12-02",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "nvidia",
+  "target": "intel",
+  "kind": "investment",
+  "label": "보통주 50억 달러",
+  "date": "2025-09-18",
+  "src": "https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-and-Intel-to-Develop-AI-Infrastructure-and-Personal-Computing-Products/",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "intel",
+  "target": "coreweave",
+  "kind": "hardware",
+  "label": "그림 표기: 하드웨어·소프트웨어 거래",
+  "date": "2025-10-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "nvidia",
+  "target": "xai",
+  "kind": "vc",
+  "label": "xAI 라운드 참여",
+  "date": "2024-12-01",
+  "src": "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "xai",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "GPU 구매",
+  "date": "2024-06-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "nvidia",
+  "target": "mistral",
+  "kind": "vc",
+  "label": "시리즈 C 참여",
+  "date": "2025-09-09",
+  "src": "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "mistral",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "GPU 구매(Mistral Compute)",
+  "date": "2025-06-11",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "nvidia",
+  "target": "figure",
+  "kind": "vc",
+  "label": "시리즈 C 참여",
+  "date": "2025-09-16",
+  "src": "https://siliconangle.com/?p=711441",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "figure",
+  "target": "nvidia",
+  "kind": "hardware",
+  "label": "학습 인프라용 GPU",
+  "date": "2025-09-16",
+  "src": "https://siliconangle.com/2025/09/16/humanoid-robot-startup-figure-raises-1b-39b-valuation/",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "nscale",
+  "kind": "investment",
+  "label": "SAFE 4.33억 달러 라운드 참여",
+  "date": "2025-10-01",
+  "src": "https://www.benzinga.com/markets/tech/26/07/60713664/nvidia-funds-ai-frenzy-timeline-of-its-circular-financing-deals-so-far",
+  "in_figure": true,
+  "date_approx": false
+ },
+ {
+  "source": "openai",
+  "target": "nscale",
+  "kind": "services",
+  "label": "유럽 데이터센터 용량",
+  "date": "2025-09-16",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "amd",
+  "target": "nscale",
+  "kind": "hardware",
+  "label": "그림 표기: 하드웨어 거래",
+  "date": "2025-10-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "harvey",
+  "kind": "vc",
+  "label": "OpenAI 스타트업 펀드 투자",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "harvey",
+  "target": "openai",
+  "kind": "services",
+  "label": "OpenAI 모델 사용",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "anysphere",
+  "kind": "vc",
+  "label": "OpenAI 스타트업 펀드 투자",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "anysphere",
+  "target": "openai",
+  "kind": "services",
+  "label": "OpenAI 모델 사용",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "openai",
+  "target": "ambience",
+  "kind": "vc",
+  "label": "OpenAI 스타트업 펀드 투자",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "ambience",
+  "target": "openai",
+  "kind": "services",
+  "label": "OpenAI 모델 사용",
+  "date": "2024-01-01",
+  "src": "https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals",
+  "in_figure": true,
+  "date_approx": true
+ },
+ {
+  "source": "microsoft",
+  "target": "anthropic",
+  "kind": "investment",
+  "label": "최대 50억 달러",
+  "date": "2025-11-18",
+  "src": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "anthropic",
+  "kind": "investment",
+  "label": "최대 100억 달러",
+  "date": "2025-11-18",
+  "src": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "anthropic",
+  "target": "microsoft",
+  "kind": "services",
+  "label": "Azure 300억 달러 구매",
+  "date": "2025-11-18",
+  "src": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "deepmind",
+  "target": "anthropic",
+  "kind": "investment",
+  "label": "Google, 최대 400억 달러 투자 약정(모회사 Alphabet)",
+  "date": "2026-04-24",
+  "src": "https://pq-cybarg.github.io/bubble-map/r-fin-google-amazon-anthropic-meta.html",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "anthropic",
+  "target": "deepmind",
+  "kind": "services",
+  "label": "Google TPU·클라우드 사용(모회사 Alphabet)",
+  "date": "2026-04-24",
+  "src": "https://pq-cybarg.github.io/bubble-map/r-fin-google-amazon-anthropic-meta.html",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "snowflake",
+  "target": "anthropic",
+  "kind": "partnership",
+  "label": "2억 달러 다년 계약",
+  "date": "2025-12-03",
+  "src": "https://snowflake.com/en/news/press-releases/snowflake-and-anthropic-announce-200-million-partnership-to-bring-agentic-ai-to-global-enterprises/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "snowflake",
+  "target": "openai",
+  "kind": "partnership",
+  "label": "2억 달러 다년 계약",
+  "date": "2026-02-02",
+  "src": "https://techcrunch.com/?p=3088754",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "anysphere",
+  "kind": "vc",
+  "label": "시리즈 D 참여",
+  "date": "2025-11-13",
+  "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "deepmind",
+  "target": "anysphere",
+  "kind": "vc",
+  "label": "Google, 시리즈 D 참여(모델 공급사)",
+  "date": "2025-11-13",
+  "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "openai",
+  "target": "cerebras",
+  "kind": "services",
+  "label": "750MW 컴퓨팅, 100억 달러 이상",
+  "date": "2026-01-14",
+  "src": "https://techcrunch.com/2026/01/14/openai-signs-deal-reportedly-worth-10-billion-for-compute-from-cerebras/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "groq",
+  "kind": "acquisition",
+  "label": "추론 기술 라이선스·인력 영입(약 200억 달러 보도)",
+  "date": "2025-12-24",
+  "src": "https://techcrunch.com/2025/12/24/nvidia-acquires-ai-chip-challenger-groq-for-20b-report-says/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "metaai",
+  "target": "scaleai",
+  "kind": "investment",
+  "label": "Meta, 143억 달러로 49% 지분",
+  "date": "2025-06-12",
+  "src": "https://fortune.com/2025/06/13/meta-scale-ai-alexandr-wang-superintelligence-team/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "coreweave",
+  "target": "wandb",
+  "kind": "acquisition",
+  "label": "인수 완료",
+  "date": "2025-05-05",
+  "src": "https://coreweave.com/blog/coreweave-completes-acquisition-of-weights-biases",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "intel",
+  "target": "figure",
+  "kind": "vc",
+  "label": "Intel Capital, 시리즈 C 참여",
+  "date": "2025-09-16",
+  "src": "https://www.intelcapital.com/?p=11952",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "qualcomm",
+  "target": "figure",
+  "kind": "vc",
+  "label": "Qualcomm Ventures, 시리즈 C 참여",
+  "date": "2025-09-16",
+  "src": "https://siliconangle.com/?p=711441",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "microsoft",
+  "target": "figure",
+  "kind": "vc",
+  "label": "시리즈 B 참여",
+  "date": "2024-02-29",
+  "src": "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "perplexity",
+  "kind": "vc",
+  "label": "2023년부터 여러 라운드 참여",
+  "date": "2023-11-01",
+  "src": "https://techcrunch.com/2025/06/19/nvidias-ai-empire-a-look-at-its-top-startup-investments/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "cohere",
+  "kind": "vc",
+  "label": "2023년부터 여러 라운드 참여",
+  "date": "2023-06-01",
+  "src": "https://techcrunch.com/2025/10/12/nvidias-ai-empire-a-look-at-its-top-startup-investments",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "together",
+  "kind": "vc",
+  "label": "시리즈 B 참여",
+  "date": "2024-02-01",
+  "src": "https://techcrunch.com/2026/01/02/nvidias-ai-empire-a-look-at-its-top-startup-investments/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "runway",
+  "kind": "vc",
+  "label": "시리즈 C 확장 참여",
+  "date": "2023-06-29",
+  "src": "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "deepmind",
+  "target": "runway",
+  "kind": "vc",
+  "label": "Google, 시리즈 C 확장 참여",
+  "date": "2023-06-29",
+  "src": "https://emeatribune.com/nvidias-ai-empire-a-look-at-its-top-startup-investments",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "huggingface",
+  "kind": "vc",
+  "label": "지분 투자",
+  "date": "2023-08-24",
+  "src": "https://blogs.nvidia.com/blog/nvidia-investments/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "databricks",
+  "kind": "vc",
+  "label": "지분 투자",
+  "date": "2023-09-14",
+  "src": "https://blogs.nvidia.com/blog/nvidia-investments/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "scaleai",
+  "kind": "vc",
+  "label": "지분 투자",
+  "date": "2024-05-21",
+  "src": "https://www.businessinsider.nl/ai-startup-founders-discuss-what-its-like-to-be-a-part-of-nvidias-sprawling-startup-empire/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "physicalintelligence",
+  "kind": "vc",
+  "label": "포트폴리오 포함",
+  "date": "2024-11-04",
+  "src": "https://dealroom.co/investors/nvidia/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "skydio",
+  "kind": "vc",
+  "label": "포트폴리오 포함",
+  "date": "2024-01-01",
+  "src": "https://dealroom.co/investors/nvidia/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "nvidia",
+  "target": "elevenlabs",
+  "kind": "vc",
+  "label": "투자자 그룹에 포함",
+  "date": "2025-01-30",
+  "src": "https://dealroom.co/investors/nvidia/",
+  "in_figure": false,
+  "date_approx": false
+ },
+ {
+  "source": "deepmind",
+  "target": "waymo",
+  "kind": "ownership",
+  "label": "같은 모회사(Alphabet)",
+  "date": "2016-12-13",
+  "src": "https://abc.xyz/",
+  "in_figure": false,
+  "date_approx": false
+ }
+]

@@ -1,0 +1,96 @@
+{
+ "OpenAI": [
+  {
+   "date": "2024-10-02",
+   "value_bn": 157,
+   "note": "투자 라운드 66억 달러",
+   "src": "https://fortune.com/2024/10/02/openai-officially-raises-6-6-billion-funding-deal-157-billion-valuation-sam-altman-thrive-capital/"
+  },
+  {
+   "date": "2025-03-31",
+   "value_bn": 300,
+   "note": "SoftBank 주도 400억 달러 라운드",
+   "src": "https://www.foxbusiness.com/markets/openai-becomes-worlds-most-valuable-private-company-500b-valuation-report"
+  },
+  {
+   "date": "2025-10-02",
+   "value_bn": 500,
+   "note": "직원 지분 매각(세컨더리)",
+   "src": "https://www.bloomberg.com/news/articles/2025-10-02/openai-completes-share-sale-at-record-500-billion-valuation"
+  },
+  {
+   "date": "2026-03-31",
+   "value_bn": 852,
+   "note": "1,220억 달러 라운드",
+   "src": "https://openai.com/en-US/index/accelerating-the-next-phase-ai/"
+  }
+ ],
+ "xAI": [
+  {
+   "date": "2025-03-28",
+   "value_bn": 113,
+   "note": "X와 합병 당시",
+   "src": "https://www.mexc.com/news/509538"
+  },
+  {
+   "date": "2026-01-06",
+   "value_bn": 230,
+   "note": "시리즈 E 200억 달러",
+   "src": "https://sacra.com/c/xai/"
+  },
+  {
+   "date": "2026-02-02",
+   "value_bn": 250,
+   "note": "SpaceX에 주식 교환 방식으로 인수",
+   "src": "https://sacra.com/c/xai/"
+  }
+ ],
+ "Figure AI": [
+  {
+   "date": "2024-02-29",
+   "value_bn": 2.6,
+   "note": "시리즈 B 6.75억 달러",
+   "src": "https://finance.yahoo.com/news/figure-valued-39-billion-latest-131115237.html"
+  },
+  {
+   "date": "2025-09-16",
+   "value_bn": 39,
+   "note": "시리즈 C 10억 달러 이상",
+   "src": "https://figure.ai/news/series-c"
+  }
+ ],
+ "Anysphere(Cursor)": [
+  {
+   "date": "2025-06-05",
+   "value_bn": 9.9,
+   "note": "시리즈 C 9억 달러",
+   "src": "https://finance.yahoo.com/news/anysphere-secures-900m-funding-083823106.html"
+  },
+  {
+   "date": "2025-11-13",
+   "value_bn": 29.3,
+   "note": "시리즈 D 23억 달러",
+   "src": "https://www.techcrunch.com/2025/11/13/coding-assistant-cursor-raises-2-3b-5-months-after-its-previous-round/"
+  },
+  {
+   "date": "2026-07-15",
+   "value_bn": 50,
+   "note": "후속 라운드(7월 발표)",
+   "src": "https://dealroom.co/news/138472-cursor-hits-50b-valuation-in-quick-re-raise/"
+  }
+ ],
+ "Mistral AI": [
+  {
+   "date": "2024-06-11",
+   "value_bn": 6.0,
+   "note": "6.4억 달러 라운드",
+   "src": "https://siliconangle.com/2025/09/09/mistral-ai-raises-2b-led-chip-equipment-maker-asml-14b-valuation/"
+  },
+  {
+   "date": "2025-09-09",
+   "value_bn": 13.7,
+   "note": "시리즈 C 17억 유로(117억 유로)",
+   "src": "https://mistral.ai/fr/news/mistral-ai-raises-1-7-b-to-accelerate-technological-progress-with-ai"
+  }
+ ]
+}
