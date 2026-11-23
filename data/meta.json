@@ -1,0 +1,129 @@
+{
+ "fetched_at_utc": "2026-11-23T08:13:03+00:00",
+ "status": {
+  "prices": {
+   "ok": true,
+   "note": "976 rows, last 2026-11-20"
+  },
+  "fred:DGS10": {
+   "ok": true,
+   "note": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Invest"
+  },
+  "fred:DGS2": {
+   "ok": true,
+   "note": "Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity, Quoted on an Investm"
+  },
+  "fred:DGS3MO": {
+   "ok": true,
+   "note": "Market Yield on U.S. Treasury Securities at 3-Month Constant Maturity, Quoted on an Invest"
+  },
+  "fred:DFF": {
+   "ok": true,
+   "note": "Federal Funds Effective Rate (DFF) | FRED | St. Louis Fed"
+  },
+  "fred:T10Y2Y": {
+   "ok": true,
+   "note": "10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity (T10Y2Y) | FRED"
+  },
+  "fred:UMCSENT": {
+   "ok": true,
+   "note": "University of Michigan: Consumer Sentiment (UMCSENT) | FRED | St. Louis Fed"
+  },
+  "fred:PAYEMS": {
+   "ok": true,
+   "note": "All Employees, Total Nonfarm (PAYEMS) | FRED | St. Louis Fed"
+  },
+  "fred:UNRATE": {
+   "ok": true,
+   "note": "Unemployment Rate (UNRATE) | FRED | St. Louis Fed"
+  },
+  "fred:CPIAUCSL": {
+   "ok": true,
+   "note": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average (CPIAUCSL) | "
+  },
+  "fred:CPILFESL": {
+   "ok": true,
+   "note": "Consumer Price Index for All Urban Consumers: All Items Less Food and Energy in U.S. City "
+  },
+  "fred:VIXCLS": {
+   "ok": true,
+   "note": "CBOE Volatility Index: VIX (VIXCLS) | FRED | St. Louis Fed"
+  },
+  "fred:BAMLH0A0HYM2": {
+   "ok": true,
+   "note": "ICE BofA US High Yield Index Option-Adjusted Spread (BAMLH0A0HYM2) | FRED | St. Louis Fed"
+  },
+  "fred:DTWEXBGS": {
+   "ok": true,
+   "note": "Nominal Broad U.S. Dollar Index (DTWEXBGS) | FRED | St. Louis Fed"
+  },
+  "fred:BOGZ1FA105000005Q": {
+   "ok": false,
+   "note": "HTTPError('404 Client Error: Not Found for url: https://fred.stlouisfed.org/graph/fredgraph.csv?id=BOGZ1FA105000005Q')"
+  },
+  "fred:BOGZ1FA106000105Q": {
+   "ok": true,
+   "note": "Nonfinancial Corporate Business; Gross Saving Including Foreign Earnings Retained Abroad L"
+  },
+  "fred:BOGZ1FA105050005Q": {
+   "ok": true,
+   "note": "Nonfinancial Corporate Business; Total Capital Expenditures, Transactions (BOGZ1FA10505000"
+  },
+  "fred:NCBCMDPMVCE": {
+   "ok": true,
+   "note": "Nonfinancial Corporate Business; Debt as a Percentage of the Market Value of Corporate Equ"
+  },
+  "fred:BCNSDODNS": {
+   "ok": true,
+   "note": "Nonfinancial Corporate Business; Debt Securities and Loans; Liability, Level (BCNSDODNS) |"
+  },
+  "consensus:NVDA": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:MSFT": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:AMD": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:ORCL": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:INTC": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:CRWV": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:NBIS": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:GOOGL": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:META": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:QCOM": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:TSLA": {
+   "ok": true,
+   "note": ""
+  },
+  "consensus:SNOW": {
+   "ok": true,
+   "note": ""
+  }
+ }
+}

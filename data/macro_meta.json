@@ -1,0 +1,70 @@
+{
+ "DGS10": {
+  "ko": "미 국채 10년 금리(%)",
+  "fred_title": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis (DGS10) | FRED | St. Louis Fed"
+ },
+ "DGS2": {
+  "ko": "미 국채 2년 금리(%)",
+  "fred_title": "Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity, Quoted on an Investment Basis (DGS2) | FRED | St. Louis Fed"
+ },
+ "DGS3MO": {
+  "ko": "미 국채 3개월 금리(%)",
+  "fred_title": "Market Yield on U.S. Treasury Securities at 3-Month Constant Maturity, Quoted on an Investment Basis (DGS3MO) | FRED | St. Louis Fed"
+ },
+ "DFF": {
+  "ko": "연방기금 실효금리(%)",
+  "fred_title": "Federal Funds Effective Rate (DFF) | FRED | St. Louis Fed"
+ },
+ "T10Y2Y": {
+  "ko": "10년-2년 금리차(%p)",
+  "fred_title": "10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity (T10Y2Y) | FRED | St. Louis Fed"
+ },
+ "UMCSENT": {
+  "ko": "미시간대 소비자심리지수",
+  "fred_title": "University of Michigan: Consumer Sentiment (UMCSENT) | FRED | St. Louis Fed"
+ },
+ "PAYEMS": {
+  "ko": "비농업 고용자 수(천 명)",
+  "fred_title": "All Employees, Total Nonfarm (PAYEMS) | FRED | St. Louis Fed"
+ },
+ "UNRATE": {
+  "ko": "실업률(%)",
+  "fred_title": "Unemployment Rate (UNRATE) | FRED | St. Louis Fed"
+ },
+ "CPIAUCSL": {
+  "ko": "소비자물가지수(CPI)",
+  "fred_title": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average (CPIAUCSL) | FRED | St. Louis Fed"
+ },
+ "CPILFESL": {
+  "ko": "근원 CPI",
+  "fred_title": "Consumer Price Index for All Urban Consumers: All Items Less Food and Energy in U.S. City Average (CPILFESL) | FRED | St. Louis Fed"
+ },
+ "VIXCLS": {
+  "ko": "VIX 변동성지수",
+  "fred_title": "CBOE Volatility Index: VIX (VIXCLS) | FRED | St. Louis Fed"
+ },
+ "BAMLH0A0HYM2": {
+  "ko": "하이일드 스프레드(%p)",
+  "fred_title": "ICE BofA US High Yield Index Option-Adjusted Spread (BAMLH0A0HYM2) | FRED | St. Louis Fed"
+ },
+ "DTWEXBGS": {
+  "ko": "달러 지수(광의)",
+  "fred_title": "Nominal Broad U.S. Dollar Index (DTWEXBGS) | FRED | St. Louis Fed"
+ },
+ "BOGZ1FA106000105Q": {
+  "ko": "Z.1 비금융기업 내부자금(후보)",
+  "fred_title": "Nonfinancial Corporate Business; Gross Saving Including Foreign Earnings Retained Abroad Less Net Capital Transfers Paid, Transactions (BOGZ1FA106000105Q) | FRED | St. Louis Fed"
+ },
+ "BOGZ1FA105050005Q": {
+  "ko": "Z.1 비금융기업 자본지출(후보)",
+  "fred_title": "Nonfinancial Corporate Business; Total Capital Expenditures, Transactions (BOGZ1FA105050005Q) | FRED | St. Louis Fed"
+ },
+ "NCBCMDPMVCE": {
+  "ko": "Z.1 비금융기업 부채/시가총액(후보)",
+  "fred_title": "Nonfinancial Corporate Business; Debt as a Percentage of the Market Value of Corporate Equities, Level (NCBCMDPMVCE) | FRED | St. Louis Fed"
+ },
+ "BCNSDODNS": {
+  "ko": "Z.1 비금융기업 부채 잔액(후보)",
+  "fred_title": "Nonfinancial Corporate Business; Debt Securities and Loans; Liability, Level (BCNSDODNS) | FRED | St. Louis Fed"
+ }
+}
