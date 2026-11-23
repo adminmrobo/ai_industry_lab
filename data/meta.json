@@ -1,9 +1,9 @@
 {
- "fetched_at_utc": "2026-11-23T08:27:41+00:00",
+ "fetched_at_utc": "2026-11-23T08:45:40+00:00",
  "status": {
   "prices": {
    "ok": true,
-   "note": "2235 rows, last 2026-11-20"
+   "note": "2235 rows, last 2026-11-20; retried ['NVDA', '^GSPC']; still empty []"
   },
   "fred:DGS10": {
    "ok": true,

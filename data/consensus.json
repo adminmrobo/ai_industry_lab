@@ -1,5 +1,5 @@
 {
- "snapshot_utc": "2026-11-23T08:27:41+00:00",
+ "snapshot_utc": "2026-11-23T08:45:40+00:00",
  "source": "Yahoo Finance via yfinance",
  "data": {
   "NVDA": {
@@ -44,9 +44,9 @@
    "recommendationMean": 1.36207,
    "numberOfAnalystOpinions": 54,
    "trailingPE": 25.2881,
-   "forwardPE": 20.020792,
+   "forwardPE": 20.018377,
    "trailingEps": 19.16,
-   "forwardEps": 24.20084,
+   "forwardEps": 24.20376,
    "totalRevenue": 346444988416,
    "revenueGrowth": 0.188,
    "grossMargins": 0.67657,
