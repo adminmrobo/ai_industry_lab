@@ -1,9 +1,9 @@
 {
- "fetched_at_utc": "2026-11-24T06:04:38+00:00",
+ "fetched_at_utc": "2026-11-25T04:53:56+00:00",
  "status": {
   "prices": {
    "ok": true,
-   "note": "2236 rows, last 2026-11-23; retried []; still empty []"
+   "note": "2237 rows, last 2026-11-24; retried []; still empty []"
   },
   "fred:DGS10": {
    "ok": true,
